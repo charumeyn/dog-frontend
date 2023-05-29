@@ -2,15 +2,17 @@ import { queryKeys } from "@/app/queryKey/queryKeys";
 import { Dog } from "@/app/types/dog.interface";
 import { useQuery } from "@tanstack/react-query";
 
-const getDogs = async () => {
-  const res = await fetch(`http://localhost:3000/dogs/`);
+const getDogs = async (limit?: number) => {
+  const limitParam = limit ? `?limit=${limit}` : null;
+  const res = await fetch(`http://localhost:3000/dogs${limitParam}`);
+
   return res.json();
 };
 
-const useDogs = () => {
+const useDogs = (limit?: number) => {
   return useQuery<Dog[]>(
-    queryKeys.dogs,
-    () => getDogs(),
+    queryKeys.dogs(limit),
+    () => getDogs(limit),
   );
 };
 
