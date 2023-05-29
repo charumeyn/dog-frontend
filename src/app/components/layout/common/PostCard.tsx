@@ -1,4 +1,3 @@
-import { Dog } from "@/app/types/dog.interface";
 import { Post } from "@/app/types/post.interface";
 
 type PostCard = {

@@ -1,7 +1,5 @@
 "use client"
 
-import { Poppins } from 'next/font/google'
-import Image from 'next/image'
 import { useDogs } from './hooks/api/useDogs';
 import DogCard from './components/layout/common/DogCard';
 import { Dog } from './types/dog.interface';
@@ -15,8 +13,8 @@ import FundraiserCard from './components/layout/common/FundraiserCard';
 export default function Home() {
 
   const { data: dogs, isLoading: isLoadingDogs } = useDogs(4);
-  const { data: posts, isLoading: isLoadingPosts } = usePosts();
-  const { data: fundraisers, isLoading: isLoadingFundraisers } = useFundraisers();
+  const { data: posts, isLoading: isLoadingPosts } = usePosts(3);
+  const { data: fundraisers, isLoading: isLoadingFundraisers } = useFundraisers(4);
 
 
   return (
@@ -55,50 +53,57 @@ export default function Home() {
         <div className='w-full max-w-screen-2xl mx-auto px-4'>
           <h2 className='text-center'>Meet The Dogs</h2>
         </div>
-        <div className='w-full max-w-screen-2xl mx-auto px-4 grid grid-cols-3 gap-x-4'>
-          {isLoadingPosts ?
-            "LOADING" :
-            posts?.map((post: Post, i: number) =>
-              <PostCard key={i} post={post} />
-            )}
+        <div className='w-full max-w-screen-2xl mx-auto px-4'>
+          <div className="grid grid-cols-3 gap-x-4">
+            {isLoadingPosts ?
+              "LOADING" :
+              posts?.map((post: Post, i: number) =>
+                <PostCard key={i} post={post} />
+              )}
+          </div>
+          <a href={`/dogs/`}>View all posts</a>
         </div>
-        <a href={`/dogs/`}>View all posts</a>
+
       </section>
       <section className='py-10'>
         <div className='w-full max-w-screen-2xl mx-auto px-4'>
           <h2 className='text-center'>Fundraisers</h2>
         </div>
-        <div className='w-full max-w-screen-2xl mx-auto px-4 grid grid-cols-3 gap-x-4'>
-          {isLoadingFundraisers ?
-            "LOADING" :
-            fundraisers?.map((fundraiser: Fundraiser, i: number) =>
-              <FundraiserCard key={i} fundraiser={fundraiser} />
-            )}
+        <div className='w-full max-w-screen-2xl mx-auto px-4'>
+          <div className="grid grid-cols-3 gap-x-4">
+            {isLoadingFundraisers ?
+              "LOADING" :
+              fundraisers?.map((fundraiser: Fundraiser, i: number) =>
+                <FundraiserCard key={i} fundraiser={fundraiser} />
+              )}
+          </div>
+          <a href={`/fundraisers/`}>View all fundraisers</a>
         </div>
-        <a href={`/fundraisers/`}>View all fundraisers</a>
       </section>
       <section className='py-10'>
         <div className='w-full max-w-screen-2xl mx-auto px-4'>
           <h2 className='text-center'>Open your fundraiser</h2>
         </div>
-        <div className='w-full max-w-screen-xl mx-auto px-4 grid grid-cols-3 gap-x-4'>
-          <div>
-            Dog’s
-            Medical
-            Emergency
+        <div className='w-full max-w-screen-xl mx-auto px-4'>
+          <div className="grid grid-cols-4 gap-x-4">
+            <div>
+              Dog’s
+              Medical
+              Emergency
+            </div>
+            <div>
+              Dog’s
+              Medical
+              Emergency
+            </div>
+            <div>
+              Dog’s
+              Medical
+              Emergency
+            </div>
           </div>
-          <div>
-            Dog’s
-            Medical
-            Emergency
-          </div>
-          <div>
-            Dog’s
-            Medical
-            Emergency
-          </div>
+          <a href={`/fundraisers/`}>View all dogs</a>
         </div>
-        <a href={`/fundraisers/`}>View all dogs</a>
       </section>
     </main >
   )

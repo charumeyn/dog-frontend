@@ -1,6 +1,6 @@
 export const queryKeys = {
-  dogs: (limit?: number) => ["dogs", limit],
+  dogs: (limit?: number) => ["dogs", "limit", limit],
   dog: (id: number) => ["dog", id],
-  posts: () => ["posts"],
-  fundraisers: () => ["fundraisers"],
+  posts: (limit?: number) => ["posts", "limit", limit],
+  fundraisers: (limit?: number) => ["fundraisers", "limit", limit],
 };
