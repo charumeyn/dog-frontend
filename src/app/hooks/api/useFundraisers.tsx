@@ -16,4 +16,16 @@ const useFundraisers = (limit?: number) => {
   );
 };
 
-export { useFundraisers }
+const getFundraiser = async (id: number) => {
+  const res = await fetch(`http://localhost:3000/fundraisers/${id}`);
+  return res.json();
+};
+
+const useFundraiser = (id: number) => {
+  return useQuery<Fundraiser>(
+    queryKeys.fundraiser(id),
+    () => getFundraiser(id),
+  );
+};
+
+export { useFundraisers, useFundraiser }
