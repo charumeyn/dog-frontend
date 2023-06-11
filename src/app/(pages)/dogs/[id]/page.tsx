@@ -17,10 +17,10 @@ export default function Doggos({ params }: { params: any }) {
       {dog && <>Am a dog {JSON.stringify(dog.name)}</>}
       <br />
       {dog?.color.map((color: Color, i: number) =>
-        <div>{color}</div>
+        <div key={i}>{color}</div>
       )}
       {dog?.color.map((color: Color, i: number) => {
-        return color
+        return <span key={i}>color</span>
       }
       )}
     </div>

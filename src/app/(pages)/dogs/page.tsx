@@ -1,7 +1,7 @@
 "use client";
 
+import { useDogs } from "@/app/hooks/api/useDogs";
 import React from "react";
-import { useDogs } from "../hooks/api/useDogs";
 
 export default function ListDogs() {
 
