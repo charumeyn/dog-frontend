@@ -1,19 +1,21 @@
+import { Post } from "./post.interface";
 import { Shelter } from "./shelter.interface";
 
 export interface Dog {
   id: number;
-  shelterId: Shelter[];
   name: string;
   breed: number[];
   birthdate: Date;
   color: Color[];
-  dogSize: DogSize;
+  size: DogSize;
   gender: Gender;
-  coatLength: CoatLength;
+  coat_length: CoatLength;
   images: string[];
   description: string;
-  isActive: boolean;
-  createAt: Date;
-  updatedAt?: Date | null;
-  deletedAt?: Date | null;
+  is_active: boolean;
+  created_at: Date;
+  updated_at?: Date | null;
+  deleted_at?: Date | null;
+  shelter: Shelter;
+  posts: Post[];
 };

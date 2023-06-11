@@ -10,7 +10,7 @@ export interface Shelter {
   approvedAt?: Date | null;
   foundedDate?: Date | null;
   founderName?: string;
-  imageThumb: string;
+  image_thumb: string;
   images: string[];
   email: string;
   phone: string;
