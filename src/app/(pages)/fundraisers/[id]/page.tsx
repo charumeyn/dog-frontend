@@ -5,9 +5,6 @@ import FundraiserInfo from "@/app/feature/fundraisers/FundraiserInfo";
 import { useFundraiser, useFundraisers } from "@/app/hooks/api/useFundraisers";
 import { Fundraiser } from "@/app/types/fundraiser.interface";
 
-type Dog = {
-  params: any;
-}
 
 export default function Fundraiser({ params }: { params: any }) {
 
