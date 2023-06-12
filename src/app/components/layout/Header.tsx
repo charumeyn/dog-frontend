@@ -1,3 +1,5 @@
+import Checkout from "../libraries/Checkout";
+
 type Header = {}
 
 const Header: React.FunctionComponent<Header> = ({ }) => {
@@ -18,6 +20,7 @@ const Header: React.FunctionComponent<Header> = ({ }) => {
     <div className="shadow-xl">
       <div className="flex justify-between w-full max-w-screen-2xl mx-auto px-4">
         <div className="text-teal-600 py-5 text-2xl font-extrabold">Doggo&apos;s Life</div>
+        <Checkout />
         <div className="flex">
           {menu.map((item: any, i: number) =>
             <a className="px-8 py-5" key={i} href={item.url}>{item.name}</a>

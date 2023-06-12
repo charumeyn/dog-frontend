@@ -1,9 +1,9 @@
 import { QueryClient } from '@tanstack/react-query'
 import Header from './components/layout/Header'
 import './globals.css'
-import { Poppins } from 'next/font/google'
 import Providers from './utils/provider'
 import Footer from './components/layout/Footer'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 
 
@@ -20,6 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
@@ -33,5 +34,6 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
+
   )
 }
