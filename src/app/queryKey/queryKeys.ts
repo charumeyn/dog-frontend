@@ -7,4 +7,6 @@ export const queryKeys = {
   fundraisers: (limit?: number) => ["fundraisers", "limit", limit],
   shelter: (id: number) => ["shelter", id],
   shelters: (limit?: number) => ["shelters", "limit", limit],
+  donation: (id: number) => ["donation", id],
+  donations: (limit?: number) => ["donations", "limit", limit],
 };

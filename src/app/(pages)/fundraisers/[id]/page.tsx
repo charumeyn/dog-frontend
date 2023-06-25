@@ -30,7 +30,7 @@ export default function Fundraiser({ params }: { params: any }) {
       <section className="py-16">
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <div className="max-w-4xl">
-            <p className="mb-2 text-gray-500 text-sm">Created by {fundraiser?.shelter.name}</p>
+            <p className="mb-2 text-gray-500 text-sm">Created by</p>
             <div className="border border-gray-100 rounded-lg px-5 py-5 mb-8">
               <p className="text-sm">{fundraiser?.content}</p>
             </div>
@@ -39,7 +39,7 @@ export default function Fundraiser({ params }: { params: any }) {
               <div className="flex items-center gap-x-6">
                 <img src="" className="w-20 h-20 rounded-full" />
                 <div>
-                  <h3 className="font-bold">{fundraiser?.shelter.name}</h3>
+                  {/* <h3 className="font-bold">{fundraiser?.shelter.name}</h3> */}
                   <p className="text-gray-500 text-sm">insert description</p>
                 </div>
               </div>
