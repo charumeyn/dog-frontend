@@ -41,6 +41,8 @@ const PaypalCheckoutButton = (props: any) => {
       shape: "pill"
     }}
       createOrder={(data, actions) => {
+        console.log("createOrder data", data)
+        console.log("createOrder", actions)
         return actions.order.create({
           purchase_units: [
             {
@@ -56,7 +58,8 @@ const PaypalCheckoutButton = (props: any) => {
       onApprove={async (data, actions) => {
         if (actions.order) {
           const order = await actions.order.capture();
-          console.log("order", order);
+          console.log("onApprove data", data);
+          console.log("onApprove order", order);
 
           handleApprove(Number(data.orderID));
         }
@@ -73,6 +76,8 @@ const PaypalCheckoutButton = (props: any) => {
       onClick={(data, actions) => {
         // Validate on button click, client or server side
         const hasAlreadyBoughtCourse = false;
+
+        console.log("onClick", data, actions)
 
         if (hasAlreadyBoughtCourse) {
           setError(

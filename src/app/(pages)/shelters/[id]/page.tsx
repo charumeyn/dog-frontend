@@ -6,7 +6,6 @@ import FundraiserInfo from "@/app/feature/fundraisers/FundraiserInfo";
 import { useFundraiser, useFundraisers } from "@/app/hooks/api/useFundraisers";
 import { useShelter, useShelters } from "@/app/hooks/api/useShelters";
 import { Dog } from "@/app/types/dog.interface";
-import { Fundraiser } from "@/app/types/fundraiser.interface";
 
 export default function Shelter({ params }: { params: any }) {
 
@@ -16,7 +15,6 @@ export default function Shelter({ params }: { params: any }) {
 
   return (
     <main>
-
       <section className="py-16">
         <div className="w-full max-w-5xl mx-auto px-4">
           <div className="flex items-center gap-x-6 mb-5">

@@ -16,4 +16,16 @@ const usePosts = (limit?: number) => {
   );
 };
 
-export { usePosts }
+const getPost = async (id: number) => {
+  const res = await fetch(`http://localhost:3000/posts/${id}`);
+  return res.json();
+};
+
+const usePost = (id: number) => {
+  return useQuery<Post>(
+    queryKeys.post(id),
+    () => getPost(id),
+  );
+};
+
+export { usePosts, usePost }
