@@ -37,7 +37,7 @@ const createDonation = async (dto: DonationCreateDto) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      dto
+      ...dto
     })
   });
 
