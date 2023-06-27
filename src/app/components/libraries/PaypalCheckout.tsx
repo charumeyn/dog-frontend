@@ -68,7 +68,7 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
       payment_gateway: PaymentGateway.paypal,
       type: fundraiser ? RecipientType.fundraiser : RecipientType.dog,
       status: order.status,
-      amount: amount,
+      amount: Number(order.purchase_units[0].amount.value),
       dog_id: dog ? dog?.id : undefined,
       fundraiser_id: fundraiser ? fundraiser?.id : undefined,
       user_id: 1,
@@ -79,16 +79,40 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
 
     createDonation(body)
     console.log(body)
+    console.log(amount)
     alert("Thank you for your purchase!");
   }, [amount, dog, fundraiser, createDonation])
 
 
+  const handleAmountChange = useCallback((e: any) => {
+    e.preventDefault();
+
+    setAmount(Number(e.target.value));
+  }, [setAmount]);
+
+  console.log(amount)
+
+  const handleCreateOrder = useCallback((actions: any) => {
+    return actions.order.create({
+      purchase_units: [
+        {
+          description: fundraiser ? `Fundraiser ID: ${fundraiser?.id}` : `Dog ID: ${dog?.id}`,
+          amount: {
+            value: amount
+          }
+        }
+      ]
+    })
+  }, [amount, fundraiser, dog])
 
   return (
     <div>
-      <input type="text" className="" value={amount} onChange={(e: any) => setAmount(e.target.value)} />
+      <input type="text"
+        name="amount"
+        id="amount" value={amount} onChange={handleAmountChange} />
       <PayPalButtons
         className="opacity-0"
+        forceReRender={[amount]}
         style={{
           color: "gold",
           layout: "horizontal",
@@ -96,20 +120,11 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
           tagline: false,
           shape: "rect",
         }}
-        createOrder={(data, actions) => {
-          console.log("createOrder data", data)
-          console.log("createOrder", actions)
-          return actions.order.create({
-            purchase_units: [
-              {
-                description: fundraiser ? `Fundraiser ID: ${fundraiser?.id}` : `Dog ID: ${dog?.id}`,
-                amount: {
-                  value: String(30)
-                }
-              }
-            ],
-          });
-        }}
+        createOrder={(data, actions) =>
+          // console.log("createOrder data", data)
+          // console.log("createOrder", actions)
+          handleCreateOrder(actions)
+        }
         onApprove={async (data, actions) => {
           if (actions.order) {
             const order = await actions.order.capture();
