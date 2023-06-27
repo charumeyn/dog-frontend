@@ -9,7 +9,8 @@ import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Fundraiser } from "@/app/types/fundraiser.interface";
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import Modal from "../layout/common/Modal";
 
 type PaypalCheckoutProps = {
   fundraiser?: Fundraiser;
@@ -36,31 +37,19 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
 
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState("");
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | undefined>(0);
+  const [customAmount, setCustomAmount] = useState<number | undefined>(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // const handleApprove = (orderId: number) => {
-  //   // Call backend function to fulfill order
+  const finalAmount = useMemo(() => {
+    if (amount != undefined || amount != 0) {
+      return amount
+    } else {
+      return customAmount
+    }
+  }, [amount, customAmount])
 
-  //   console.log(orderId)
-  //   // if response is success
-  //   setPaidFor(true);
-  //   // Refresh user's account or subscription status
-
-  //   // if response is error
-  //   // setError("Your payment was processed successfully. However, we are unable to fulfill your purchase. Please contact us at support@designcode.io for assistance.");
-  // };
-
-  // if (paidFor) {
-  //   // Display success message, modal or redirect user to success page
-  //   alert("Thank you for your purchase!");
-  // }
-
-  // if (error) {
-  //   // Display error message, modal or redirect user to error page
-  //   alert(error);
-  // }
-
-  const handleCreateDonation = useCallback((order: any) => {
+  const handleOnApprove = useCallback((order: any) => {
 
     const body: DonationCreateDto = {
       transaction_id: order.id,
@@ -78,17 +67,10 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
     }
 
     createDonation(body)
-    console.log(body)
-    console.log(amount)
+
     alert("Thank you for your purchase!");
   }, [amount, dog, fundraiser, createDonation])
 
-
-  const handleAmountChange = useCallback((e: any) => {
-    e.preventDefault();
-
-    setAmount(Number(e.target.value));
-  }, [setAmount]);
 
   console.log(amount)
 
@@ -98,20 +80,51 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
         {
           description: fundraiser ? `Fundraiser ID: ${fundraiser?.id}` : `Dog ID: ${dog?.id}`,
           amount: {
-            value: amount
+            value: finalAmount
           }
         }
       ]
     })
   }, [amount, fundraiser, dog])
 
+  const amountOptions = [10, 20, 30, 50, 100, 200]
+
   return (
     <div>
-      <input type="text"
-        name="amount"
-        id="amount" value={amount} onChange={handleAmountChange} />
+
+      <div className="grid grid-cols-3 gap-2">
+        {amountOptions.map((option) =>
+          <div key={option}
+            onClick={() => {
+              setAmount(option)
+              setCustomAmount(0)
+            }}
+            className={`${option === amount ? "border-orange-600 bg-orange-600 text-white" : "hover:text-orange-600 hover:bg-orange-50 hover:border-orange-100"} grid-col-1 text-center border border-gray-200 rounded-md text-gray-500 font-medium hover:cursor-pointer py-3`}>
+            ${option}
+          </div>
+        )}
+        <div className="col-span-3 mt-2 mb-4">
+          <label>
+            <span className="text-sm text-gray-600">Or enter a custom amount</span>
+            <input type="text"
+              name="customAmount"
+              id="customAmount"
+              value={customAmount}
+              onChange={(e: any) => {
+                setCustomAmount(Number(e.target.value))
+                setAmount(0)
+              }}
+              className="w-full border border-gray-200 rounded-md text-gray-800 font-medium py-3 px-3 focus:ring-0 focus:border-orange-500"
+              placeholder="Enter amount"
+            />
+          </label>
+        </div>
+      </div>
+
+
+      <button className="w-full block text-center bg-orange-600 text-white text-md px-6 py-3 rounded-lg font-medium"
+        onClick={() => setIsOpen(true)}>Donate</button>
       <PayPalButtons
-        className="opacity-0"
         forceReRender={[amount]}
         style={{
           color: "gold",
@@ -121,14 +134,12 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
           shape: "rect",
         }}
         createOrder={(data, actions) =>
-          // console.log("createOrder data", data)
-          // console.log("createOrder", actions)
           handleCreateOrder(actions)
         }
         onApprove={async (data, actions) => {
           if (actions.order) {
             const order = await actions.order.capture();
-            handleCreateDonation(order)
+            handleOnApprove(order)
           }
         }}
         onError={(err: any) => {
@@ -136,28 +147,12 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
           console.error("PayPal Checkout onError", err);
         }}
         onCancel={() => {
-          // Display cancel message, modal or redirect user to cancel page or back to cart
+          alert("Cancelled")
         }}
-
-        //only when you want to prevent user from re-purchasing the same product
         onClick={(data, actions) => {
-          // Validate on button click, client or server side
-          const hasAlreadyBoughtCourse = false;
-
-          console.log("onClick", data, actions)
-
-          if (hasAlreadyBoughtCourse) {
-            setError(
-              "You already bought this course. Go to your account to view your list of courses."
-            );
-
-            return actions.reject();
-          } else {
-            return actions.resolve();
-          }
+          return actions.resolve();
         }}
       />
-      <span className="-mt-[50px] w-full block text-center bg-orange-600 text-white text-md px-6 py-3 rounded-lg font-medium">Donate</span>
     </div>
   );
 };
