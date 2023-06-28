@@ -6,7 +6,7 @@ type FundraiserCard = {
 
 const PostCard: React.FunctionComponent<FundraiserCard> = ({ fundraiser }) => {
   return (
-    <a href={`/fundraiser/${fundraiser.id}`}>
+    <a href={`/fundraisers/${fundraiser.id}`}>
       <div className="relative after:content-[''] after:block after:pb-[100%]">
         <img className="absolute w-full h-full object-cover rounded-lg"
           src={fundraiser.images.length > 0 ? fundraiser.images[0] : "https://images.pexels.com/photos/3104709/pexels-photo-3104709.jpeg"}

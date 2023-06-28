@@ -113,22 +113,28 @@ export default function Home() {
         <div className="w-full max-w-screen-lg mx-auto px-4">
           <div className="grid grid-cols-3 gap-x-8">
             <div className="border border-lightgray rounded-lg px-5 py-16 font-semibold">
-              Dog’s<br />
-              Medical<br />
-              Emergency<br /><br />
-              ➞
+              <a href="/fundraisers/create?type=dog">
+                Dog’s<br />
+                Medical<br />
+                Emergency<br /><br />
+                ➞
+              </a>
             </div>
             <div className="border border-lightgray rounded-lg px-8 py-16 font-semibold text-lg">
-              Helping<br />
-              a Dog's<br />
-              Household<br /><br />
-              ➞
+              <a href="/fundraisers/create?type=user">
+                Helping<br />
+                a Dog's<br />
+                Household<br /><br />
+                ➞
+              </a>
             </div>
             <div className="border border-lightgray rounded-lg px-8 py-16 font-semibold text-lg">
-              Dog<br />
-              Shelter<br />
-              in Need<br /><br />
-              ➞
+              <a href="/fundraisers/create?type=shelter">
+                Dog<br />
+                Shelter<br />
+                in Need<br /><br />
+                ➞
+              </a>
             </div>
           </div>
         </div>
