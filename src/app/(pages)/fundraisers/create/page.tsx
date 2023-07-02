@@ -10,12 +10,10 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
 
   const { typeParam } = searchParams;
 
-  // const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(() => {
 
-  //   const body: CreateFundraiserDto = {
 
-  //   }
-  // }, [])
+  }, [])
 
   const [type, setType] = useState<RecipientType>(RecipientType.Dog);
   const [purpose, setPurpose] = useState<string>("");
