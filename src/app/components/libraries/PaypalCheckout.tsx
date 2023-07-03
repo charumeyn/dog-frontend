@@ -55,7 +55,7 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
       transaction_id: order.id,
       email: order.payer.email_address,
       payment_gateway: PaymentGateway.paypal,
-      type: fundraiser ? RecipientType.fundraiser : RecipientType.dog,
+      type: fundraiser ? RecipientType.Fundraiser : RecipientType.Dog,
       status: order.status,
       amount: Number(order.purchase_units[0].amount.value),
       dog_id: dog ? dog?.id : undefined,
