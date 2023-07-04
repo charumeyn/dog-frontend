@@ -1,5 +1,6 @@
 "use client"
 
+import CreateContent from "@/app/feature/fundraisers/CreateContent"
 import CreateDetails from "@/app/feature/fundraisers/CreateDetails"
 import CreatePurpose from "@/app/feature/fundraisers/CreatePurpose"
 import SectionTab from "@/app/feature/fundraisers/SectionTab"
@@ -23,9 +24,13 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
   const [type, setType] = useState<RecipientType>(RecipientType.Dog);
   const [purpose, setPurpose] = useState<string>("");
   const [country, setCountry] = useState<string>("");
-  const [goalAmount, setGoalAmount] = useState<number>(0);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [goalAmount, setGoalAmount] = useState<string>("");
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [closeGoalReached, setCloseGoalReached] = useState<boolean>(false);
+  const [mainImage, setMainImage] = useState<string>("");
+  const [images, setImages] = useState<string[]>([]);
+  const [content, setContent] = useState<string>("");
 
   const handleNextClick = useCallback((e: any) => {
     e.preventDefault();
@@ -79,7 +84,18 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
               startDate={startDate}
               setStartDate={setStartDate}
               endDate={endDate}
-              setEndDate={setEndDate} /> : "hello"}
+              setEndDate={setEndDate}
+              closeGoalReached={closeGoalReached}
+              setCloseGoalReached={setCloseGoalReached} /> :
+            <CreateContent
+              mainImage={mainImage}
+              setMainImage={setMainImage}
+              images={images}
+              setImages={setImages}
+              content={content}
+              setContent={setContent}
+            />
+        }
 
         <div className="flex justify-end gap-x-4 px-6 py-5 border-t border-gray-300">
           <button
