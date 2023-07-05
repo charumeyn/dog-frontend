@@ -8,7 +8,8 @@ import { FundraiserSection } from "@/app/types/enum/fundraiserSection.enum"
 import { RecipientType } from "@/app/types/enum/recipientType.enum"
 import { CreateFundraiserDto } from "@/app/types/fundraiser.interface"
 import { RadioGroup } from "@headlessui/react"
-import { useCallback, useState } from "react"
+import { S3 } from "aws-sdk"
+import { ChangeEventHandler, MouseEventHandler, useCallback, useEffect, useState } from "react"
 
 
 export default function CreateFundRaiser({ searchParams }: { searchParams: any }) {
@@ -54,8 +55,112 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
     }
   }, [setSelectedSection])
 
+  const s3 = new S3({
+    accessKeyId: 'AKIAZQXK5AB4ADKPJKXG',
+    secretAccessKey: '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',
+    region: 'ap-northeast-2',
+  });
+
+  // const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
+  const [upload, setUpload] = useState<S3.ManagedUpload | null>(null);
+  const [params, setParams] = useState<any>()
+
+  useEffect(() => {
+    return upload?.abort();
+  }, []);
+
+  useEffect(() => {
+    // progress.set(0);
+    setUpload(null);
+  }, [params]);
+
+  const handleFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    console.log(e.target.files)
+
+    let array = []
+    let files = e.target.files!;
+
+    for (var i = 0, l = files.length; i < l && l; i++) {
+      array.push({
+        Bucket: 'doggoslife',
+        Key: files.item(i)?.name,
+        Body: files.item(i),
+        ContentType: files.item(i)?.type,
+      })
+
+      console.log(files.item(i)?.type)
+    }
+
+    setParams(array as any)
+  };
+
+  const handleUpload: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+    if (!params) return;
+
+    // const params = [{
+    //   Bucket: 'doggoslife',
+    //   Key: files[0].name,
+    //   Body: files[0],
+    // }, {
+    //   Bucket: 'doggoslife',
+    //   Key: files[1].name,
+    //   Body: files[1],
+    // }];
+
+    for (var i = 0, l = params.length; i < l && l; i++) {
+      try {
+        const upload = s3.upload(params[i]);
+        setUpload(upload);
+        upload.on('httpUploadProgress', (p) => {
+          console.log(" p.loaded", p.loaded);
+          console.log("p.total", p.total)
+          console.log("p", p)
+        });
+        await upload.promise();
+        console.log(`File uploaded successfully: ${params[i].name}`);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  const handleCancel: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    if (!upload) return;
+    upload.abort();
+    // progress.set(0);
+    setUpload(null);
+  };
+
   return (
     <div className="bg-gray-100 py-20">
+
+      <div className="dark flex min-h-screen w-full items-center justify-center">
+        <main>
+          <form className="flex flex-col gap-4 rounded bg-stone-800 p-10 text-white shadow">
+            <input type="file" onChange={handleFileChange} multiple />
+            <button
+              className="rounded bg-green-500 p-2 shadow"
+              onClick={handleUpload}>
+              Upload
+            </button>
+            {upload && (
+              <>
+                <button
+                  className="rounded bg-red-500 p-2 shadow"
+                  onClick={handleCancel}>
+                  Cancel
+                </button>
+                {/* {JSON.stringify(progress)} */}
+                {/* <ProgressBar value={progress} /> */}
+              </>
+            )}
+          </form>
+        </main>
+      </div>
 
       <h1 className="text-2xl font-bold max-w-2xl mx-auto mb-4 text-center">Create a Fundraiser</h1>
       <div className="grid grid-cols-5 gap-x-4 max-w-2xl mx-auto mb-4">
