@@ -10,10 +10,8 @@ type CreateDetailsProps = {
   setStartDate: (startDate: Date | null) => void;
   endDate: Date | null;
   setEndDate: (endDate: Date | null) => void;
-  closeGoalReached: boolean;
-  setCloseGoalReached: (closeGoalReached: boolean) => void;
 }
-const CreateDetails: React.FunctionComponent<CreateDetailsProps> = ({ goalAmount, setGoalAmount, startDate, setStartDate, endDate, setEndDate, closeGoalReached, setCloseGoalReached }) => {
+const CreateDetails: React.FunctionComponent<CreateDetailsProps> = ({ goalAmount, setGoalAmount, startDate, setStartDate, endDate, setEndDate }) => {
   return (
     <div className="px-6 py-6">
       <h3 className="text-gray-700 mb-2">Enter the goal amount</h3>
@@ -56,19 +54,6 @@ const CreateDetails: React.FunctionComponent<CreateDetailsProps> = ({ goalAmount
           />
         </div>
       </div>
-
-      {/* <label htmlFor="closeGoalReached" className="mt-6 text-gray-700 flex gap-x-2 items-center hover:cursor-pointer">
-        <input
-          id="closeGoalReached"
-          type="checkbox"
-          name="closeGoalReached"
-          onChange={() => setCloseGoalReached(!closeGoalReached)}
-          checked={closeGoalReached}
-          className="border border-gray-100 pr-4 w-4 h-4 accent-teal-600"
-        />
-        End fundraising when goal has been reached
-      </label> */}
-
     </div >
   )
 }

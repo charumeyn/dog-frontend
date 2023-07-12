@@ -1,3 +1,4 @@
+import { RecipientType } from "./enum/recipientType.enum";
 import { User } from "./user.interface";
 
 export interface Fundraiser {
@@ -17,10 +18,12 @@ export interface Fundraiser {
 };
 
 export interface CreateFundraiserDto {
-  creator_id: any;
   title: string;
   content: string;
+  mainImage: string;
   images: string[];
+  purpose: string;
+  type: RecipientType;
   goal_amount: number;
   current_amount: number;
   starts_at: Date;
@@ -28,6 +31,7 @@ export interface CreateFundraiserDto {
   created_at: Date;
   updated_at?: Date | null;
   deleted_at?: Date | null;
+  created_by: number;
   shelter_id?: number;
   user_id?: number;
   dog_id?: number;

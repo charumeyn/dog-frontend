@@ -3,8 +3,8 @@ import { Dog } from "@/app/types/dog.interface";
 import { useQuery } from "@tanstack/react-query";
 
 const getDogs = async (limit?: number) => {
-  const limitParam = limit ? `?limit=${limit}` : null;
-  const res = await fetch(`http://localhost:3000/dogs${limitParam}`);
+  const limitParam = limit ? `?limit=${limit}` : '';
+  const res = await fetch(`http://localhost:3000/dogs/${limitParam}`);
 
   return res.json();
 };

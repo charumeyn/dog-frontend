@@ -69,10 +69,10 @@ const S3Uploader: React.FunctionComponent<S3UploaderProps> = ({ images, setImage
 
       <div>
         {isLoading ? "loading" :
-          <div className="flex gap-x-4 text-teal-600 font-medium bg-teal-600 bg-opacity-10 border border-teal-600 border-opacity-200 px-5 py-3 rounded-lg">
+          <div className="flex justify-center items-center gap-x-4 text-teal-600 font-medium bg-teal-600 bg-opacity-10 border border-teal-600 border-opacity-200 px-5 py-3 rounded-lg w-48 hover:cursor-pointer">
             <IconPlus className="w-5 h-5" />
             <label htmlFor="files">Upload Images</label>
-            {/* <input id="files" className="hidden" type="file" onChange={handleUpload} multiple></input> */}
+            <input id="files" className="hidden" type="file" onChange={handleUpload} multiple></input>
           </div>
         }
       </div>

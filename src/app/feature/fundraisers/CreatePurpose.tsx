@@ -1,4 +1,8 @@
+import { useDog, useDogs } from "@/app/hooks/api/useDogs";
+import { Dog } from "@/app/types/dog.interface";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
+import { Shelter } from "@/app/types/shelter.interface";
+import { User } from "@/app/types/user.interface";
 
 type CreatePurposeProps = {
   purpose: string;
@@ -7,8 +11,17 @@ type CreatePurposeProps = {
   setType: (type: RecipientType) => void;
   country: string;
   setCountry: (countru: string) => void;
+  dogId: number | undefined;
+  setDogId: (dogId: number | undefined) => void;
+  shelterId: number | undefined;
+  setShelterId: (shelterId: number | undefined) => void;
+  userId: number | undefined;
+  setUserId: (userId: number | undefined) => void;
 }
-const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, setPurpose, type, setType, country, setCountry }) => {
+const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, setPurpose, type, setType, country, setCountry, dogId, setDogId, shelterId, setShelterId, userId, setUserId }) => {
+
+  const { data: dogs } = useDogs();
+  const { data: dog } = useDog(1);
 
   const purposes = ["Emergency", "Monthly Bills", "Memorial", "Medical"]
 
@@ -33,6 +46,26 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
           </label>
         )}
       </div>
+
+      {type === RecipientType.Dog ?
+        <select
+          id="dog"
+          name="dog"
+          value={dogId}
+          onChange={(e: any) => setDogId(e.target.value)}
+          className="opacity-100 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm border-gray-300 rounded-md"
+        >
+          {dogs?.map((dog) => (
+            <option key={dog.id} value={dog.id}>
+              {dog.name}
+            </option>
+          ))}
+        </select>
+        : null}
+
+      {dog ?
+        <div className="border border-gray-100">{dog.name}<img src={dog ? dog.images[0] : ''} alt={dog.name} /></div>
+        : null}
 
       <h3 className="text-gray-700 mb-2 mt-6">What describes the purpose of your fundraising intiative?</h3>
       <div className="flex gap-x-2">
