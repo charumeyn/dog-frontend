@@ -3,6 +3,13 @@ import { Dog } from "@/app/types/dog.interface";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Shelter } from "@/app/types/shelter.interface";
 import { User } from "@/app/types/user.interface";
+import { useCallback, useEffect, useMemo } from "react";
+import { idText } from "typescript";
+import CreateFundRaiserType from "./SelectedDog";
+import { Country } from "@/app/types/enum/countries.enum"
+import SelectedDog from "./SelectedDog";
+import { useShelters } from "@/app/hooks/api/useShelters";
+import SelectedShelter from "./SelectedShelter";
 
 type CreatePurposeProps = {
   purpose: string;
@@ -21,7 +28,6 @@ type CreatePurposeProps = {
 const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, setPurpose, type, setType, country, setCountry, dogId, setDogId, shelterId, setShelterId, userId, setUserId }) => {
 
   const { data: dogs } = useDogs();
-  const { data: dog } = useDog(1);
 
   const purposes = ["Emergency", "Monthly Bills", "Memorial", "Medical"]
 
@@ -47,25 +53,55 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
         )}
       </div>
 
-      {type === RecipientType.Dog ?
-        <select
-          id="dog"
-          name="dog"
-          value={dogId}
-          onChange={(e: any) => setDogId(e.target.value)}
-          className="opacity-100 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm border-gray-300 rounded-md"
-        >
-          {dogs?.map((dog) => (
-            <option key={dog.id} value={dog.id}>
-              {dog.name}
-            </option>
-          ))}
-        </select>
-        : null}
+      {type === RecipientType.Dog && dogId === undefined ?
+        <div>
+          <h3 className="text-gray-700 mb-2 mt-6">Select a dog</h3>
+          <select
+            id="dogId"
+            name="dogId"
+            value={dogId}
+            onChange={(e: any) => setDogId(e.target.value)}
+            className="block w-full text-sm border border-gray-300 rounded-md px-4 py-3"
+          >
+            {dogs?.map((dog) => (
+              <option key={dog.id} value={dog.id}>
+                {dog.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        : null
+      }
 
-      {dog ?
-        <div className="border border-gray-100">{dog.name}<img src={dog ? dog.images[0] : ''} alt={dog.name} /></div>
-        : null}
+      {type === RecipientType.Dog && dogId !== undefined ?
+        <SelectedDog dogId={dogId} setDogId={setDogId} />
+        : null
+      }
+
+      {/* {type === RecipientType.Shelter && shelterId === undefined ?
+        <div>
+          <h3 className="text-gray-700 mb-2 mt-6">Select a shelter</h3>
+          <select
+            id="shelterId"
+            name="shelterId"
+            value={shelterId}
+            onChange={(e: any) => setShelterId(e.target.value)}
+            className="block w-full text-sm border border-gray-300 rounded-md px-4 py-3"
+          >
+            {shelters?.map((shelter) => (
+              <option key={shelter.id} value={shelter.id}>
+                {shelter.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        : null
+      }
+
+      {type === RecipientType.Shelter && shelterId !== undefined ?
+        <SelectedShelter shelterId={shelterId} setShelterId={setShelterId} />
+        : null
+      } */}
 
       <h3 className="text-gray-700 mb-2 mt-6">What describes the purpose of your fundraising intiative?</h3>
       <div className="flex gap-x-2">
@@ -79,14 +115,19 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
       </div>
 
       <h3 className="text-gray-700 mb-2 mt-6">Where are you located?</h3>
-      <input
+      {/* <select
         id="country"
-        type="text"
         name="country"
         value={country}
         onChange={(e: any) => setCountry(e.target.value)}
-        className="border border-gray-300 px-3 py-2 rounded-lg"
-      />
+        className="block w-full text-sm border border-gray-300 rounded-md px-4 py-3"
+      >
+        {Object.entries(Country).map((country, index) => (
+          <option key={country[0]} value={country[1]}>
+            {country[0]}
+          </option>
+        ))}
+      </select> */}
     </div>
   )
 }

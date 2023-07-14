@@ -4,7 +4,7 @@ import { Shelter } from "@/app/types/shelter.interface";
 import { useQuery } from "@tanstack/react-query";
 
 const getShelters = async (limit?: number) => {
-  const limitParam = limit ? `?limit=${limit}` : null;
+  const limitParam = limit ? `?limit=${limit}` : '';
   const res = await fetch(`http://localhost:3000/shelters${limitParam}`);
 
   return res.json();

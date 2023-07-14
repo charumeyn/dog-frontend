@@ -1,20 +1,15 @@
 "use client"
 
-import { IconClose } from "@/app/components/layout/Icons"
 import CreateContent from "@/app/feature/fundraisers/CreateContent"
 import CreateDetails from "@/app/feature/fundraisers/CreateDetails"
 import CreatePurpose from "@/app/feature/fundraisers/CreatePurpose"
 import SectionTab from "@/app/feature/fundraisers/SectionTab"
-import { Dog } from "@/app/types/dog.interface"
+import { useCreateFundraiser } from "@/app/hooks/api/useFundraisers"
+import { SuccessResult } from "@/app/types/apiResult"
 import { FundraiserSection } from "@/app/types/enum/fundraiserSection.enum"
 import { RecipientType } from "@/app/types/enum/recipientType.enum"
-import { CreateFundraiserDto } from "@/app/types/fundraiser.interface"
-import { Shelter } from "@/app/types/shelter.interface"
-import { User } from "@/app/types/user.interface"
-import { RadioGroup } from "@headlessui/react"
-import { S3 } from "aws-sdk"
-import { PutObjectRequest } from "aws-sdk/clients/s3"
-import { ChangeEventHandler, MouseEventHandler, useCallback, useEffect, useMemo, useState } from "react"
+import { CreateFundraiserDto, Fundraiser } from "@/app/types/fundraiser.interface"
+import { useCallback, useMemo, useState } from "react"
 
 
 export default function CreateFundRaiser({ searchParams }: { searchParams: any }) {
@@ -36,17 +31,32 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
 
   const { typeParam } = searchParams;
 
-  const onSubmit = useCallback(() => {
+  const onCreateSuccess = useCallback((data: SuccessResult<Fundraiser>) => {
+    console.log("onSuccess", data)
+  },
+    []
+  );
+
+  const onCreateError = useCallback(
+    (error: any) => {
+      console.log("onError", error)
+    },
+    []
+  );
+
+  const { mutate: createFundraiser } = useCreateFundraiser(onCreateSuccess, onCreateError);
+
+  const handleSave = useCallback((e: any) => {
+    e.preventDefault();
 
     if (startDate && endDate) {
       const body: CreateFundraiserDto = {
         title,
         content,
-        mainImage: mainImage,
+        main_image: mainImage,
         images,
         purpose,
         goal_amount: Number(goalAmount),
-        current_amount: 0,
         starts_at: startDate,
         ends_at: endDate,
         created_at: new Date(),
@@ -54,11 +64,14 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
         type,
         shelter_id: shelterId ? shelterId : undefined,
         user_id: userId ? userId : undefined,
-        dog_id: dogId ? dogId : undefined,
+        dog_id: dogId ? Number(dogId) : undefined,
       }
+
+      console.log(body);
+      createFundraiser(body)
     }
 
-  }, [title, content, mainImage, images, purpose, goalAmount, startDate, endDate])
+  }, [title, content, mainImage, images, purpose, goalAmount, startDate, endDate, shelterId, dogId, userId, createFundraiser])
 
 
   const handleNextClick = useCallback((e: any) => {
@@ -83,15 +96,18 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
     }
   }, [setSelectedSection])
 
+
   const isActive = useMemo(() => {
     if (selectedSection === FundraiserSection.Purpose) {
-      return purpose !== '' && country !== ''
+      return purpose !== ''
     } else if (selectedSection === FundraiserSection.Details) {
       return goalAmount !== '' && startDate !== null && endDate !== null
     } else if (selectedSection === FundraiserSection.Content) {
       return mainImage != '' && images.length !== 0 && content !== ''
     }
   }, [selectedSection, purpose, country, goalAmount, startDate, endDate, mainImage, images, content])
+
+
 
   return (
     <div className="bg-gray-100 py-20">
@@ -109,7 +125,7 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
         <SectionTab section={FundraiserSection.Content} selectedSection={selectedSection} number={3} />
       </div>
 
-      <form onSubmit={onSubmit} className="max-w-2xl mx-auto bg-white rounded-2xl">
+      <form className="max-w-2xl mx-auto bg-white rounded-2xl">
 
         {selectedSection === FundraiserSection.Purpose ?
           <CreatePurpose
@@ -147,13 +163,11 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
             Back
           </button>
           {selectedSection === FundraiserSection.Content ?
-            <button
-              value={selectedSection}
-              onClick={(e: any) => handleNextClick(e)}
-              className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-gray-200 text-gray-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}
-              disabled={!isActive}>
+            <span
+              onClick={(e: any) => handleSave(e)}
+              className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-gray-200 text-gray-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}>
               Save
-            </button> :
+            </span> :
             <button
               value={selectedSection}
               onClick={(e: any) => handleNextClick(e)}
@@ -162,7 +176,7 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
               Continue
             </button>}
         </div>
-      </form>
+      </form >
     </div >
 
   )
