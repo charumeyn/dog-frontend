@@ -1,4 +1,5 @@
 import { Dog } from "./dog.interface";
+import { Donation } from "./donation.interface";
 import { RecipientType } from "./enum/recipientType.enum";
 import { User } from "./user.interface";
 
@@ -11,6 +12,7 @@ export interface Fundraiser {
   purpose: string;
   goal_amount: number;
   current_amount: number;
+  donations: Donation[];
   starts_at: Date;
   ends_at: Date;
   created_at: Date;

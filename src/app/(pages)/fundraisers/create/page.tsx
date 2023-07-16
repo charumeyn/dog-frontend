@@ -9,7 +9,8 @@ import { SuccessResult } from "@/app/types/apiResult"
 import { FundraiserSection } from "@/app/types/enum/fundraiserSection.enum"
 import { RecipientType } from "@/app/types/enum/recipientType.enum"
 import { CreateFundraiserDto, Fundraiser } from "@/app/types/fundraiser.interface"
-import { useCallback, useMemo, useState } from "react"
+import { redirect } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useState } from "react"
 
 
 export default function CreateFundRaiser({ searchParams }: { searchParams: any }) {
@@ -28,13 +29,20 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
   const [title, setTitle] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
   const [content, setContent] = useState<string>("");
+  const [fundraiserId, setFundraiserId] = useState<number | undefined>(undefined);
 
   const { typeParam } = searchParams;
 
+  useEffect(() => {
+    if (fundraiserId) {
+      redirect(`/fundraisers/${fundraiserId}`);
+    }
+  }, [fundraiserId])
+
   const onCreateSuccess = useCallback((data: SuccessResult<Fundraiser>) => {
-    console.log("onSuccess", data)
+    setFundraiserId(Number(data.data.id))
   },
-    []
+    [setFundraiserId]
   );
 
   const onCreateError = useCallback(
