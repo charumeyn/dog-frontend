@@ -3,9 +3,6 @@ import Header from './components/layout/Header'
 import './globals.css'
 import Providers from './utils/provider'
 import Footer from './components/layout/Footer'
-import { PayPalScriptProvider } from '@paypal/react-paypal-js'
-
-
 
 export const metadata = {
   title: 'Sponsor a Dog',
@@ -19,8 +16,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
 
+  return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>

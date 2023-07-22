@@ -1,7 +1,28 @@
+"use client"
 
-type Header = {}
+import { useAccount, useLogout } from "@/app/hooks/api/useAuth";
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
-const Header: React.FunctionComponent<Header> = ({ }) => {
+type HeaderProps = {
+}
+
+const Header: React.FunctionComponent<HeaderProps> = ({ }) => {
+
+  const router = useRouter();
+
+  const { data: account } = useAccount();
+
+  const onLogoutSuccess = () => router.push("/login")
+  const onLogoutError = () => console.log("error logging out")
+
+  const { mutate: logout } = useLogout(onLogoutSuccess, onLogoutError);
+
+  // const logoutButton = useCallback((e: any) => {
+  //   e.preventDefault();
+  //   logout()
+  // }, [])
+
 
   const menu = [
     {
@@ -13,7 +34,18 @@ const Header: React.FunctionComponent<Header> = ({ }) => {
       url: '/fundraisers'
     }]
 
-  const isLoggedIn = false;
+
+  // const logout = async () => {
+  //   await fetch("http://localhost:3000/users/logout", {
+  //     method: "POST",
+  //     headers: { 'Content-Type': 'application/json' },
+  //     credentials: 'include'
+  //   })
+
+  //   await router.push('/login')
+  // }
+
+
 
   return (
     <div className="shadow-xl">
@@ -23,8 +55,11 @@ const Header: React.FunctionComponent<Header> = ({ }) => {
           {menu.map((item: any, i: number) =>
             <a className="px-8 py-5" key={i} href={item.url}>{item.name}</a>
           )}
-          {isLoggedIn ? <a href="">My Account</a> : <a className="border-l border-gray-200 py-5 px-8" href="/login">Login</a>}
+          {account ? <span onClick={() => logout()}>Logout</span> : <a className="border-l border-gray-200 py-5 px-8" href="/login">Login</a>}
 
+          <br />
+
+          {JSON.stringify(account)}
         </div>
       </div>
     </div>

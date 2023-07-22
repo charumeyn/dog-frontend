@@ -1,3 +1,4 @@
+import ProgressBar from "@/app/components/layout/common/ProgressBar"
 import PaypalCheckout from "@/app/components/libraries/PaypalCheckout"
 import { Dog } from "@/app/types/dog.interface"
 import { Donation } from "@/app/types/donation.interface"
@@ -5,7 +6,7 @@ import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum"
 import { RecipientType } from "@/app/types/enum/recipientType.enum"
 import { Fundraiser } from "@/app/types/fundraiser.interface"
 import moment from "moment"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 
 type FundraiserInfoProps = {
   fundraiser: Fundraiser | undefined
@@ -22,9 +23,7 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
   return (
     <>
       <h1 className="text-4xl mb-4">{fundraiser?.title}</h1>
-      <div className="w-full bg-orange-100 rounded-full h-3 mb-2">
-        <div className="bg-orange-600 h-3 rounded-full w-[50%]"></div>
-      </div>
+      <ProgressBar fundraiser={fundraiser} />
       <p className="text-gray-500 mb-8">${totalDonations} {' '} raised out of ${fundraiser?.goal_amount}</p>
       <PaypalCheckout fundraiser={fundraiser} />
       <a href="" className="w-full inline-block text-center mt-5 text-md">Share</a>

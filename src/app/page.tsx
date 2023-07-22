@@ -16,7 +16,6 @@ export default function Home() {
   const { data: posts, isLoading: isLoadingPosts } = usePosts(3);
   const { data: fundraisers, isLoading: isLoadingFundraisers } = useFundraisers(4);
 
-
   return (
     <main>
       <section className="bg-[#FFF4DA] py-16">
@@ -139,6 +138,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main >
+    </main>
   )
 }

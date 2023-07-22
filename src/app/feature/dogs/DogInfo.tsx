@@ -1,3 +1,4 @@
+import PaypalCheckout from "@/app/components/libraries/PaypalCheckout"
 import { Dog } from "@/app/types/dog.interface"
 
 type DogInfoProps = {
@@ -38,7 +39,7 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
           <p><strong>{dog?.coat_length}</strong></p>
         </div>
       </div>
-      <a href="" className="w-full inline-block text-center mt-10 bg-teal-600 text-white text-md px-6 py-3 rounded-lg font-medium mb-4">Sponsor Me!</a>
+      <PaypalCheckout dog={dog} />
       <div className="grid grid-cols-2 text-center">
         <a href="">Share</a>
         <a href="">Add to favorites</a>

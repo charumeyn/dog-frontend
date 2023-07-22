@@ -55,9 +55,9 @@ const S3Uploader: React.FunctionComponent<S3UploaderProps> = ({ images, setImage
 
   return (
     <>
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-5 gap-x-3">
         {images?.map((image: string, i: number) =>
-          <div key={i} className={`${image == mainImage ? "border border-red-500" : ""} col-span-1 relative`}
+          <div key={i} className={`${image == mainImage ? "border-2 border-teal-600 " : "border-2 border-white "} hover:cursor-pointer col-span-1 relative mb-3`}
             onClick={() => setMainImage(image)}>
             <span onClick={() => handleRemoveImage(image)}>
               <IconClose className="w-5 h-5 absolute right-0 hover:cursor-pointer" />
@@ -69,7 +69,7 @@ const S3Uploader: React.FunctionComponent<S3UploaderProps> = ({ images, setImage
 
       <div>
         {isLoading ? "loading" :
-          <div className="flex justify-center items-center gap-x-4 text-teal-600 font-medium bg-teal-600 bg-opacity-10 border border-teal-600 border-opacity-200 px-5 py-3 rounded-lg w-48 hover:cursor-pointer">
+          <div className="flex justify-center items-center gap-x-4 text-teal-600 font-medium bg-teal-600 bg-opacity-10 border border-teal-600 border-opacity-200 px-5 py-3 rounded-lg w-52 hover:cursor-pointer">
             <IconPlus className="w-5 h-5" />
             <label htmlFor="files">Upload Images</label>
             <input id="files" className="hidden" type="file" onChange={handleUpload} multiple></input>

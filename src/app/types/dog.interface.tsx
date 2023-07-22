@@ -1,3 +1,4 @@
+import { Donation } from "./donation.interface";
 import { Post } from "./post.interface";
 import { Shelter } from "./shelter.interface";
 
@@ -18,4 +19,5 @@ export interface Dog {
   deleted_at?: Date | null;
   shelter: Shelter;
   posts: Post[];
+  donations: Donation[];
 };

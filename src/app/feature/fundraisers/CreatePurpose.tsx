@@ -114,7 +114,7 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
         )}
       </div>
 
-      <h3 className="text-gray-700 mb-2 mt-6">Where are you located?</h3>
+      {/* <h3 className="text-gray-700 mb-2 mt-6">Where are you located?</h3> */}
       {/* <select
         id="country"
         name="country"

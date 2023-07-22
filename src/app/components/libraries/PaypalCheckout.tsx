@@ -97,7 +97,7 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
             ${option}
           </div>
         )}
-        {/* <div className="col-span-3 mt-2 mb-4">
+        <div className="col-span-3 mt-2 mb-4">
           <label>
             <span className="text-sm text-gray-600">Or enter a custom amount</span>
             <input type="text"
@@ -112,11 +112,8 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
               placeholder="Enter amount"
             />
           </label>
-        </div> */}
+        </div>
       </div>
-
-      {/* <button className="w-full block text-center bg-orange-600 text-white text-md px-6 py-3 rounded-lg font-medium"
-        onClick={() => setIsOpen(true)}>Donate</button> */}
 
       <div className="mt-5">
         <PayPalButtons
@@ -139,7 +136,7 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
           }}
           onError={(err: any) => {
             setError(err);
-            console.error("PayPal Checkout onError", err);
+            console.error("Error", err);
           }}
           onCancel={() => {
             alert("Cancelled")
