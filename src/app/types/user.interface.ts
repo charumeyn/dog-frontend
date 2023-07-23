@@ -2,6 +2,7 @@ import { Address } from "./address.interface";
 import { Shelter } from "./shelter.interface";
 
 export interface User {
+  data: any;
   id: number;
   email: string;
   password: string;
