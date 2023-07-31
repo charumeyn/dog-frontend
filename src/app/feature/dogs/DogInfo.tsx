@@ -1,11 +1,23 @@
+"use client";
+
 import PaypalCheckout from "@/app/components/libraries/PaypalCheckout"
+import StripeCheckout from "@/app/components/libraries/StripeCheckout";
 import { Dog } from "@/app/types/dog.interface"
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 type DogInfoProps = {
   dog: Dog | undefined
 }
 
+
+
 const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
+
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  );
+
 
   return (
     <>
@@ -40,6 +52,9 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
         </div>
       </div>
       <PaypalCheckout dog={dog} />
+      <Elements stripe={stripePromise}>
+        <StripeCheckout />
+      </Elements>
       <div className="grid grid-cols-2 text-center">
         <a href="">Share</a>
         <a href="">Add to favorites</a>
