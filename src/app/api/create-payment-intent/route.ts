@@ -27,6 +27,8 @@ export async function POST(req: NextRequest) {
       customer = newCustomer.id
     }
 
+    //test commit
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Number(amount) * 100,
       currency: "USD",
@@ -34,11 +36,11 @@ export async function POST(req: NextRequest) {
       customer: customer,
     });
 
-    return new NextResponse(paymentIntent.client_secret, { status: 200 })
+    // return new NextResponse(paymentIntent.client_secret, { status: 200 })
 
   } catch (error: any) {
-    return new NextResponse(error, {
-      status: 400,
-    });
+    // return new NextResponse(error, {
+    //   status: 400,
+    // });
   }
 }
