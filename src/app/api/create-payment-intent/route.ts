@@ -27,11 +27,6 @@ export async function POST(req: NextRequest) {
       customer = newCustomer.id
     }
 
-    // const newCustomer = await stripe.customers.create({
-    //   email: 'charcandava@gmail.com',
-    //   description: 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
-    // });
-
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Number(amount) * 100,
       currency: "USD",
@@ -39,40 +34,7 @@ export async function POST(req: NextRequest) {
       customer: customer,
     });
 
-    return new NextResponse(paymentIntent.client_secret, { status: 200 });
-
-    // const customer = await stripe.customers.list({
-    //   email: 'charcandava@gmail.com',
-    //   limit: 1
-    // })
-
-    // if (!customer) {
-    //   const newCustomer = await stripe.customers.create({
-    //     email: 'charcandava@gmail.com',
-    //     description: 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
-    //   });
-
-    //   const paymentIntent = await stripe.paymentIntents.create({
-    //     amount: Number(amount) * 100,
-    //     currency: "USD",
-    //     description: "test",
-    //     customer: newCustomer.id
-    //   });
-
-    //   console.log("newCustomer", newCustomer)
-
-    //   return new NextResponse(paymentIntent.client_secret, { status: 200 });
-    // } else {
-    //   const paymentIntent = await stripe.paymentIntents.create({
-    //     amount: Number(amount) * 100,
-    //     currency: "USD",
-    //     description: "test",
-    //     customer: customer.data[0].id
-    //   });
-    //   console.log("customer", customer)
-    //   return new NextResponse(paymentIntent.client_secret, { status: 200 });
-    // }
-
+    return new NextResponse(paymentIntent.client_secret, { status: 200 })
 
   } catch (error: any) {
     return new NextResponse(error, {

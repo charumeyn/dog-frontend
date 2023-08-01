@@ -14,10 +14,13 @@ import { useCallback, useMemo, useState } from "react";
 type PaypalCheckoutProps = {
   fundraiser?: Fundraiser;
   dog?: Dog;
+  handleOnApprove: (order: any) => void;
+  type: DonationType;
+  recipient_id: number;
+  finalAmount?: number;
 }
 
-const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundraiser, dog }) => {
-
+const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundraiser, dog, type, handleOnApprove, recipient_id, finalAmount }) => {
 
   const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
     console.log("onSuccess", data)
@@ -36,57 +39,57 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
   const { mutate: createDonation } = useCreateDonation(onCreateSuccess, onCreateError);
 
   const [error, setError] = useState("");
-  const [amount, setAmount] = useState<number | undefined>(0);
-  const [customAmount, setCustomAmount] = useState<number | undefined>(0);
+  // const [amount, setAmount] = useState<number | undefined>(0);
+  // const [customAmount, setCustomAmount] = useState<number | undefined>(0);
 
-  const finalAmount = useMemo(() => {
-    if (amount != undefined || amount != 0) {
-      return amount
-    } else {
-      return customAmount
-    }
-  }, [amount, customAmount])
+  // const finalAmount = useMemo(() => {
+  //   if (amount != undefined || amount != 0) {
+  //     return amount
+  //   } else {
+  //     return customAmount
+  //   }
+  // }, [amount, customAmount])
 
-  const amountOptions = [10, 20, 30, 50, 100, 200]
+  // const amountOptions = [10, 20, 30, 50, 100, 200]
 
-  const handleOnApprove = useCallback((order: any) => {
+  // const handleOnApprove = useCallback((order: any) => {
 
-    const body: DonationCreateDto = {
-      transaction_id: order.id,
-      email: order.payer.email_address,
-      payment_gateway: PaymentGateway.paypal,
-      type: fundraiser ? DonationType.Fundraiser : DonationType.Dog,
-      status: order.status,
-      amount: Number(order.purchase_units[0].amount.value),
-      dog_id: dog ? dog?.id : undefined,
-      fundraiser_id: fundraiser ? fundraiser?.id : undefined,
-      user_id: 1,
-      donor_id: 1,
-      transaction_firstname: order.payer.name.given_name,
-      transaction_lastname: order.payer.name.surname,
-      created_at: new Date(),
-    }
+  //   const body: DonationCreateDto = {
+  //     transaction_id: order.id,
+  //     email: order.payer.email_address,
+  //     payment_gateway: PaymentGateway.Paypal,
+  //     type: fundraiser ? DonationType.Fundraiser : DonationType.Dog,
+  //     status: order.status,
+  //     amount: Number(order.purchase_units[0].amount.value),
+  //     dog_id: dog ? dog?.id : undefined,
+  //     fundraiser_id: fundraiser ? fundraiser?.id : undefined,
+  //     user_id: 1,
+  //     donor_id: 1,
+  //     transaction_firstname: order.payer.name.given_name,
+  //     transaction_lastname: order.payer.name.surname,
+  //     created_at: new Date(),
+  //   }
 
-    createDonation(body)
-  }, [amount, dog, fundraiser, createDonation])
+  //   createDonation(body)
+  // }, [amount, dog, fundraiser, createDonation])
 
   const handleCreateOrder = useCallback((actions: any) => {
     return actions.order.create({
       purchase_units: [
         {
-          description: fundraiser ? `Fundraiser ID: ${fundraiser?.id}` : `Dog ID: ${dog?.id}`,
+          description: type === DonationType.Fundraiser ? `Fundraiser ID: ${recipient_id}` : `Dog ID: ${recipient_id}`,
           amount: {
             value: finalAmount
           }
         }
       ]
     })
-  }, [amount, fundraiser, dog])
+  }, [finalAmount, recipient_id])
 
   return (
     <div>
 
-      <div className="grid grid-cols-3 gap-2">
+      {/* <div className="grid grid-cols-3 gap-2">
         {amountOptions.map((option) =>
           <div key={option}
             onClick={() => {
@@ -113,11 +116,11 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
             />
           </label>
         </div>
-      </div>
+      </div> */}
 
       <div className="mt-5">
         <PayPalButtons
-          forceReRender={[amount]}
+          forceReRender={[finalAmount]}
           style={{
             color: "gold",
             layout: "horizontal",

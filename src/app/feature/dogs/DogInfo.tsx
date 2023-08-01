@@ -1,10 +1,14 @@
 "use client";
 
+import PaymentModal from "@/app/components/layout/common/PaymentModal";
+import PaymentModalContent from "@/app/components/layout/common/PaymentModalContent";
 import PaypalCheckout from "@/app/components/libraries/PaypalCheckout"
 import StripeCheckout from "@/app/components/libraries/StripeCheckout";
 import { Dog } from "@/app/types/dog.interface"
+import { DonationType } from "@/app/types/enum/donationType.enum";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useState } from "react";
 
 type DogInfoProps = {
   dog: Dog | undefined
@@ -17,6 +21,8 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
   );
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
 
   return (
@@ -51,7 +57,15 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
           <p><strong>{dog?.coat_length}</strong></p>
         </div>
       </div>
-      <PaypalCheckout dog={dog} />
+
+      <span onClick={() => setIsOpen(true)}>test</span>
+
+      <PaymentModal isOpen={isOpen} setIsOpen={setIsOpen}>
+        {dog &&
+          <PaymentModalContent image={dog.images[0]} name={dog.name} type={DonationType.Dog} recipient_id={dog.id} />
+        }
+      </PaymentModal>
+
       <Elements stripe={stripePromise}>
         <StripeCheckout />
       </Elements>
