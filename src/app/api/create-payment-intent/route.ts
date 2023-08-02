@@ -8,12 +8,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: NextRequest) {
   const { data } = await req.json();
-  const { amount } = data;
+  const { amount, email, description, currency } = data;
   try {
     let customer;
 
     const findCustomer = await stripe.customers.list({
-      email: 'char1@gmail.com',
+      email: email,
       limit: 1
     })
 
@@ -21,26 +21,31 @@ export async function POST(req: NextRequest) {
       customer = findCustomer.data[0].id
     } else {
       const newCustomer = await stripe.customers.create({
-        email: 'char@gmail.com',
-        description: 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
+        email,
+        description,
       });
       customer = newCustomer.id
     }
 
-    //test commit
-
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Number(amount) * 100,
-      currency: "USD",
-      description: "test",
+      currency,
+      description,
+      customer,
+    }).then()
+
+    return NextResponse.json({
+      id: paymentIntent.id,
+      clientSecret: paymentIntent.client_secret,
+      amount: paymentIntent.amount,
       customer: customer,
+      email: email,
+      status: paymentIntent.status
     });
 
-    // return new NextResponse(paymentIntent.client_secret, { status: 200 })
-
   } catch (error: any) {
-    // return new NextResponse(error, {
-    //   status: 400,
-    // });
+    return new NextResponse(error, {
+      status: 400,
+    });
   }
 }

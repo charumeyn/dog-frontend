@@ -12,15 +12,12 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useCallback, useMemo, useState } from "react";
 
 type PaypalCheckoutProps = {
-  fundraiser?: Fundraiser;
-  dog?: Dog;
-  handleOnApprove: (order: any) => void;
   type: DonationType;
   recipient_id: number;
   finalAmount?: number;
 }
 
-const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundraiser, dog, type, handleOnApprove, recipient_id, finalAmount }) => {
+const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ type, recipient_id, finalAmount }) => {
 
   const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
     console.log("onSuccess", data)
@@ -52,26 +49,26 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ fundrais
 
   // const amountOptions = [10, 20, 30, 50, 100, 200]
 
-  // const handleOnApprove = useCallback((order: any) => {
+  const handleOnApprove = useCallback((order: any) => {
 
-  //   const body: DonationCreateDto = {
-  //     transaction_id: order.id,
-  //     email: order.payer.email_address,
-  //     payment_gateway: PaymentGateway.Paypal,
-  //     type: fundraiser ? DonationType.Fundraiser : DonationType.Dog,
-  //     status: order.status,
-  //     amount: Number(order.purchase_units[0].amount.value),
-  //     dog_id: dog ? dog?.id : undefined,
-  //     fundraiser_id: fundraiser ? fundraiser?.id : undefined,
-  //     user_id: 1,
-  //     donor_id: 1,
-  //     transaction_firstname: order.payer.name.given_name,
-  //     transaction_lastname: order.payer.name.surname,
-  //     created_at: new Date(),
-  //   }
+    const body: DonationCreateDto = {
+      transaction_id: order.id,
+      email: order.payer.email_address,
+      payment_gateway: PaymentGateway.Paypal,
+      type: type === DonationType.Fundraiser ? DonationType.Fundraiser : DonationType.Dog,
+      status: order.status,
+      amount: Number(order.purchase_units[0].amount.value),
+      dog_id: type === DonationType.Dog ? recipient_id : undefined,
+      fundraiser_id: type === DonationType.Fundraiser ? recipient_id : undefined,
+      user_id: 1,
+      donor_id: 1,
+      transaction_firstname: order.payer.name.given_name,
+      transaction_lastname: order.payer.name.surname,
+      created_at: new Date(),
+    }
 
-  //   createDonation(body)
-  // }, [amount, dog, fundraiser, createDonation])
+    createDonation(body)
+  }, [type, recipient_id, createDonation])
 
   const handleCreateOrder = useCallback((actions: any) => {
     return actions.order.create({

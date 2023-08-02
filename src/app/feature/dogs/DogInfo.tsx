@@ -18,9 +18,7 @@ type DogInfoProps = {
 
 const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
 
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-  );
+
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -62,13 +60,11 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
 
       <PaymentModal isOpen={isOpen} setIsOpen={setIsOpen}>
         {dog &&
-          <PaymentModalContent image={dog.images[0]} name={dog.name} type={DonationType.Dog} recipient_id={dog.id} />
+          <PaymentModalContent image={dog.images[0]} name={dog.name} type={DonationType.Dog} recipient_id={dog.id} setIsOpen={setIsOpen} />
         }
       </PaymentModal>
 
-      <Elements stripe={stripePromise}>
-        <StripeCheckout />
-      </Elements>
+
       <div className="grid grid-cols-2 text-center">
         <a href="">Share</a>
         <a href="">Add to favorites</a>

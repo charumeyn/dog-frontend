@@ -8,15 +8,18 @@ import { useCreateDonation } from "@/app/hooks/api/useDonations";
 import { SuccessResult } from "@/app/types/apiResult";
 import StripeCheckout from "../../libraries/StripeCheckout";
 import { Donation } from "@/app/types/donation.interface";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 type PaymentModalContentProps = {
   image: string;
   name: string;
   type: DonationType;
   recipient_id: number;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
-const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = ({ image, name, type, recipient_id }) => {
+const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = ({ image, name, type, recipient_id, setIsOpen }) => {
 
   const [amount, setAmount] = useState<number | undefined>(0);
   const [customAmount, setCustomAmount] = useState<number | undefined>(0);
@@ -31,42 +34,10 @@ const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = (
     }
   }, [amount, customAmount])
 
-  const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
-    console.log("onSuccess", data)
-    window.location.reload();
-  },
-    []
+
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
   );
-
-  const onCreateError = useCallback(
-    (error: any) => {
-      console.log("onError", error)
-    },
-    []
-  );
-
-  const { mutate: createDonation } = useCreateDonation(onCreateSuccess, onCreateError);
-
-  const handleCreateDonation = useCallback((order: any) => {
-
-    const body: DonationCreateDto = {
-      transaction_id: order.id,
-      email: order.payer.email_address,
-      payment_gateway: PaymentGateway.Paypal,
-      type,
-      status: order.status,
-      amount: Number(order.purchase_units[0].amount.value),
-      dog_id: type === DonationType.Dog ? recipient_id : undefined,
-      fundraiser_id: type === DonationType.Fundraiser ? recipient_id : undefined,
-      user_id: 1,
-      donor_id: 1,
-      transaction_firstname: order.payer.name.given_name,
-      transaction_lastname: order.payer.name.surname,
-      created_at: new Date(),
-    }
-
-    createDonation(body)
-  }, [amount, type, recipient_id, createDonation])
 
 
   return (
@@ -131,15 +102,15 @@ const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = (
 
       {selectedGateway === PaymentGateway.Paypal ?
         <div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-          <PaypalCheckout handleOnApprove={handleCreateDonation} type={DonationType.Dog} recipient_id={recipient_id} finalAmount={finalAmount} />
+          <PaypalCheckout type={DonationType.Dog} recipient_id={recipient_id} finalAmount={finalAmount} />
         </div>
-        : selectedGateway === PaymentGateway.Stripe ?
-          <StripeCheckout /> :
+        :
+        selectedGateway === PaymentGateway.Stripe ?
+          <Elements stripe={stripePromise}>
+            <StripeCheckout type={DonationType.Dog} recipient_id={recipient_id} finalAmount={finalAmount} />
+          </Elements>
+          :
           null}
-
-
-
-
     </div>
   )
 }

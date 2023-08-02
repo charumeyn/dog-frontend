@@ -3,7 +3,7 @@ import { PaymentGateway } from "../enum/paymentGateway.enum";
 import { RecipientType } from "../enum/recipientType.enum";
 
 export interface DonationCreateDto {
-  transaction_id: number;
+  transaction_id: string;
   email: string;
   payment_gateway: PaymentGateway;
   type: DonationType;
