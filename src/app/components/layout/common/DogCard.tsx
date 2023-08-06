@@ -14,7 +14,7 @@ const DogCard: React.FunctionComponent<DogCard> = ({ dog }) => {
           alt={dog.name} />
       </div >
       <p className="font-bold text-xl mt-5 mb-2">{dog.name}</p>
-      <p className="text-neutral-600 mb-2">{dog.description}</p>
+      <p className="text-zinc-600 mb-2">{dog.description}</p>
     </a>
   )
 }

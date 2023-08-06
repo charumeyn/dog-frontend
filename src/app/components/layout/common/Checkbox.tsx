@@ -13,12 +13,12 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({ label, name, isCheck
         aria-describedby={name}
         name={name}
         type="checkbox"
-        className="h-4 w-4 rounded border-neutral-300 text-teal-600 focus:ring-teal-600 cursor-pointer"
+        className="h-4 w-4 rounded border-zinc-300 text-teal-600 focus:ring-teal-600 cursor-pointer"
         checked={isChecked}
         onChange={() => setIsChecked(!isChecked)}
       />
 
-      <label htmlFor={name} className="block text-sm leading-6 text-neutral-900 cursor-pointer">
+      <label htmlFor={name} className="block text-sm leading-6 text-zinc-900 cursor-pointer">
         {label}
       </label>
     </div>

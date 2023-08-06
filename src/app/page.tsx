@@ -33,7 +33,7 @@ export default function Home() {
       </section>
       <section className="pt-10 pb-20">
         <div className="w-full max-w-screen-xl mx-auto px-4">
-          <div className="text-neutral-400 mb-5">
+          <div className="text-zinc-400 mb-5">
             Ways to help
           </div>
           <div className="flex gap-x-14 text-lg font-semibold">
@@ -49,7 +49,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-neutral-100">
+      <section className="py-16 bg-zinc-100">
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <h2 className="text-center text-2xl font-bold mb-9">Meet The Dogs</h2>
         </div>
@@ -60,17 +60,17 @@ export default function Home() {
               <DogCard key={i} dog={dog} />
             )}
         </div>
-        <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-neutral-300 rounded-full" href={`/dogs/`}>View all dogs</a>
+        <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/dogs/`}>View all dogs</a>
       </section>
 
-      <section className="bg-neutral-100">
+      <section className="bg-zinc-100">
         <hr className="max-w-screen-2xl mx-auto" />
       </section>
 
-      <section className="py-16 bg-neutral-100">
+      <section className="py-16 bg-zinc-100">
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <h2 className="text-2xl font-bold mb-2">The Doggo Diaries</h2>
-          <p className="mb-9 text-neutral-500">Life updates from our precious dogs!</p>
+          <p className="mb-9 text-zinc-500">Life updates from our precious dogs!</p>
         </div>
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <div className="grid grid-cols-3 gap-x-8">
@@ -80,7 +80,7 @@ export default function Home() {
                 <PostCard key={i} post={post} />
               )}
           </div>
-          <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-neutral-300 rounded-full" href={`/dogs/`}>View all posts</a>
+          <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/dogs/`}>View all posts</a>
         </div>
       </section>
 
@@ -96,7 +96,7 @@ export default function Home() {
                 <FundraiserCard key={i} fundraiser={fundraiser} />
               )}
           </div>
-          <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-neutral-300 rounded-full" href={`/fundraisers/`}>View all fundraisers</a>
+          <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/fundraisers/`}>View all fundraisers</a>
         </div>
       </section>
 
@@ -107,11 +107,11 @@ export default function Home() {
       <section className="py-16">
         <div className="w-full max-w-screen-lg mx-auto px-4">
           <h2 className="text-2xl font-bold mb-2 text-center">Open your fundraiser</h2>
-          <p className="mb-9 text-neutral-500 text-center">Let other people help you with your cause about:</p>
+          <p className="mb-9 text-zinc-500 text-center">Let other people help you with your cause about:</p>
         </div>
         <div className="w-full max-w-screen-lg mx-auto px-4">
           <div className="grid grid-cols-3 gap-x-8">
-            <div className="border border-lightneutral rounded-lg px-5 py-16 font-semibold">
+            <div className="border border-lightzinc rounded-lg px-5 py-16 font-semibold">
               <a href="/fundraisers/create?type=dog">
                 Dog’s<br />
                 Medical<br />
@@ -119,7 +119,7 @@ export default function Home() {
                 ➞
               </a>
             </div>
-            <div className="border border-lightneutral rounded-lg px-8 py-16 font-semibold text-lg">
+            <div className="border border-lightzinc rounded-lg px-8 py-16 font-semibold text-lg">
               <a href="/fundraisers/create?type=user">
                 Helping<br />
                 a Dog's<br />
@@ -127,7 +127,7 @@ export default function Home() {
                 ➞
               </a>
             </div>
-            <div className="border border-lightneutral rounded-lg px-8 py-16 font-semibold text-lg">
+            <div className="border border-lightzinc rounded-lg px-8 py-16 font-semibold text-lg">
               <a href="/fundraisers/create?type=shelter">
                 Dog<br />
                 Shelter<br />

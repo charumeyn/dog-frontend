@@ -14,10 +14,10 @@ const RadioButton: React.FunctionComponent<RadioButtonProps> = ({ value, selecte
         name={value}
         type="radio"
         checked={value === selected}
-        className="h-4 w-4 border-neutral-300 text-teal-600 focus:ring-teal-600 cursor-pointer"
+        className="h-4 w-4 border-zinc-300 text-teal-600 focus:ring-teal-600 cursor-pointer"
         onChange={() => setSelected(value)}
       />
-      <label htmlFor={value} className="ml-3 block text-sm font-medium leading-6 text-neutral-900 cursor-pointer">
+      <label htmlFor={value} className="ml-3 block text-sm font-medium leading-6 text-zinc-900 cursor-pointer">
         {value === PaymentGateway.Stripe ? "Debit or Credit Card" : value}
       </label>
     </div>

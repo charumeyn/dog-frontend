@@ -15,7 +15,7 @@ export default function Fundraiser({ params }: { params: any }) {
 
   return (
     <main>
-      <section className="py-16 bg-neutral-100">
+      <section className="py-16 bg-zinc-100">
         <div className="w-full max-w-screen-2xl mx-auto px-4 grid grid-cols-5 gap-x-16">
           <div className="col-span-3">
             <img className="aspect-[16/9] object-cover rounded-lg"
@@ -30,21 +30,21 @@ export default function Fundraiser({ params }: { params: any }) {
       <section className="py-16">
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <div className="max-w-4xl">
-            <p className="mb-2 text-neutral-500 text-sm">Created by</p>
-            <div className="border border-neutral-100 rounded-lg px-5 py-5 mb-8">
+            <p className="mb-2 text-zinc-500 text-sm">Created by</p>
+            <div className="border border-zinc-100 rounded-lg px-5 py-5 mb-8">
               <p className="text-sm">{fundraiser?.content}</p>
             </div>
             <p className="font-medium mb-2">Initiated by</p>
-            <div className="flex items-center justify-between pb-8 border-b border-neutral-100">
+            <div className="flex items-center justify-between pb-8 border-b border-zinc-100">
               <div className="flex items-center gap-x-6">
                 <img src="" className="w-20 h-20 rounded-full" />
                 <div>
                   {/* <h3 className="font-bold">{fundraiser?.shelter.name}</h3> */}
-                  <p className="text-neutral-500 text-sm">insert description</p>
+                  <p className="text-zinc-500 text-sm">insert description</p>
                 </div>
               </div>
               <div>
-                <a href={""} className="font-medium px-8 py-3 border border-neutral-300 rounded-full">Visit ➞</a>
+                <a href={""} className="font-medium px-8 py-3 border border-zinc-300 rounded-full">Visit ➞</a>
               </div>
             </div>
           </div>
@@ -59,15 +59,15 @@ export default function Fundraiser({ params }: { params: any }) {
               <img src="https://images.pexels.com/photos/3104709/pexels-photo-3104709.jpeg" className="w-16 h-16 rounded-full" />
               <div>
                 <p className="font-bold">Charmaine Candava</p>
-                <p className="text-neutral-500 text-sm mb-3">$100 • 1 hr ago</p>
-                <p className="text-neutral-800 text-sm">Such a cute pup! I hope he's doing well.</p>
+                <p className="text-zinc-500 text-sm mb-3">$100 • 1 hr ago</p>
+                <p className="text-zinc-800 text-sm">Such a cute pup! I hope he's doing well.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-neutral-100">
+      <section className="py-16 bg-zinc-100">
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <h2 className="mb-5 font-bold text-lg text-center">Help other fundraising projects</h2>
           <div className="w-full max-w-screen-2xl mx-auto">

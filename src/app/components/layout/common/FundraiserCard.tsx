@@ -13,7 +13,7 @@ const PostCard: React.FunctionComponent<FundraiserCard> = ({ fundraiser }) => {
           alt={fundraiser.title} />
       </div >
       <p className="flex justify-between font-bold text-xl mt-5 mb-2">{fundraiser.title}</p>
-      <p className="text-neutral-600 mb-2">{fundraiser.content}</p>
+      <p className="text-zinc-600 mb-2">{fundraiser.content}</p>
 
     </a>
   )

@@ -21,10 +21,10 @@ export default function Shelter({ params }: { params: any }) {
             <img src={shelter?.image_thumb} className="w-20 h-20 rounded-full" />
             <div>
               <h3 className="font-bold">{shelter?.name}</h3>
-              <p className="text-neutral-500 text-sm">{shelter?.email} - {shelter?.phone}</p>
+              <p className="text-zinc-500 text-sm">{shelter?.email} - {shelter?.phone}</p>
             </div>
           </div>
-          <div className="border border-neutral-100 px-5 py-5 rounded-lg">
+          <div className="border border-zinc-100 px-5 py-5 rounded-lg">
             insert description
           </div>
           <div>
@@ -36,7 +36,7 @@ export default function Shelter({ params }: { params: any }) {
         </div>
       </section>
 
-      <section className="py-16 bg-neutral-100">
+      <section className="py-16 bg-zinc-100">
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <h2 className="mb-5 font-bold text-lg text-center">Dogs from {shelter?.name}</h2>
           <div className="w-full max-w-screen-2xl mx-auto">

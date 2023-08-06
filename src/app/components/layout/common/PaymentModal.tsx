@@ -25,7 +25,7 @@ const PaymentModal: React.FunctionComponent<PaymentModalProps> = ({ isOpen, setI
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-neutral-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-zinc-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -43,21 +43,11 @@ const PaymentModal: React.FunctionComponent<PaymentModalProps> = ({ isOpen, setI
                 <span
                   className="cursor-pointer"
                   onClick={() => setIsOpen(false)} ref={cancelButtonRef}>
-                  <IconClose className="w-6 h-6 text-neutral-500 right-3 top-3 absolute" />
+                  <IconClose className="w-6 h-6 text-zinc-500 right-3 top-3 absolute" />
                 </span>
                 <div className="bg-white">
                   {children}
                 </div>
-                {/* <div className="bg-neutral-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setIsOpen(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
-                </div> */}
               </Dialog.Panel>
             </Transition.Child>
           </div>

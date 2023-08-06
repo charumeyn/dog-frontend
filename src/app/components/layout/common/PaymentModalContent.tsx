@@ -40,23 +40,23 @@ const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = (
 
   return (
     <div>
-      <div className="bg-neutral-100 px-4 pb-6 pt-8 sm:p-6 sm:pb-4">
+      <div className="bg-zinc-100 px-4 pb-6 pt-8 sm:p-6 sm:pb-4">
         <img src={image} alt={name} className="w-20 h-20 rounded-full mx-auto" />
-        <h1 className="text-center mt-4 font-semibold text-lg text-neutral-900">You are sponsoring {name} ❤️</h1>
+        <h1 className="text-center mt-4 font-semibold text-lg text-zinc-900">You are sponsoring {name} ❤️</h1>
       </div>
 
       <div className="px-8 pb-8">
 
         <div className="pt-6">
-          <h2 className="text-base font-semibold leading-7 text-neutral-900">Choose an amount</h2>
+          <h2 className="text-base font-semibold leading-7 text-zinc-900">Choose an amount</h2>
           <div className="grid grid-cols-5 gap-3 mt-2">
             {amountOptions.map((option) =>
               <div key={option}
                 onClick={() => {
                   setAmount(option)
                 }}
-                className={`${option === amount ? "bg-teal-600 text-white hover:bg-teal-500" : "ring-1 ring-inset ring-neutral-300  text-neutral-900 hover:bg-neutral-50"} 
-                ${isChecked ? "bg-neutral-200 pointer-events-none opacity-50" : ""}  flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1 cursor-pointer`}>
+                className={`${option === amount ? "bg-teal-600 text-white hover:bg-teal-500" : "ring-1 ring-inset ring-zinc-300  text-zinc-900 hover:bg-zinc-50"} 
+                ${isChecked ? "bg-zinc-200 pointer-events-none opacity-50" : ""}  flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1 cursor-pointer`}>
                 {option}
               </div>
             )}
@@ -78,7 +78,7 @@ const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = (
         </div>
 
         <div className="pt-8">
-          <h2 className="text-base font-semibold leading-7 text-neutral-900">Payment Method</h2>
+          <h2 className="text-base font-semibold leading-7 text-zinc-900">Payment Method</h2>
           <div className="flex items-center space-x-10 space-y-0 mt-2">
             {Object.values(PaymentGateway).map((value) =>
               <RadioButton value={value} selected={selectedGateway} setSelected={setSelectedGateway} />

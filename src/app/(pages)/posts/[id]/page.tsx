@@ -15,7 +15,7 @@ export default function Post({ params }: { params: any }) {
       <section className="py-16">
         <div className="w-full max-w-4xl mx-auto px-4 text-center">
           <h3 className="font-bold text-xl">{post?.title}</h3>
-          <p className="text-neutral-500 text-sm">post?.created_at</p>
+          <p className="text-zinc-500 text-sm">post?.created_at</p>
         </div>
 
         <img src={post?.thumb_image} className="w-full max-w-4xl aspect-[16/9] mx-auto" />
@@ -24,7 +24,7 @@ export default function Post({ params }: { params: any }) {
           <div className="flex items-center gap-x-6 mb-5">
             <p>{post?.content}</p>
           </div>
-          <div className="border border-neutral-100 px-5 py-5 rounded-lg">
+          <div className="border border-zinc-100 px-5 py-5 rounded-lg">
             insert description
           </div>
           <div>

@@ -117,11 +117,11 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, re
         />
 
         <div className="col-span-2">
-          <label className="block text-sm font-medium leading-6 text-neutral-900">
+          <label className="block text-sm font-medium leading-6 text-zinc-900">
             Card details
           </label>
           <CardElement
-            className="mt-2 col-span-2 block w-full rounded-md border-0 px-3 py-4 text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 sm:leading-6"
+            className="mt-2 col-span-2 block w-full rounded-md border-0 px-3 py-4 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 sm:leading-6"
           />
         </div>
 
