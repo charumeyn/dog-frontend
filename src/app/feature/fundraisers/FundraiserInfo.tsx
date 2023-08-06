@@ -24,7 +24,7 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
     <>
       <h1 className="text-4xl mb-4">{fundraiser?.title}</h1>
       <ProgressBar fundraiser={fundraiser} />
-      <p className="text-gray-500 mb-8">${totalDonations} {' '} raised out of ${fundraiser?.goal_amount}</p>
+      <p className="text-neutral-500 mb-8">${totalDonations} {' '} raised out of ${fundraiser?.goal_amount}</p>
       <PaypalCheckout fundraiser={fundraiser} />
       <a href="" className="w-full inline-block text-center mt-5 text-md">Share</a>
 
@@ -35,7 +35,7 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
             <img src="https://images.pexels.com/photos/3104709/pexels-photo-3104709.jpeg" className="w-16 h-16 rounded-full" />
             <div>
               <p className="text-sm">{fundraiser.donations[0].transaction_firstname}</p>
-              <p className="text-sm text-gray-500">${fundraiser.donations[0].amount} • {moment(fundraiser.donations[0].created_at).startOf('hour').fromNow()}</p>
+              <p className="text-sm text-neutral-500">${fundraiser.donations[0].amount} • {moment(fundraiser.donations[0].created_at).startOf('hour').fromNow()}</p>
             </div>
           </div>
           {/* <a href="" className="text-sm">View list of donors</a> */}

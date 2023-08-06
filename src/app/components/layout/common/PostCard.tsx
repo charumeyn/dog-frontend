@@ -13,7 +13,7 @@ const PostCard: React.FunctionComponent<PostCard> = ({ post }) => {
           alt={post.title} />
       </div >
       <p className="font-bold text-xl mt-5 mb-2">{post.title}</p>
-      <p className="text-gray-600 mb-2">{post.content}</p>
+      <p className="text-neutral-600 mb-2">{post.content}</p>
     </a>
   )
 }

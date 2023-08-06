@@ -118,17 +118,17 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
 
 
   return (
-    <div className="bg-gray-100 py-20">
+    <div className="bg-neutral-100 py-20">
 
       <h1 className="text-2xl font-bold max-w-2xl mx-auto mb-4 text-center">Create a Fundraiser</h1>
       <div className="grid grid-cols-5 gap-x-4 max-w-2xl mx-auto mb-4">
         <SectionTab section={FundraiserSection.Purpose} selectedSection={selectedSection} number={1} />
         <div className="flex gap-x-2 items-center">
-          <div className="h-0.5 w-full bg-gray-300"></div>
+          <div className="h-0.5 w-full bg-neutral-300"></div>
         </div>
         <SectionTab section={FundraiserSection.Details} selectedSection={selectedSection} number={2} />
         <div className="flex gap-x-2 items-center">
-          <div className="h-0.5 w-full bg-gray-300"></div>
+          <div className="h-0.5 w-full bg-neutral-300"></div>
         </div>
         <SectionTab section={FundraiserSection.Content} selectedSection={selectedSection} number={3} />
       </div>
@@ -163,23 +163,23 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
             />
         }
 
-        <div className="flex justify-end gap-x-4 px-6 py-5 border-t border-gray-300">
+        <div className="flex justify-end gap-x-4 px-6 py-5 border-t border-neutral-300">
           <button
             value={selectedSection}
             onClick={(e: any) => handlePrevClick(e)}
-            className="text-gray-500 border border-gray-300 px-6 py-3 rounded-lg hover:cursor-pointer hover:bg-gray-100">
+            className="text-neutral-500 border border-neutral-300 px-6 py-3 rounded-lg hover:cursor-pointer hover:bg-neutral-100">
             Back
           </button>
           {selectedSection === FundraiserSection.Content ?
             <span
               onClick={(e: any) => handleSave(e)}
-              className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-gray-200 text-gray-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}>
+              className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-neutral-200 text-neutral-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}>
               Save
             </span> :
             <button
               value={selectedSection}
               onClick={(e: any) => handleNextClick(e)}
-              className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-gray-200 text-gray-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}
+              className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-neutral-200 text-neutral-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}
               disabled={!isActive}>
               Continue
             </button>}

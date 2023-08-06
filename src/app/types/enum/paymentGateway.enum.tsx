@@ -1,4 +1,4 @@
 export enum PaymentGateway {
-  Paypal = "PAYPAL",
-  Stripe = "STRIPE"
+  Paypal = "Paypal",
+  Stripe = "Stripe"
 }

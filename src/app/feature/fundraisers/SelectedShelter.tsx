@@ -12,7 +12,7 @@ const SelectedShelter: React.FunctionComponent<SelectedShelterProps> = ({ shelte
 
   return (
     <div>
-      <h3 className="text-gray-700 mb-2 mt-6">Selected dog:</h3>
+      <h3 className="text-neutral-700 mb-2 mt-6">Selected dog:</h3>
       <div className="flex bg-teal-600 rounded-lg px-4 py-3 items-center gap-x-4 w-80">
         <img src={shelter?.images[0]} className="w-14 h-14 rounded-full" />
         <div>

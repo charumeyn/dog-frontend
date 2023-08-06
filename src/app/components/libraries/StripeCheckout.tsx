@@ -8,16 +8,18 @@ import { DonationType } from "@/app/types/enum/donationType.enum";
 import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum";
 import { CardElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
+import Input, { InputType } from "../layout/common/Input";
+import Button from "../layout/common/Button";
 
 type StripeCheckoutProps = {
   type: DonationType;
   recipient_id: number;
-  finalAmount?: number;
+  amount?: number;
 }
 
 
-const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, recipient_id, finalAmount }) => {
+const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, recipient_id, amount }) => {
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -89,12 +91,47 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, re
     }
   };
 
+  const disableButton = useMemo(() => {
+    return amount == 0 || firstName === "" || lastName === "";
+  }, [amount, firstName, lastName])
+
+
   return (
     <form onSubmit={onSubmit}>
-      <div className="px-4 pb-4">
-        <CardElement className="border border-2 border-teal-600 px-5 py-5 rounded-lg" />
-        <button className="text-center text-white px-5 py-3 font-bold rounded-lg bg-teal-600 w-full mt-5 hover:bg-teal-700" type="submit">Pay with Card</button>
+      <div className="mt-4 grid grid-cols-2 gap-y-6 gap-x-4">
+
+        <Input
+          type={InputType.Text}
+          name="firstName"
+          label="First Name"
+          placeholder="First Name"
+          onChange={(e: any) => setFirstName(e.target.value)}
+        />
+
+        <Input
+          type={InputType.Text}
+          name="lastName"
+          label="Last Name"
+          placeholder="Last Name"
+          onChange={(e: any) => setLastName(e.target.value)}
+        />
+
+        <div className="col-span-2">
+          <label className="block text-sm font-medium leading-6 text-neutral-900">
+            Card details
+          </label>
+          <CardElement
+            className="mt-2 col-span-2 block w-full rounded-md border-0 px-3 py-4 text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-300 sm:leading-6"
+          />
+        </div>
+
+        <div className="col-span-2 mt-2">
+          <Button type="submit" text="Pay with Card" classNames="w-full" disabled={disableButton} />
+        </div>
       </div>
+
+
+
     </form>
   );
 }

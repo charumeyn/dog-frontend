@@ -14,10 +14,10 @@ import { useCallback, useMemo, useState } from "react";
 type PaypalCheckoutProps = {
   type: DonationType;
   recipient_id: number;
-  finalAmount?: number;
+  amount?: number;
 }
 
-const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ type, recipient_id, finalAmount }) => {
+const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ type, recipient_id, amount }) => {
 
   const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
     console.log("onSuccess", data)
@@ -36,18 +36,6 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ type, re
   const { mutate: createDonation } = useCreateDonation(onCreateSuccess, onCreateError);
 
   const [error, setError] = useState("");
-  // const [amount, setAmount] = useState<number | undefined>(0);
-  // const [customAmount, setCustomAmount] = useState<number | undefined>(0);
-
-  // const finalAmount = useMemo(() => {
-  //   if (amount != undefined || amount != 0) {
-  //     return amount
-  //   } else {
-  //     return customAmount
-  //   }
-  // }, [amount, customAmount])
-
-  // const amountOptions = [10, 20, 30, 50, 100, 200]
 
   const handleOnApprove = useCallback((order: any) => {
 
@@ -76,48 +64,18 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ type, re
         {
           description: type === DonationType.Fundraiser ? `Fundraiser ID: ${recipient_id}` : `Dog ID: ${recipient_id}`,
           amount: {
-            value: finalAmount
+            value: amount
           }
         }
       ]
     })
-  }, [finalAmount, recipient_id])
+  }, [amount, recipient_id])
 
   return (
     <div>
-
-      {/* <div className="grid grid-cols-3 gap-2">
-        {amountOptions.map((option) =>
-          <div key={option}
-            onClick={() => {
-              setAmount(option)
-              setCustomAmount(0)
-            }}
-            className={`${option === amount ? "border-orange-600 bg-orange-600 text-white" : "hover:text-orange-600 hover:bg-orange-50 hover:border-orange-100"} grid-col-1 text-center border border-gray-200 rounded-md text-gray-500 font-medium hover:cursor-pointer py-3`}>
-            ${option}
-          </div>
-        )}
-        <div className="col-span-3 mt-2 mb-4">
-          <label>
-            <span className="text-sm text-gray-600">Or enter a custom amount</span>
-            <input type="text"
-              name="customAmount"
-              id="customAmount"
-              value={customAmount}
-              onChange={(e: any) => {
-                setCustomAmount(Number(e.target.value))
-                setAmount(0)
-              }}
-              className="w-full border border-gray-200 rounded-md text-gray-800 font-medium py-3 px-3 focus:ring-0 focus:border-orange-500"
-              placeholder="Enter amount"
-            />
-          </label>
-        </div>
-      </div> */}
-
       <div className="mt-5">
         <PayPalButtons
-          forceReRender={[finalAmount]}
+          forceReRender={[amount]}
           style={{
             color: "gold",
             layout: "horizontal",

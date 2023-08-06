@@ -33,12 +33,12 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
 
   return (
     <div className="px-6 py-6">
-      <h3 className="text-gray-700 mb-2">Who are you fundraising for?</h3>
+      <h3 className="text-neutral-700 mb-2">Who are you fundraising for?</h3>
       <div className="grid grid-cols-3 gap-x-2">
         {Object.entries(RecipientType).map((text, i) =>
           <label htmlFor={text[1]} key={i}
-            className={`${type == text[1] ? "border-teal-600 text-teal-600" : "hover:border-gray-500 hover:text-gray-700"} 
-              font-medium rounded-lg text-center border-2 hover:cursor-pointer py-5 border-gray-300 text-gray-500`}>
+            className={`${type == text[1] ? "border-teal-600 text-teal-600" : "hover:border-neutral-500 hover:text-neutral-700"} 
+              font-medium rounded-lg text-center border-2 hover:cursor-pointer py-5 border-neutral-300 text-neutral-500`}>
             <input
               id={text[1]}
               type="radio"
@@ -55,13 +55,13 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
 
       {type === RecipientType.Dog && dogId === undefined ?
         <div>
-          <h3 className="text-gray-700 mb-2 mt-6">Select a dog</h3>
+          <h3 className="text-neutral-700 mb-2 mt-6">Select a dog</h3>
           <select
             id="dogId"
             name="dogId"
             value={dogId}
             onChange={(e: any) => setDogId(e.target.value)}
-            className="block w-full text-sm border border-gray-300 rounded-md px-4 py-3"
+            className="block w-full text-sm border border-neutral-300 rounded-md px-4 py-3"
           >
             {dogs?.map((dog) => (
               <option key={dog.id} value={dog.id}>
@@ -80,13 +80,13 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
 
       {/* {type === RecipientType.Shelter && shelterId === undefined ?
         <div>
-          <h3 className="text-gray-700 mb-2 mt-6">Select a shelter</h3>
+          <h3 className="text-neutral-700 mb-2 mt-6">Select a shelter</h3>
           <select
             id="shelterId"
             name="shelterId"
             value={shelterId}
             onChange={(e: any) => setShelterId(e.target.value)}
-            className="block w-full text-sm border border-gray-300 rounded-md px-4 py-3"
+            className="block w-full text-sm border border-neutral-300 rounded-md px-4 py-3"
           >
             {shelters?.map((shelter) => (
               <option key={shelter.id} value={shelter.id}>
@@ -103,24 +103,24 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
         : null
       } */}
 
-      <h3 className="text-gray-700 mb-2 mt-6">What describes the purpose of your fundraising intiative?</h3>
+      <h3 className="text-neutral-700 mb-2 mt-6">What describes the purpose of your fundraising intiative?</h3>
       <div className="flex gap-x-2">
         {purposes.map((text, i) =>
           <span key={i} onClick={() => setPurpose(text)}
-            className={`${text === purpose ? "border-teal-600 text-teal-600" : "hover:border-gray-500 hover:text-gray-700"} 
-              border px-4 py-2 rounded-full hover:cursor-pointer border-gray-300 text-gray-500`}>
+            className={`${text === purpose ? "border-teal-600 text-teal-600" : "hover:border-neutral-500 hover:text-neutral-700"} 
+              border px-4 py-2 rounded-full hover:cursor-pointer border-neutral-300 text-neutral-500`}>
             {text}
           </span>
         )}
       </div>
 
-      {/* <h3 className="text-gray-700 mb-2 mt-6">Where are you located?</h3> */}
+      {/* <h3 className="text-neutral-700 mb-2 mt-6">Where are you located?</h3> */}
       {/* <select
         id="country"
         name="country"
         value={country}
         onChange={(e: any) => setCountry(e.target.value)}
-        className="block w-full text-sm border border-gray-300 rounded-md px-4 py-3"
+        className="block w-full text-sm border border-neutral-300 rounded-md px-4 py-3"
       >
         {Object.entries(Country).map((country, index) => (
           <option key={country[0]} value={country[1]}>

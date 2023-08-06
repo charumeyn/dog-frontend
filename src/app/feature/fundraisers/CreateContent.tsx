@@ -18,20 +18,20 @@ const CreateContent: React.FunctionComponent<CreateContentProps> = ({ images, se
   return (
     <div className="px-6 py-6">
 
-      <h3 className="text-gray-700 mb-2 mt-4">Fundraiser Title</h3>
+      <h3 className="text-neutral-700 mb-2 mt-4">Fundraiser Title</h3>
       <input
         type="text"
         id="title"
         name="title"
         value={title}
         onChange={(e: any) => setTitle(e.target.value)}
-        className="border border-gray-300 px-3 py-2 rounded-lg w-full"
+        className="border border-neutral-300 px-3 py-2 rounded-lg w-full"
       />
 
-      <h3 className="text-gray-700 mb-2  mt-4">Upload images</h3>
+      <h3 className="text-neutral-700 mb-2  mt-4">Upload images</h3>
       <S3Uploader images={images} setImages={setImages} mainImage={mainImage} setMainImage={setMainImage} />
 
-      <h3 className="text-gray-700 mb-2 mt-4">Create content</h3>
+      <h3 className="text-neutral-700 mb-2 mt-4">Create content</h3>
       <textarea
         id="content"
         name="content"
@@ -39,7 +39,7 @@ const CreateContent: React.FunctionComponent<CreateContentProps> = ({ images, se
         cols={20}
         value={content}
         onChange={(e: any) => setContent(e.target.value)}
-        className="border border-gray-300 px-3 py-2 rounded-lg w-full"
+        className="border border-neutral-300 px-3 py-2 rounded-lg w-full"
       />
     </div >
   )
