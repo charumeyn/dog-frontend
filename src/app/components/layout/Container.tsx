@@ -2,8 +2,7 @@ import { ReactNode } from "react";
 
 export enum ContainerType {
   SingleColumn = "SingleColumn",
-  LeftSidebar = "LeftSidebar",
-  LeftRightSidebar = "LeftRightSidebar"
+  ImageWithContent = "ImageWithContent"
 }
 
 type Container = {
@@ -11,11 +10,10 @@ type Container = {
   className?: string;
   type?: ContainerType;
   mainContent: ReactNode;
-  leftContent?: ReactNode;
-  rightContent?: ReactNode;
+  imageContent?: ReactNode;
 }
 
-const Container: React.FunctionComponent<Container> = ({ mainContent, leftContent, rightContent, withBg, type, className }) => {
+const Container: React.FunctionComponent<Container> = ({ mainContent, imageContent, withBg, type, className }) => {
 
   return (
     <div className={`
@@ -29,23 +27,16 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, leftConten
             {mainContent}
           </div> : null}
 
-        {type === ContainerType.LeftRightSidebar ?
-          <div className="flex min-h-full flex-col">
-            <div className="mx-auto flex w-full items-start gap-x-8">
-              <aside className="hidden w-60	shrink-0 lg:block">
-                {leftContent}
-              </aside>
-
-              <main className="flex-1">
-                {mainContent}
-              </main>
-
-              <aside className="hidden w-52 shrink-0 xl:block">
-                {rightContent}
-              </aside>
+        {type === ContainerType.ImageWithContent ?
+          <div className="flex gap-x-8">
+            <div className="w-3/5">
+              {imageContent}
             </div>
-          </div>
-          : null}
+            <div className="w-2/5">
+              {mainContent}
+            </div>
+          </div> : null}
+
       </div>
     </div>
   )

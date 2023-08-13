@@ -1,5 +1,6 @@
 "use client"
 
+import Container, { ContainerType } from "@/app/components/layout/Container";
 import DogCard from "@/app/components/layout/common/DogCard";
 import PostCard from "@/app/components/layout/common/PostCard";
 import DogInfo from "@/app/feature/dogs/DogInfo";
@@ -18,7 +19,22 @@ export default function Dog({ params }: { params: any }) {
 
   return (
     <main>
-      <section className="py-16">
+
+      <Container
+        type={ContainerType.ImageWithContent}
+        className="mt-16"
+        imageContent={
+          <img className="aspect-[16/9] object-cover rounded-xl"
+            src={dog?.images[0]} alt={dog?.name} />
+        }
+        mainContent={
+          <div className="bg-white rounded-xl py-8 px-8 border border-zinc-300">
+            <DogInfo dog={dog} />
+          </div>
+        }
+      />
+
+      {/* <section className="py-16">
         <div className="w-full max-w-screen-xl flex gap-x-8 mx-auto px-4">
           <div className="w-3/5">
             <img className="aspect-[16/9] object-cover rounded-xl"
@@ -28,7 +44,7 @@ export default function Dog({ params }: { params: any }) {
             <DogInfo dog={dog} />
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="py-16">
         <div className="w-full max-w-screen-2xl mx-auto px-4">
