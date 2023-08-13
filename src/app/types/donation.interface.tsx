@@ -16,6 +16,6 @@ export interface Donation {
   status: PaymentStatus;
   amount: number;
   created_at: Date;
-  dog?: Dog | null;
-  fundraiser?: Fundraiser | null;
+  dog?: Dog;
+  fundraiser?: Fundraiser;
 }

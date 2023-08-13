@@ -5,10 +5,10 @@ export interface Post {
   id: number;
   title: string;
   content: string;
-  thumb_image: string;
+  mainImage: string;
   images: string[];
-  created_at: Date;
-  updated_at?: Date | null;
-  deleted_at?: Date | null;
+  createdAt: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
   dog: Dog;
 };

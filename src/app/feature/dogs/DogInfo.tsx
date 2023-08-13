@@ -1,5 +1,6 @@
 "use client";
 
+import { IconDog, IconPin, IconShare } from "@/app/components/layout/Icons";
 import PaymentModal from "@/app/components/layout/common/PaymentModal";
 import PaymentModalContent from "@/app/components/layout/common/PaymentModalContent";
 import PaypalCheckout from "@/app/components/libraries/PaypalCheckout"
@@ -17,20 +18,26 @@ type DogInfoProps = {
 
 
 const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog }) => {
-
-
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
 
   return (
     <>
-      <h1 className="text-4xl mb-2">Hello, I'm <strong>{dog?.name}</strong></h1>
-      <p className="text-zinc-500 mb-8">Location</p>
+      <div className="flex justify-between">
+        <h1 className="text-2xl">Hello, I'm <strong>{dog?.name}</strong></h1>
+        <div className="flex gap-x-1 items-center text-sm text-zinc-500"><IconShare className="w-3 h-3" /> Share</div>
+      </div>
+      <div className="flex items-center gap-x-1 mt-1 text-zinc-500 mb-8"><IconPin /> Location</div>
+
+
       <div className="grid grid-cols-2 gap-x-10 gap-y-4">
-        <div className="col-span-1">
-          <p className="text-zinc-500 text-sm">Breed</p>
-          <p><strong>{dog?.breed}</strong></p>
+        <div className="flex gap-x-2">
+          <IconDog className="w-10 h-10 text-teal-600" />
+          <div>
+            <p className="text-zinc-500 text-sm">Breed</p>
+            <p className="te"><strong>{dog?.breed}</strong></p>
+          </div>
+
         </div>
         <div className="col-span-1">
           <p className="text-zinc-500 text-sm">Size</p>

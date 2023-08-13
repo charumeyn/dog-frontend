@@ -18,13 +18,13 @@ export default function Dog({ params }: { params: any }) {
 
   return (
     <main>
-      <section className="py-16 bg-zinc-100">
-        <div className="w-full max-w-screen-2xl mx-auto px-4 grid grid-cols-5 gap-x-16">
-          <div className="col-span-3">
-            <img className="aspect-[16/9] object-cover rounded-lg"
+      <section className="py-16">
+        <div className="w-full max-w-screen-xl flex gap-x-8 mx-auto px-4">
+          <div className="w-3/5">
+            <img className="aspect-[16/9] object-cover rounded-xl"
               src={dog?.images[0]} alt={dog?.name} />
           </div>
-          <div className="col-span-2 bg-white rounded-lg py-10 px-10 shadow-lg">
+          <div className="w-2/5 bg-white rounded-xl py-8 px-8 border border-zinc-300">
             <DogInfo dog={dog} />
           </div>
         </div>

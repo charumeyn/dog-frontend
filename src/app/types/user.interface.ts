@@ -6,10 +6,10 @@ export interface User {
   id: number;
   email: string;
   password: string;
-  last_login_at: Date | null;
-  first_name: string | null;
-  last_name: string | null;
-  phone: string | null;
+  lastLoginAt?: Date;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
   type: UserType;
   address: Address;
   shelter: Shelter;
@@ -19,6 +19,7 @@ export interface User {
 }
 
 export enum UserType {
-  ADMIN = "ADMIN",
-  MEMBER = "MEMBER",
+  User = "user",
+  Admin = "admin",
+  Shelter = "shelter",
 }

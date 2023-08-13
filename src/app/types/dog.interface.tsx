@@ -15,8 +15,8 @@ export interface Dog {
   description: string;
   is_active: boolean;
   created_at: Date;
-  updated_at?: Date | null;
-  deleted_at?: Date | null;
+  updated_at?: Date;
+  deleted_at?: Date;
   shelter: Shelter;
   posts: Post[];
   donations: Donation[];
