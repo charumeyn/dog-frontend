@@ -9,8 +9,9 @@ export default function Account({ params }: { params: any }) {
   const { data: account, isLoading: isLoadingAccount } = useAccount();
 
   return (
-    isLoadingAccount ?
-      <AccountContentSkeleton /> :
-      <AccountContent account={account?.data} />
+    // isLoadingAccount ?
+    //   <AccountContentSkeleton /> :
+    //   <AccountContent account={account?.data} />
+    <div>{JSON.stringify(account)}</div>
   )
 }

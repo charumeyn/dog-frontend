@@ -4,6 +4,7 @@ import { RegisterDto } from "@/app/types/dto/register.dto";
 import { User } from "@/app/types/user.interface";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/app/queryKey/queryKeys";
+import { Account } from "@/app/types/account.interface";
 
 
 const register = async (dto: RegisterDto) => {
@@ -86,7 +87,7 @@ const getAccount = async () => {
 };
 
 const useAccount = () => {
-  return useQuery<SuccessResult<User>>(
+  return useQuery<SuccessResult<Account>>(
     queryKeys.account(),
     () => getAccount(),
   );

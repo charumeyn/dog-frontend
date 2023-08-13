@@ -12,7 +12,7 @@ const Button: React.FunctionComponent<ButtonLinkProps> = ({ text, url, fullWidth
   return (
     <a
       href={url}
-      className={`${fullWidth ? "w-full" : "inline-block"} bg-teal-600 hover:bg-teal-700 items-center gap-x-2 rounded-md px-6 py-3 font-semibold text-white shadow-sm`}>
+      className={`${fullWidth ? "w-full inline-block text-center" : "inline-block"} bg-teal-600 hover:bg-teal-700 items-center gap-x-2 rounded-md px-6 py-3 font-semibold text-white shadow-sm`}>
       {text}
     </a>
   )

@@ -6,20 +6,25 @@ import { Donation } from "@/app/types/donation.interface";
 import { DonationCreateDto } from "@/app/types/dto/payment.dto";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum";
-import { CardElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React, { useCallback, useMemo, useState } from "react";
 import Input, { InputType } from "../layout/common/Input";
 import Button from "../layout/common/Button";
+import { RecipientType } from "@/app/types/enum/recipientType.enum";
+import { Account } from "@/app/types/account.interface";
 
 type StripeCheckoutProps = {
-  type: DonationType;
-  recipient_id: number;
+  donationType: DonationType;
+  recipientType: RecipientType;
+  recipientId?: number;
+  fundraiserId?: number;
   amount?: number;
+  account: SuccessResult<Account> | undefined;
 }
 
 
-const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, recipient_id, amount }) => {
+const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipientType, donationType, recipientId, fundraiserId, amount, account }) => {
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -45,25 +50,24 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, re
   const handleOnApprove = useCallback((order: any) => {
 
     const body: DonationCreateDto = {
-      transaction_id: order.id,
+      transactionId: order.id,
+      transactionFirstName: firstName,
+      transactionLastName: lastName,
       email: order.email,
-      payment_gateway: PaymentGateway.Stripe,
-      type: type === DonationType.Fundraiser ? DonationType.Fundraiser : DonationType.Dog,
+      recipientType: recipientType === RecipientType.Dog ? RecipientType.Dog : recipientType === RecipientType.Shelter ? RecipientType.Shelter : RecipientType.User,
+      donationType: donationType === DonationType.Dog ? DonationType.Dog : DonationType.Fundraiser,
+      paymentGateway: PaymentGateway.Stripe,
       status: order.status,
       amount: order.amount,
-      dog_id: type === DonationType.Dog ? recipient_id : undefined,
-      fundraiser_id: type === DonationType.Fundraiser ? recipient_id : undefined,
-      user_id: 1,
-      donor_id: 1,
-      transaction_firstname: firstName,
-      transaction_lastname: lastName,
-      created_at: new Date(),
+      dogId: recipientType === RecipientType.Dog ? recipientId : undefined,
+      shelterId: recipientType === RecipientType.Shelter ? recipientId : undefined,
+      userId: recipientType === RecipientType.User ? recipientId : undefined,
+      fundraiserId: fundraiserId ? fundraiserId : undefined,
+      donorId: account && account.data.data.id,
     }
 
-    console.log(body);
-
     createDonation(body)
-  }, [type, recipient_id, firstName, lastName, createDonation])
+  }, [firstName, lastName, createDonation])
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,10 +77,10 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, re
       if (!stripe || !cardElement) return null;
       const { data } = await axios.post("/api/create-payment-intent", {
         data: {
-          amount: 89,
+          amount: amount,
           currency: 'usd',
-          description: "test",
-          email: 'char1@gmail.com',
+          description: `Donation for ${fundraiserId ? `Fundraiser ID ${fundraiserId}` : `Dog ID ${recipientId}`} `,
+          email: account && account.data.data.email,
         },
       });
       const clientSecret = data.clientSecret;
@@ -129,9 +133,6 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ type, re
           <Button type="submit" text="Pay with Card" classNames="w-full" disabled={disableButton} />
         </div>
       </div>
-
-
-
     </form>
   );
 }

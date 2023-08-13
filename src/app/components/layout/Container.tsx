@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 export enum ContainerType {
   SingleColumn = "SingleColumn",
+  NarrowColumn = "NarrowColumn",
   ImageWithContent = "ImageWithContent"
 }
 
@@ -20,12 +21,11 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, imageConte
         ${withBg ? "bg-zinc-300" : ""} 
         ${className ? className : ""}
     `}>
-      <div className="w-full max-w-screen-xl mx-auto px-4">
+      <div className={`${type === ContainerType.NarrowColumn ? "max-w-xl" : "max-w-screen-xl"} w-full  mx-auto px-4`}>
 
-        {type === ContainerType.SingleColumn ?
-          <div>
-            {mainContent}
-          </div> : null}
+        {type === ContainerType.SingleColumn || type === ContainerType.NarrowColumn ?
+          mainContent
+          : null}
 
         {type === ContainerType.ImageWithContent ?
           <div className="flex gap-x-8">

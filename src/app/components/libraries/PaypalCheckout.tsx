@@ -1,23 +1,28 @@
 "use client"
 
 import { useCreateDonation } from "@/app/hooks/api/useDonations";
+import { Account } from "@/app/types/account.interface";
 import { SuccessResult } from "@/app/types/apiResult";
 import { Dog } from "@/app/types/dog.interface";
 import { Donation } from "@/app/types/donation.interface";
 import { DonationCreateDto } from "@/app/types/dto/payment.dto";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum";
+import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Fundraiser } from "@/app/types/fundraiser.interface";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useCallback, useMemo, useState } from "react";
 
 type PaypalCheckoutProps = {
-  type: DonationType;
-  recipient_id: number;
+  donationType: DonationType;
+  recipientType: RecipientType;
+  recipientId?: number;
+  fundraiserId?: number;
   amount?: number;
+  account: SuccessResult<Account> | undefined;
 }
 
-const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ type, recipient_id, amount }) => {
+const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donationType, recipientType, recipientId, fundraiserId, amount, account }) => {
 
   const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
     console.log("onSuccess", data)
@@ -40,36 +45,39 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ type, re
   const handleOnApprove = useCallback((order: any) => {
 
     const body: DonationCreateDto = {
-      transaction_id: order.id,
+      transactionId: order.id,
+      transactionFirstName: order.payer.name.given_name,
+      transactionLastName: order.payer.name.surname,
       email: order.payer.email_address,
-      payment_gateway: PaymentGateway.Paypal,
-      type: type === DonationType.Fundraiser ? DonationType.Fundraiser : DonationType.Dog,
+      recipientType: recipientType === RecipientType.Dog ? RecipientType.Dog : recipientType === RecipientType.Shelter ? RecipientType.Shelter : RecipientType.User,
+      donationType: donationType === DonationType.Dog ? DonationType.Dog : DonationType.Fundraiser,
+      paymentGateway: PaymentGateway.Paypal,
       status: order.status,
       amount: Number(order.purchase_units[0].amount.value),
-      dog_id: type === DonationType.Dog ? recipient_id : undefined,
-      fundraiser_id: type === DonationType.Fundraiser ? recipient_id : undefined,
-      user_id: 1,
-      donor_id: 1,
-      transaction_firstname: order.payer.name.given_name,
-      transaction_lastname: order.payer.name.surname,
-      created_at: new Date(),
+      dogId: recipientType === RecipientType.Dog ? recipientId : undefined,
+      shelterId: recipientType === RecipientType.Shelter ? recipientId : undefined,
+      userId: recipientType === RecipientType.User ? recipientId : undefined,
+      fundraiserId: fundraiserId ? fundraiserId : undefined,
+      donorId: account && account.data.data.id,
     }
 
+    console.log(body);
+
     createDonation(body)
-  }, [type, recipient_id, createDonation])
+  }, [createDonation])
 
   const handleCreateOrder = useCallback((actions: any) => {
     return actions.order.create({
       purchase_units: [
         {
-          description: type === DonationType.Fundraiser ? `Fundraiser ID: ${recipient_id}` : `Dog ID: ${recipient_id}`,
+          description: `Donation for ${fundraiserId ? `Fundraiser ID ${fundraiserId}` : `Dog ID ${recipientId}`} `,
           amount: {
             value: amount
           }
         }
       ]
     })
-  }, [amount, recipient_id])
+  }, [amount])
 
   return (
     <div>

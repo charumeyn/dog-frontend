@@ -4,6 +4,7 @@ import Container, { ContainerType } from "@/app/components/layout/Container";
 import DogCard from "@/app/components/layout/common/DogCard";
 import PostCard from "@/app/components/layout/common/PostCard";
 import DogInfo from "@/app/feature/dogs/DogInfo";
+import { useAccount } from "@/app/hooks/api/useAuth";
 import { useDog, useDogs } from "@/app/hooks/api/useDogs";
 
 type Dog = {
@@ -16,6 +17,7 @@ export default function Dog({ params }: { params: any }) {
 
   const { data: dog, isLoading: isLoadingDog, isFetching, error } = useDog(id);
   const { data: dogs, isLoading: isLoadingDogs } = useDogs(4);
+  const { data: account } = useAccount();
 
   return (
     <main>
@@ -29,22 +31,10 @@ export default function Dog({ params }: { params: any }) {
         }
         mainContent={
           <div className="bg-white rounded-xl py-8 px-8 border border-zinc-300">
-            <DogInfo dog={dog} />
+            <DogInfo dog={dog} account={account} />
           </div>
         }
       />
-
-      {/* <section className="py-16">
-        <div className="w-full max-w-screen-xl flex gap-x-8 mx-auto px-4">
-          <div className="w-3/5">
-            <img className="aspect-[16/9] object-cover rounded-xl"
-              src={dog?.images[0]} alt={dog?.name} />
-          </div>
-          <div className="w-2/5 bg-white rounded-xl py-8 px-8 border border-zinc-300">
-            <DogInfo dog={dog} />
-          </div>
-        </div>
-      </section> */}
 
       <section className="py-16">
         <div className="w-full max-w-screen-2xl mx-auto px-4">

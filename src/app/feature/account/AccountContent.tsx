@@ -13,7 +13,7 @@ const AccountContent: React.FunctionComponent<AccountContentProps> = ({ account 
           <div className="max-w-4xl">
             <p className="mb-2 text-zinc-500 text-sm">Created by</p>
             <div className="border border-zinc-100 rounded-lg px-5 py-5 mb-8">
-              <p className="text-sm">{account?.first_name}</p>
+              <p className="text-sm">{account?.firstName}</p>
             </div>
 
           </div>

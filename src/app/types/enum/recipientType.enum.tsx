@@ -1,5 +1,5 @@
 export enum RecipientType {
-  Dog = "DOG",
-  Shelter = "SHELTER",
-  User = "USER"
+  Dog = "dog",
+  Shelter = "shelter",
+  User = "user"
 }

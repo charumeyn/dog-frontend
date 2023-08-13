@@ -1,19 +1,21 @@
+import { NumberLiteralType } from "typescript";
 import { DonationType } from "../enum/donationType.enum";
 import { PaymentGateway } from "../enum/paymentGateway.enum";
 import { RecipientType } from "../enum/recipientType.enum";
 
 export interface DonationCreateDto {
-  transaction_id: string;
+  transactionId: string;
+  transactionFirstName: string;
+  transactionLastName: string,
   email: string;
-  payment_gateway: PaymentGateway;
-  type: DonationType;
+  recipientType: RecipientType;
+  donationType: DonationType;
+  paymentGateway: PaymentGateway;
   status: string;
   amount: number;
-  dog_id?: number;
-  fundraiser_id?: number;
-  user_id?: number;
-  donor_id?: number;
-  transaction_firstname: string,
-  transaction_lastname: string,
-  created_at: Date
+  dogId?: number;
+  shelterId?: number;
+  userId?: number;
+  fundraiserId?: number;
+  donorId?: number;
 }

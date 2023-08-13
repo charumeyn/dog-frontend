@@ -1,6 +1,6 @@
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PaypalCheckout from "../../libraries/PaypalCheckout";
 import StripeCheckout from "../../libraries/StripeCheckout";
 import { Elements } from "@stripe/react-stripe-js";
@@ -9,16 +9,20 @@ import Input, { InputType } from "./Input";
 import Checkbox from "./Checkbox";
 import RadioButton from "./RadioButton";
 import Button from "./Button";
+import { RecipientType } from "@/app/types/enum/recipientType.enum";
+import { Account } from "@/app/types/account.interface";
+import Heading from "./Heading";
+import { SuccessResult } from "@/app/types/apiResult";
 
-type PaymentModalContentProps = {
+type PaymentContentProps = {
   image: string;
   name: string;
   type: DonationType;
-  recipient_id: number;
-  setIsOpen: (isOpen: boolean) => void;
+  recipientId: number;
+  account: SuccessResult<Account> | undefined;
 }
 
-const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = ({ image, name, type, recipient_id, setIsOpen }) => {
+const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, name, type, recipientId, account }) => {
 
   const amountOptions = [10, 20, 30, 50, 100]
   const [amount, setAmount] = useState<number | undefined>(0);
@@ -39,14 +43,15 @@ const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = (
 
 
   return (
-    <div>
-      <div className="bg-zinc-100 px-4 pb-6 pt-8 sm:p-6 sm:pb-4">
-        <img src={image} alt={name} className="w-20 h-20 rounded-full mx-auto" />
-        <h1 className="text-center mt-4 font-semibold text-lg text-zinc-900">You are sponsoring {name} ❤️</h1>
+    <div className="bg-white rounded-xl">
+      <div className="px-6 pb-8 pt-10 border-b border-zinc-100">
+        <img src={image} alt={name} className="w-24 h-24 rounded-full mx-auto" />
+        <Heading type={"h1"} text={`You are sponsoring ${name} ❤️`} className="text-center mt-5" />
+
+        {/* <h1 className="text-center mt-4 font-semibold text-lg text-zinc-900"></h1> */}
       </div>
 
       <div className="px-8 pb-8">
-
         <div className="pt-6">
           <h2 className="text-base font-semibold leading-7 text-zinc-900">Choose an amount</h2>
           <div className="grid grid-cols-5 gap-3 mt-2">
@@ -87,11 +92,11 @@ const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = (
         </div>
 
         {selectedGateway === PaymentGateway.Paypal ?
-          <PaypalCheckout type={DonationType.Dog} recipient_id={recipient_id} amount={amount} />
+          <PaypalCheckout donationType={DonationType.Dog} recipientType={RecipientType.Dog} recipientId={recipientId} amount={amount} account={account} />
           :
           selectedGateway === PaymentGateway.Stripe ?
             <Elements stripe={stripePromise}>
-              <StripeCheckout type={DonationType.Dog} recipient_id={recipient_id} amount={amount} />
+              <StripeCheckout donationType={DonationType.Dog} recipientType={RecipientType.Dog} recipientId={recipientId} amount={amount} account={account} />
             </Elements>
             :
             <div className="col-span-2 mt-4">
@@ -104,4 +109,4 @@ const PaymentModalContent: React.FunctionComponent<PaymentModalContentProps> = (
   )
 }
 
-export default PaymentModalContent;
+export default PaymentContent;
