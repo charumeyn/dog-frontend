@@ -51,7 +51,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ }) => {
               {isLoading ? null :
                 isLoggedIn ?
                   <>
-                    <a className="border-l border-zinc-200 py-5 px-8" href="/account">Hi, {account?.data.first_name}!</a>
+                    <a className="border-l border-zinc-200 py-5 px-8" href="/account">Hi, {account?.data.firstName}!</a>
                     <span className="py-5 px-8" onClick={() => logout()}>Logout</span>
                   </>
                   :

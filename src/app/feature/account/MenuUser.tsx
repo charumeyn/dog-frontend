@@ -1,5 +1,6 @@
 import { IconClose, IconDog, IconDog2, IconDonation, IconFundraiser, IconHome, IconProfile } from "@/app/components/layout/Icons";
 import ButtonLink from "@/app/components/layout/common/ButtonLink";
+import Heading from "@/app/components/layout/common/Heading";
 import { useAccount } from "@/app/hooks/api/useAuth";
 
 export function MenuUser() {
@@ -20,7 +21,7 @@ export function MenuUser() {
 
   return (
     <div>
-      <h2 className="text-zinc-600 font-medium mb-4">Dashboard</h2>
+      <Heading type="h3" text="Dashboard" className="mb-4" />
       <ul role="list" className="-mx-2 space-y-1 mb-4">
         {navigation.map((item) => (
           <li key={item.name}>
