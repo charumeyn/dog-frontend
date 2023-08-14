@@ -2,20 +2,23 @@ import { Dog } from "./dog.interface";
 import { DonationType } from "./enum/donationType.enum";
 import { PaymentGateway } from "./enum/paymentGateway.enum";
 import { PaymentStatus } from "./enum/paymentStatus.enum";
-import { RecipientType } from "./enum/recipientType.enum";
 import { Fundraiser } from "./fundraiser.interface";
+import { Shelter } from "./shelter.interface";
+import { User } from "./user.interface";
 
 export interface Donation {
   id: number;
   email: string;
-  transaction_id: string;
-  transaction_firstname: string;
-  transaction_lastname: string;
+  transactionId: string;
+  transactionFirstName: string;
+  transactionLastName: string;
   type: DonationType;
-  payment_gateway: PaymentGateway;
+  paymentGateway: PaymentGateway;
   status: PaymentStatus;
   amount: number;
-  created_at: Date;
+  createdAt: Date;
   dog?: Dog;
+  shelter?: Shelter;
+  user?: User;
   fundraiser?: Fundraiser;
 }

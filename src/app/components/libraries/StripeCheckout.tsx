@@ -13,6 +13,7 @@ import Input, { InputType } from "../layout/common/Input";
 import Button from "../layout/common/Button";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Account } from "@/app/types/account.interface";
+import { useRouter } from "next/navigation";
 
 type StripeCheckoutProps = {
   donationType: DonationType;
@@ -31,9 +32,15 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
   const stripe = useStripe();
   const elements = useElements();
 
+  const router = useRouter();
+
   const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
-    console.log("onSuccess", data)
-    window.location.reload();
+    // console.log("onSuccess", data)
+    // window.location.reload();
+    if (data.success) {
+      router.push(`/thank-you/donationType=${donationType}&id=${data.data.id}/recipientType=${recipientType}/recipientId=${recipientId}`)
+    }
+    // /thank-you?donationType=dog&recipientType=dog&recipientId=10&id=12
   },
     []
   );

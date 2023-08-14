@@ -6,7 +6,7 @@ type ButtonProps = {
   text: string;
   classNames?: string;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
 }
 
 const Button: React.FunctionComponent<ButtonProps> = ({ type, text, classNames, disabled, onClick }) => {

@@ -47,8 +47,6 @@ const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, n
       <div className="px-6 pb-8 pt-10 border-b border-zinc-100">
         <img src={image} alt={name} className="w-24 h-24 rounded-full mx-auto" />
         <Heading type={"h1"} text={`You are sponsoring ${name} ❤️`} className="text-center mt-5" />
-
-        {/* <h1 className="text-center mt-4 font-semibold text-lg text-zinc-900"></h1> */}
       </div>
 
       <div className="px-8 pb-8">
