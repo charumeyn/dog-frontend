@@ -4,15 +4,16 @@ import { Account } from "@/app/types/account.interface";
 import { SuccessResult } from "@/app/types/apiResult";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import Heading from "./Heading";
-import CommentTextArea from "@/app/feature/comment/CommentTextArea.client";
+import CommentTextArea from "@/app/feature/comment/DonationTextArea.client";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
+import DonationTextArea from "@/app/feature/comment/DonationTextArea.client";
 
 type PaymentCompleteProps = {
   name: string;
   image: string;
   type: DonationType;
   recipientId: number;
-  account: Account;
+  account?: Account;
   donationId: number;
 }
 
@@ -26,14 +27,14 @@ const PaymentComplete: React.FunctionComponent<PaymentCompleteProps> = ({ name, 
           <Heading
             type={"h1"}
             text={`${account?.data.firstName}, thank you for sponsoring ${name}!`}
-            className="!text-teal-600 !text-2xl !font-bold" />
+            className="!text-teal-600 !text-2xl !font-bold max-w-sm" />
         </div>
         <div>
           <Heading
             type={"h1"}
             text={`Leave a message for  ${name}`}
-            className="" />
-          <CommentTextArea donationType={type} recipientType={RecipientType.Dog} />
+            className="mb-5" />
+          <DonationTextArea donationType={type} recipientType={RecipientType.Dog} recipientId={recipientId} account={account} />
         </div>
       </div>
     </div>

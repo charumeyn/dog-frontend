@@ -87,7 +87,7 @@ const getAccount = async () => {
 };
 
 const useAccount = () => {
-  return useQuery<SuccessResult<Account>>(
+  return useQuery<Account>(
     queryKeys.account(),
     () => getAccount(),
   );

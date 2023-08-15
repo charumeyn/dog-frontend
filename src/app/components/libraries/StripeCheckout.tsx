@@ -137,7 +137,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
         </div>
 
         <div className="col-span-2 mt-2">
-          <Button type="submit" text="Pay with Card" classNames="w-full" disabled={disableButton} />
+          <Button type="submit" content="Pay with Card" classNames="w-full" disabled={disableButton} />
         </div>
       </div>
     </form>
