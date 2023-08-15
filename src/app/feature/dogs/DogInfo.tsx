@@ -17,7 +17,7 @@ import Link from "next/link";
 
 type DogInfoProps = {
   dog: Dog | undefined
-  account: SuccessResult<Account>;
+  account?: Account;
 }
 
 const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {

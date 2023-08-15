@@ -21,4 +21,5 @@ export interface Dog {
   shelter: Shelter;
   posts: Post[];
   donations: Donation[];
+  comments: Comment[];
 };

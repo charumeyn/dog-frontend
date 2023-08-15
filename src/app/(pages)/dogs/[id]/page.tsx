@@ -2,10 +2,14 @@
 
 import Container, { ContainerType } from "@/app/components/layout/Container";
 import DogCard from "@/app/components/layout/common/DogCard";
+import Grid from "@/app/components/layout/common/Grid";
+import Heading from "@/app/components/layout/common/Heading";
 import PostCard from "@/app/components/layout/common/PostCard";
+import CommentList from "@/app/feature/comment/CommentItem.client";
 import DogInfo from "@/app/feature/dogs/DogInfo";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useDog, useDogs } from "@/app/hooks/api/useDogs";
+import { CommentType } from "@/app/types/enum/commentType.enum";
 
 type Dog = {
   params: any;
@@ -46,45 +50,44 @@ export default function Dog({ params }: { params: any }) {
         }
       />
 
-      <section className="py-16">
-        <div className="w-full max-w-screen-2xl mx-auto px-4">
-          <div className="max-w-4xl">
-            <p className="mb-2 text-zinc-500 text-sm">Created by {dog?.shelter.name}</p>
-            <div className="border border-zinc-100 rounded-lg px-5 py-5 mb-8">
-              <p className="text-sm">{dog?.description}</p>
-            </div>
-            <p className="font-medium mb-2">Initiated by</p>
-            <div className="flex items-center justify-between pb-8 border-b border-zinc-100">
-              <div className="flex items-center gap-x-6">
-                <img src={dog?.shelter.image_thumb + '.jpeg'} className="w-20 h-20 rounded-full" />
+      <Container
+        type={ContainerType.FlushLeft}
+        className="mb-10 mt-10"
+        mainContent={
+          dog ?
+            <div>
+              <p className="mb-2 text-zinc-500 text-sm">Created by {dog?.shelter.name}</p>
+              <div className="border border-zinc-100 rounded-lg px-5 py-5 mb-8">
+                <p className="text-sm">{dog?.description}</p>
+              </div>
+              <p className="font-medium mb-2">Initiated by</p>
+              <div className="flex items-center justify-between pb-8 border-b border-zinc-100">
+                <div className="flex items-center gap-x-6">
+                  <img src={dog?.shelter.mainImage + '.jpeg'} className="w-20 h-20 rounded-full" />
+                  <div>
+                    <h3 className="font-bold">{dog?.shelter.name}</h3>
+                    <p className="text-zinc-500 text-sm">insert description</p>
+                  </div>
+                </div>
                 <div>
-                  <h3 className="font-bold">{dog?.shelter.name}</h3>
-                  <p className="text-zinc-500 text-sm">insert description</p>
+                  <a href={""} className="font-medium px-8 py-3 border border-zinc-300 rounded-full">Visit ➞</a>
                 </div>
               </div>
-              <div>
-                <a href={""} className="font-medium px-8 py-3 border border-zinc-300 rounded-full">Visit ➞</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            </div> : null
+        }
+      />
 
-      <section className="py-16">
-        <div className="w-full max-w-screen-2xl mx-auto px-4">
-          <div className="max-w-4xl">
-            <h2 className="mb-5 font-medium">Comments from the Sponsors</h2>
-            <div className="flex gap-x-5">
-              <img src="https://images.pexels.com/photos/3104709/pexels-photo-3104709.jpeg" className="w-16 h-16 rounded-full" />
-              <div>
-                <p className="font-bold">Charmaine Candava</p>
-                <p className="text-zinc-500 text-sm mb-3">$100 • 1 hr ago</p>
-                <p className="text-zinc-800 text-sm">Such a cute pup! I hope he's doing well.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Container
+        type={ContainerType.FlushLeft}
+        className=""
+        mainContent={
+          dog ?
+            <>
+              <Heading type="h2" text="Comments from the sponsors" className="mb-5" />
+              <CommentList comments={dog?.comments} />
+            </> : null
+        }
+      />
 
       {dog?.posts && dog?.posts.length > 0 ?
         <section className="py-16 bg-zinc-100">
@@ -102,19 +105,23 @@ export default function Dog({ params }: { params: any }) {
         : null
       }
 
-      <section className="py-16">
-        <div className="w-full max-w-screen-2xl mx-auto px-4">
-          <h2 className="mb-5 font-bold text-lg">Meet other dogs</h2>
-          <div className="w-full max-w-screen-2xl mx-auto">
-            <div className="grid grid-cols-4 gap-x-8">
-              {dogs?.map((dog, i) =>
-                <DogCard key={i} dog={dog} />
-              )}
-            </div>
+      <Container
+        type={ContainerType.SingleColumn}
+        className="py-16"
+        mainContent={
+          <>
+            <Heading type={"h1"} text={"Meet other dogs"} className="text-center mb-10" />
+            <Grid
+              columns={4}
+              content={
+                dogs?.map((dog, i) =>
+                  <DogCard key={i} dog={dog} />
+                )
+              } />
             <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/fundraisers/`}>View all dogs</a>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+      />
     </main>
   )
 }

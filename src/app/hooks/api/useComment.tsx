@@ -1,6 +1,19 @@
+import { queryKeys } from "@/app/queryKey/queryKeys";
 import { FailResult, SuccessResult } from "@/app/types/apiResult";
-import { CreateCommentDto } from "@/app/types/comment.interface";
-import { useMutation } from "@tanstack/react-query";
+import { Comment, CreateCommentDto } from "@/app/types/comment.interface";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+const getComment = async (id: number) => {
+  const res = await fetch(`http://localhost:3000/comments/${id}`);
+  return res.json();
+};
+
+const useComment = (id: number) => {
+  return useQuery<Comment>(
+    queryKeys.comment(id),
+    () => getComment(id),
+  );
+};
 
 const createComment = async (dto: CreateCommentDto) => {
   const res = await fetch(`http://localhost:3000/comments/`, {
@@ -37,4 +50,4 @@ const useCreateComment = (
   });
 };
 
-export { useCreateComment }
+export { useCreateComment, useComment }
