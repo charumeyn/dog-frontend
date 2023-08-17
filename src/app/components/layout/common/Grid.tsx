@@ -17,7 +17,7 @@ const Grid: React.FunctionComponent<GridProps> = ({ columns, className, content 
       case 4:
         return 'gap-8';
       default:
-        return 'gap-8';
+        return 'gap-4';
     }
   }, [])
 

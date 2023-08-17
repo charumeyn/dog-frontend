@@ -30,10 +30,10 @@ export default function Dog({ params }: { params: any }) {
         type={ContainerType.ImageWithContent}
         className="mt-16"
         imageContent={
-          <div className="grid grid-cols-8 gap-x-4">
-            <div className="col-span-1 gap-y-4">
+          <div className="grid grid-cols-8 gap-4">
+            <div className="col-span-1">
               {dog?.images.map((image) => (
-                <img className="aspect-[5/5] object-cover rounded-xl"
+                <img className="aspect-[5/5] object-cover rounded-xl mb-4"
                   src={image} alt={dog?.name} />
               ))}
             </div>

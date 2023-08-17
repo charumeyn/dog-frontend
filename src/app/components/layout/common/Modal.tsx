@@ -1,12 +1,15 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef } from "react";
+import { Fragment, ReactNode, useRef } from "react";
+import { IconClose } from "../Icons";
 
 type ModalProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void
+  title?: string;
+  children: ReactNode;
 }
 
-const Modal: React.FunctionComponent<ModalProps> = ({ isOpen, setIsOpen }) => {
+const Modal: React.FunctionComponent<ModalProps> = ({ isOpen, setIsOpen, title, children }) => {
 
   const cancelButtonRef = useRef(null)
 
@@ -37,37 +40,26 @@ const Modal: React.FunctionComponent<ModalProps> = ({ isOpen, setIsOpen }) => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <span
+                  className="cursor-pointer"
+                  onClick={() => setIsOpen(false)} ref={cancelButtonRef}>
+                  <IconClose className="w-6 h-6 text-zinc-500 right-6 top-6 absolute" />
+                </span>
+                <div className="bg-white px-4 pb-4 pt-5 sm:p-10">
                   <div className="sm:flex sm:items-start">
-                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                    <div className="mt-3 text-center sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-zinc-900">
-
+                        {title}
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-zinc-500">
-
+                        <p className="text-sm text-zinc-900">
+                          {children}
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="bg-zinc-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => setIsOpen(false)}
-                  >
 
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setIsOpen(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
-                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
