@@ -4,6 +4,7 @@ import Container, { ContainerType } from "@/app/components/layout/Container";
 import DogCard from "@/app/components/layout/common/DogCard";
 import Grid from "@/app/components/layout/common/Grid";
 import Heading from "@/app/components/layout/common/Heading";
+import ImageGallery from "@/app/components/layout/common/ImageGallery";
 import PostCard from "@/app/components/layout/common/PostCard";
 import CommentList from "@/app/feature/comment/CommentItem.client";
 import DogInfo from "@/app/feature/dogs/DogInfo";
@@ -30,18 +31,8 @@ export default function Dog({ params }: { params: any }) {
         type={ContainerType.ImageWithContent}
         className="mt-16"
         imageContent={
-          <div className="grid grid-cols-8 gap-4">
-            <div className="col-span-1">
-              {dog?.images.map((image) => (
-                <img className="aspect-[5/5] object-cover rounded-xl mb-4"
-                  src={image} alt={dog?.name} />
-              ))}
-            </div>
-            <div className="col-span-7">
-              <img className="aspect-[4/3] object-cover rounded-xl"
-                src={dog?.images[0]} alt={dog?.name} />
-            </div>
-          </div>
+          dog ?
+            <ImageGallery images={dog?.images} mainImage={dog?.mainImage} /> : null
         }
         mainContent={
           <div className="bg-white rounded-xl py-8 px-8 border border-zinc-300">

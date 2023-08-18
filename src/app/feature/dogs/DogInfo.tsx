@@ -104,8 +104,8 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
       </div>
 
       <Modal setIsOpen={setShowDonations} isOpen={showDonations} title={"Sponsors"}>
-        {dog?.donations.map((donation) => (
-          <DonationList donation={donation} />
+        {dog?.donations.map((donation, i) => (
+          <DonationList key={i} donation={donation} />
         ))}
       </Modal>
     </>
