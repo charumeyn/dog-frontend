@@ -15,8 +15,7 @@ const StackedAvatars: React.FunctionComponent<StackedAvatarsProps> = ({ text, ur
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"]
 
   return (
-    <div className="flex items-center gap-x-3">
-
+    <div className="flex items-center gap-x-3 hover:cursor-pointer">
       <div className="flex -space-x-2 overflow-hidden">
         {images.map((image, i) => (
           <img
@@ -27,7 +26,6 @@ const StackedAvatars: React.FunctionComponent<StackedAvatarsProps> = ({ text, ur
           />
         ))}
       </div>
-
       <div>
         {url ? <a href={url}>{text}</a> : null}
         {onClick ? <span className="text-sm text-zinc-500" onClick={onClick}>{text}</span> : null}

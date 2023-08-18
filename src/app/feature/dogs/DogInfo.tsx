@@ -15,6 +15,8 @@ import { SuccessResult } from "@/app/types/apiResult";
 import ButtonLink from "@/app/components/layout/common/ButtonLink";
 import Link from "next/link";
 import Share from "@/app/components/layout/common/Share";
+import Modal from "@/app/components/layout/common/Modal";
+import DonationList from "@/app/components/layout/common/DonationList.client";
 
 type DogInfoProps = {
   dog: Dog | undefined
@@ -42,10 +44,18 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
         <h1 className="text-2xl">Hello, I'm <strong>{dog?.name}</strong></h1>
         {dog && <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"dog"} id={dog?.id} name={dog?.name} />}
       </div>
-      <div className="flex items-center gap-x-1 mt-1 text-zinc-500 mb-4"><IconPin /> Location</div>
+
+      <div className="flex items-center gap-x-1 mt-1 text-zinc-500 mb-4">
+        <IconPin /> Location
+      </div>
+
       <div className="text-zinc-900 mb-5">{dog?.description}</div>
 
-      {sponsorsText ? <StackedAvatars text={sponsorsText} onClick={() => setShowDonations(true)} /> : null}
+      {dog && dog?.donations.length > 0 ?
+        sponsorsText &&
+        <StackedAvatars text={sponsorsText} onClick={() => setShowDonations(true)} /> :
+        <div className="text-sm text-zinc-500">No sponsors yet. Be the first ❤️</div>
+      }
 
 
       <div className="grid grid-cols-2 gap-x-10 gap-y-4 mt-6 mb-6">
@@ -92,6 +102,12 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
       <div className="flex gap-x-2 justify-center text-zinc-500 text-sm mt-5">
         <IconHeart className="w-4 w-5" />Add to favorites
       </div>
+
+      <Modal setIsOpen={setShowDonations} isOpen={showDonations} title={"Sponsors"}>
+        {dog?.donations.map((donation) => (
+          <DonationList donation={donation} />
+        ))}
+      </Modal>
     </>
   )
 }

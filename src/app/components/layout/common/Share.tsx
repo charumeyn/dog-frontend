@@ -46,8 +46,7 @@ const Share: React.FunctionComponent<ShareProps> = ({ isOpen, setIsOpen, type, i
         <IconShare className="w-3 h-3" /> Share
       </div>
 
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Heading type={"h1"} text={"Sharing is caring"} className="mb-4" />
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Sharing is caring"}>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed luctus nunc, non bibendum ex.</p>
         <div className="flex items-center mt-4 mb-4">
           <a href={`https://www.facebook.com/sharer/sharer.php?u=${url}`} target="_blank">

@@ -48,11 +48,11 @@ const Modal: React.FunctionComponent<ModalProps> = ({ isOpen, setIsOpen, title, 
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-10">
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:text-left">
-                      <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-zinc-900">
+                      <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-zinc-900">
                         {title}
                       </Dialog.Title>
-                      <div className="mt-2">
-                        <p className="text-sm text-zinc-900">
+                      <div className="mt-6">
+                        <p className="text-zinc-900">
                           {children}
                         </p>
                       </div>
