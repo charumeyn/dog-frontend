@@ -1,3 +1,4 @@
+import { Comment } from "./comment.interface";
 import { Dog } from "./dog.interface";
 import { Donation } from "./donation.interface";
 import { RecipientType } from "./enum/recipientType.enum";
@@ -16,12 +17,14 @@ export interface Fundraiser {
   donations: Donation[];
   startsAt: Date;
   endsAt: Date;
+  createdBy: number;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
   dog: Dog;
   user: User;
   shelter: any;
+  comments: Comment[];
 };
 
 export interface CreateFundraiserDto {

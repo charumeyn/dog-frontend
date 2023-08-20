@@ -4,11 +4,10 @@
 import Heading from "@/app/components/layout/common/Heading";
 import { useComment } from "@/app/hooks/api/useComment";
 import { Comment } from "@/app/types/comment.interface";
-import { CommentType } from "@/app/types/enum/commentType.enum"
 import moment from "moment";
 
 type CommentListProps = {
-  comments: any;
+  comments?: any;
 }
 
 type CommentRowProps = {
@@ -17,10 +16,10 @@ type CommentRowProps = {
 
 const CommentList: React.FunctionComponent<CommentListProps> = ({ comments }) => {
   return (
-    comments.map((comment: Comment) => (
-      <CommentRow key={comment.id} commentId={comment.id} />
-    ))
-
+    comments.length > 0 ?
+      comments.map((comment: Comment) => (
+        <CommentRow key={comment.id} commentId={comment.id} />
+      )) : <div className="border border-zinc-100 rounded-md px-6 py-6 text-sm">No comments posted yet.</div>
   )
 }
 

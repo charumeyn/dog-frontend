@@ -52,7 +52,8 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
 
       <div className="text-zinc-900 mb-5">{fundraiser?.description}</div>
 
-      <ProgressBar fundraiser={fundraiser} classNames="mt-5 mb-5" />
+      {fundraiser ?
+        <ProgressBar fundraiser={fundraiser} classNames="mt-5 mb-5" /> : null}
 
       <ButtonLink
         text={"Donate"}

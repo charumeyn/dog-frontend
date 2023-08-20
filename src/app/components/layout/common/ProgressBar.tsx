@@ -2,7 +2,7 @@ import { Fundraiser } from "@/app/types/fundraiser.interface";
 import { useMemo } from "react";
 
 type ProgressBarProps = {
-  fundraiser?: Fundraiser;
+  fundraiser: Fundraiser;
   classNames?: string;
 }
 
