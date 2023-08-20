@@ -1,18 +1,33 @@
+import ButtonLink from "@/app/components/layout/common/ButtonLink"
+import DonationList from "@/app/components/layout/common/DonationList.client"
+import Modal from "@/app/components/layout/common/Modal"
 import ProgressBar from "@/app/components/layout/common/ProgressBar"
-import PaypalCheckout from "@/app/components/libraries/PaypalCheckout"
-import { Dog } from "@/app/types/dog.interface"
-import { Donation } from "@/app/types/donation.interface"
-import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum"
-import { RecipientType } from "@/app/types/enum/recipientType.enum"
+import Share from "@/app/components/layout/common/Share"
+import StackedAvatars from "@/app/components/layout/common/StackedAvatars"
+import { Account } from "@/app/types/account.interface"
 import { Fundraiser } from "@/app/types/fundraiser.interface"
-import moment from "moment"
-import { useEffect, useMemo } from "react"
+import { useMemo, useState } from "react"
 
 type FundraiserInfoProps = {
-  fundraiser: Fundraiser | undefined
+  fundraiser?: Fundraiser;
+  account?: Account;
 }
 
-const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundraiser }) => {
+const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundraiser, account }) => {
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showDonations, setShowDonations] = useState<boolean>(false);
+
+  const donationsText = useMemo(() => {
+    if (fundraiser) {
+      if (fundraiser?.donations.length === 1) {
+        return fundraiser?.donations.length + " donation"
+      }
+      else {
+        return fundraiser?.donations.length + " donations"
+      }
+    }
+  }, [fundraiser])
 
   const totalDonations = useMemo(() => {
     if (fundraiser && fundraiser?.donations.length > 0) {
@@ -20,26 +35,51 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
     } else return 0
   }, [fundraiser])
 
+  const sponsorsText = useMemo(() => {
+    if (fundraiser) {
+      if (fundraiser?.donations.length === 1) {
+        return fundraiser?.donations.length + " sponsor"
+      }
+      else {
+        return fundraiser?.donations.length + " sponsors"
+      }
+    }
+  }, [fundraiser])
+
   return (
     <>
-      <h1 className="text-4xl mb-4">{fundraiser?.title}</h1>
-      <ProgressBar fundraiser={fundraiser} />
-      <p className="text-zinc-500 mb-8">${totalDonations} {' '} raised out of ${fundraiser?.goal_amount}</p>
-      <PaypalCheckout fundraiser={fundraiser} />
-      <a href="" className="w-full inline-block text-center mt-5 text-md">Share</a>
+      <h1 className="text-2xl font-medium mb-5">{fundraiser?.title}</h1>
+
+      <div className="text-zinc-900 mb-5">{fundraiser?.description}</div>
+
+      <ProgressBar fundraiser={fundraiser} classNames="mt-5 mb-5" />
+
+      <ButtonLink
+        text={"Donate"}
+        color={"text-white bg-orange-600 hover:bg-orange-700"}
+        classNames="my-5"
+        url={`/fundraiser/${fundraiser?.id}/donate`}
+        fullWidth={true}
+      />
+
+      <div className="flex gap-x-2 justify-center text-zinc-500 text-sm mt-3 mb-8">
+        {fundraiser ?
+          <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"fundraiser"} id={fundraiser?.id} name={fundraiser?.title} isButton={true} /> :
+          null}
+      </div>
 
       {fundraiser && fundraiser?.donations.length > 0 ?
-        <div>
-          <p className="mt-10 font-medium">Latest donation</p>
-          <div className="flex gap-x-5 mt-2 items-center mb-5">
-            <img src="https://images.pexels.com/photos/3104709/pexels-photo-3104709.jpeg" className="w-16 h-16 rounded-full" />
-            <div>
-              <p className="text-sm">{fundraiser.donations[0].transaction_firstname}</p>
-              <p className="text-sm text-zinc-500">${fundraiser.donations[0].amount} • {moment(fundraiser.donations[0].created_at).startOf('hour').fromNow()}</p>
-            </div>
-          </div>
-          {/* <a href="" className="text-sm">View list of donors</a> */}
-        </div> : null}
+        donationsText &&
+        <StackedAvatars text={donationsText} onClick={() => setShowDonations(true)} /> :
+        <div className="text-sm text-zinc-500">No donations yet. Be the first ❤️</div>
+      }
+
+      <Modal setIsOpen={setShowDonations} isOpen={showDonations} title={"Sponsors"}>
+        {fundraiser?.donations.map((donation, i) => (
+          <DonationList key={i} donation={donation} />
+        ))}
+      </Modal>
+
     </>
   )
 }

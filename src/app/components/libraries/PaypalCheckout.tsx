@@ -19,7 +19,7 @@ type PaypalCheckoutProps = {
   recipientId?: number;
   fundraiserId?: number;
   amount?: number;
-  account: SuccessResult<Account> | undefined;
+  account?: Account;
 }
 
 const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donationType, recipientType, recipientId, fundraiserId, amount, account }) => {
@@ -58,7 +58,7 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donation
       shelterId: recipientType === RecipientType.Shelter ? recipientId : undefined,
       userId: recipientType === RecipientType.User ? recipientId : undefined,
       fundraiserId: fundraiserId ? fundraiserId : undefined,
-      donorId: account && account.data.data.id,
+      donorId: account && account.data.id,
     }
 
     console.log(body);

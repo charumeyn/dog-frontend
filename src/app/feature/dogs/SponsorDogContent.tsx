@@ -18,8 +18,13 @@ const SponsorDogContent: React.FunctionComponent<SponsorDogContentProps> = ({ do
 
   return (
     dog ?
-      <PaymentContent image={dog.mainImage} name={dog.name} type={DonationType.Dog} recipientId={dog.id} account={account} /> :
-      null
+      <PaymentContent
+        image={dog.mainImage}
+        name={dog.name}
+        type={DonationType.Dog}
+        recipientId={dog.id}
+        account={account} />
+      : null
   )
 }
 

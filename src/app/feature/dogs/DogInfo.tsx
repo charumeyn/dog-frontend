@@ -1,25 +1,18 @@
 "use client";
 
 import { IconDog, IconHeart, IconHome, IconPin, IconShare } from "@/app/components/layout/Icons";
-import Button from "@/app/components/layout/common/Button";
-import PaymentModal from "@/app/components/layout/common/PaymentModal";
-import PaymentContent from "@/app/components/layout/common/PaymentContent";
 import StackedAvatars from "@/app/components/layout/common/StackedAvatars";
 import { Account } from "@/app/types/account.interface";
 import { Dog } from "@/app/types/dog.interface"
-import { DonationType } from "@/app/types/enum/donationType.enum";
-import { Elements } from "@stripe/react-stripe-js";
 import moment from "moment";
 import { useMemo, useState } from "react";
-import { SuccessResult } from "@/app/types/apiResult";
 import ButtonLink from "@/app/components/layout/common/ButtonLink";
-import Link from "next/link";
 import Share from "@/app/components/layout/common/Share";
 import Modal from "@/app/components/layout/common/Modal";
 import DonationList from "@/app/components/layout/common/DonationList.client";
 
 type DogInfoProps = {
-  dog: Dog | undefined
+  dog?: Dog;
   account?: Account;
 }
 
@@ -42,7 +35,7 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
     <>
       <div className="flex justify-between">
         <h1 className="text-2xl">Hello, I'm <strong>{dog?.name}</strong></h1>
-        {dog && <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"dog"} id={dog?.id} name={dog?.name} />}
+        {dog && <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"dog"} id={dog?.id} name={dog?.name} isButton={false} />}
       </div>
 
       <div className="flex items-center gap-x-1 mt-1 text-zinc-500 mb-4">

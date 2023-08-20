@@ -21,7 +21,7 @@ type StripeCheckoutProps = {
   recipientId?: number;
   fundraiserId?: number;
   amount?: number;
-  account: SuccessResult<Account> | undefined;
+  account?: Account;
 }
 
 
@@ -70,7 +70,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
       shelterId: recipientType === RecipientType.Shelter ? recipientId : undefined,
       userId: recipientType === RecipientType.User ? recipientId : undefined,
       fundraiserId: fundraiserId ? fundraiserId : undefined,
-      donorId: account && account.data.data.id,
+      donorId: account && account.data.id,
     }
 
     createDonation(body)
@@ -87,7 +87,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
           amount: amount,
           currency: 'usd',
           description: `Donation for ${fundraiserId ? `Fundraiser ID ${fundraiserId}` : `Dog ID ${recipientId}`} `,
-          email: account && account.data.data.email,
+          email: account && account.data.email,
         },
       });
       const clientSecret = data.clientSecret;

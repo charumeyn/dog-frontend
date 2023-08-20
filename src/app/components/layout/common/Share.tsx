@@ -9,9 +9,10 @@ type ShareProps = {
   type: "dog" | "shelter" | "fundraiser";
   id: number;
   name: string;
+  isButton: boolean;
 }
 
-const Share: React.FunctionComponent<ShareProps> = ({ isOpen, setIsOpen, type, id, name }) => {
+const Share: React.FunctionComponent<ShareProps> = ({ isOpen, setIsOpen, type, id, name, isButton }) => {
 
   const host = process.env.HOST
 
@@ -41,7 +42,7 @@ const Share: React.FunctionComponent<ShareProps> = ({ isOpen, setIsOpen, type, i
   return (
     <>
       <div
-        className="flex gap-x-1 items-center text-sm text-zinc-500 cursor-pointer hover:text-zinc-700"
+        className={`${isButton ? "w-full justify-center px-6 py-3 bg-orange-100 text-orange-600 rounded-md font-medium hover:bg-orange-200" : "text-zinc-500 hover:text-zinc-700 text-sm"} flex gap-x-1 items-center  cursor-pointer`}
         onClick={() => setIsOpen(true)}>
         <IconShare className="w-3 h-3" /> Share
       </div>

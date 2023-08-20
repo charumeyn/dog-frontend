@@ -6,6 +6,7 @@ import { User } from "./user.interface";
 export interface Fundraiser {
   id: number;
   title: string;
+  description: string;
   content: string;
   mainImage: string;
   images: string[];
@@ -25,6 +26,7 @@ export interface Fundraiser {
 
 export interface CreateFundraiserDto {
   title: string;
+  description: string;
   content: string;
   mainImage: string;
   images: string[];

@@ -12,14 +12,13 @@ import Button from "./Button";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Account } from "@/app/types/account.interface";
 import Heading from "./Heading";
-import { SuccessResult } from "@/app/types/apiResult";
 
 type PaymentContentProps = {
   image: string;
   name: string;
   type: DonationType;
   recipientId: number;
-  account: SuccessResult<Account> | undefined;
+  account: Account | undefined;
 }
 
 const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, name, type, recipientId, account }) => {
@@ -98,7 +97,7 @@ const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, n
             </Elements>
             :
             <div className="col-span-2 mt-4">
-              <Button type="submit" text="Select a payment method" classNames="w-full" disabled={true} />
+              <Button type="submit" content="Select a payment method" classNames="w-full" disabled={true} />
             </div>
         }
 
