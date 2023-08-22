@@ -1,11 +1,10 @@
-enum Color {
-  brown = "BROWN",
-  black = "BLACK",
-  white = "WHITE",
-  red = "RED",
-  cream = "CREAM",
-  gold = "GOLD",
-  yellow = "YELLOW",
-  apricot = "APRICOT",
-  blue = "BLUE",
+export enum Color {
+  Black = "black",
+  White = "white",
+  Brown = "brown",
+  Red = "red",
+  Gold = "gold",
+  Gray = "gray",
+  Cream = "cream",
+  Yellow = "yellow"
 }

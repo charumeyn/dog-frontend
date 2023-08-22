@@ -4,18 +4,20 @@ export enum ContainerType {
   SingleColumn = "SingleColumn",
   NarrowColumn = "NarrowColumn",
   FlushLeft = "FlushLeft",
-  ImageWithContent = "ImageWithContent"
+  ImageWithContent = "ImageWithContent",
+  LeftSidebar = "LeftSidebar"
 }
 
 type Container = {
   withBg?: boolean;
   className?: string;
-  type?: ContainerType;
+  type: ContainerType;
   mainContent: ReactNode;
   imageContent?: ReactNode;
+  sidebarContent?: ReactNode;
 }
 
-const Container: React.FunctionComponent<Container> = ({ mainContent, imageContent, withBg, type, className }) => {
+const Container: React.FunctionComponent<Container> = ({ mainContent, imageContent, withBg, type, className, sidebarContent }) => {
 
   return (
     <div className={`
@@ -41,6 +43,16 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, imageConte
         {type === ContainerType.FlushLeft ?
           <div className="max-w-screen-md">{mainContent}</div>
           : null}
+
+        {type === ContainerType.LeftSidebar ?
+          <div className="flex gap-x-8">
+            <div className="w-2/5">
+              {sidebarContent}
+            </div>
+            <div className="max-w-screen-md">
+              {mainContent}
+            </div>
+          </div> : null}
 
       </div>
     </div>

@@ -1,5 +1,6 @@
-enum CoatLength {
-  short = "SHORT",
-  medium = "MEDIUM",
-  long = "LONG",
+export enum CoatLength {
+  None = "none",
+  Short = "short",
+  Medium = "medium",
+  Long = "long",
 }

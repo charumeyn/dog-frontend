@@ -58,12 +58,12 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
       <ButtonLink
         text={"Donate"}
         color={"text-white bg-orange-600 hover:bg-orange-700"}
-        classNames="my-5"
+        classNames="my-3"
         url={`/fundraiser/${fundraiser?.id}/donate`}
         fullWidth={true}
       />
 
-      <div className="flex gap-x-2 justify-center text-zinc-500 text-sm mt-3 mb-8">
+      <div className="flex gap-x-2 justify-center text-zinc-500 text-sm mb-8">
         {fundraiser ?
           <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"fundraiser"} id={fundraiser?.id} name={fundraiser?.title} isButton={true} /> :
           null}
