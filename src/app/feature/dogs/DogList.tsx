@@ -12,11 +12,11 @@ type DogListContentProps = {
 
 const DogListContent: React.FunctionComponent<DogListContentProps> = ({ }) => {
 
-  const [limit, setLimit] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
   const [color, setColor] = useState<string | undefined>("gold");
 
-  const { data: dogs, isLoading, isFetching, error } = useDogs({ limit: 1, color: "gold" });
+  const { data: dogs, isLoading, isFetching, error } = useDogs(limit);
 
 
   return (

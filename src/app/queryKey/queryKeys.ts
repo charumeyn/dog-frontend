@@ -2,7 +2,7 @@ import { PaginationDto } from "../hooks/api/useDogs";
 
 export const queryKeys = {
   dog: (id: number) => ["dog", id],
-  dogs: (dto: PaginationDto) => ["dogs", "limit", dto.color, "limit", dto.color],
+  dogs: (limit: number) => ["dogs", "limit", limit],
   post: (id: number) => ["post", id],
   posts: (limit?: number) => ["posts", "limit", limit],
   fundraiser: (id: number) => ["fundraiser", id],

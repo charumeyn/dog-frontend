@@ -8,23 +8,22 @@ const getDogs = async (limit?: number, gender?: number) => {
   const limitParam = limit ? `?limit=${limit}` : '';
   const genderParam = gender ? `&gender=${gender}` : '';
 
-  // const warehouseIdParams = warehouseIds
-  //   .map((whId) => `&warehouseIds[]=${whId}`)
+  // const idPrams = ids
+  //   .map((id) => `&ids[]=${id}`)
   //   .join("");
-  // const gradeParam = grades.map((grade) => `&grades[]=${grade}`).join("");
 
 
-  const res = await fetch(`http://localhost:3000/dogs/${limitParam}${genderParam}`);
+  const res = await fetch(`http://localhost:3000/dogs/${limitParam}`);
 
   return res.json();
 };
 
-// const useDogs = (limit?: number) => {
-//   return useQuery<Dog[]>(
-//     queryKeys.dogs(limit),
-//     () => getDogs(limit),
-//   );
-// };
+const useDogs = (limit: number) => {
+  return useQuery<Dog[]>(
+    queryKeys.dogs(limit),
+    () => getDogs(limit),
+  );
+};
 
 export interface PaginationDto {
   limit: number;
@@ -32,12 +31,12 @@ export interface PaginationDto {
   gender?: Gender;
 }
 
-const useDogs = (dto: PaginationDto) => {
-  return useQuery<Dog[]>(
-    queryKeys.dogs(dto),
-    () => getDogs(dto.limit, dto.gender),
-  );
-};
+// const useDogs = (dto: PaginationDto) => {
+//   return useQuery<Dog[]>(
+//     queryKeys.dogs(dto),
+//     () => getDogs(dto.limit, dto.gender),
+//   );
+// };
 
 const getDog = async (id: number) => {
   const res = await fetch(`http://localhost:3000/dogs/${id}`);
