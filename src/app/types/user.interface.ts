@@ -1,8 +1,10 @@
 import { Address } from "./address.interface";
+import { Comment } from "./comment.interface";
+import { Donation } from "./donation.interface";
+import { Fundraiser } from "./fundraiser.interface";
 import { Shelter } from "./shelter.interface";
 
 export interface User {
-  data: any;
   id: number;
   email: string;
   password: string;
@@ -13,9 +15,9 @@ export interface User {
   type: UserType;
   address: Address;
   shelter: Shelter;
-  comments: any[];
-  donations: any[];
-  fundraisers: any[];
+  comments: Comment[]
+  donations: Donation[];
+  fundraisers: Fundraiser[];
 }
 
 export enum UserType {

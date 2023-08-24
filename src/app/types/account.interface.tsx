@@ -1,4 +1,4 @@
-import { UserType } from "./user.interface";
+import { User, UserType } from "./user.interface";
 
 export interface AccountData {
   id: number;
@@ -12,5 +12,5 @@ export interface AccountData {
 
 export interface Account {
   success: boolean;
-  data: AccountData;
+  data: User;
 }
