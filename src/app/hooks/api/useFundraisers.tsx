@@ -1,6 +1,6 @@
 import { queryKeys } from "@/app/queryKey/queryKeys";
 import { FailResult, SuccessResult } from "@/app/types/apiResult";
-import { CreateFundraiserDto, Fundraiser } from "@/app/types/fundraiser.interface";
+import { CreateFundraiserDto, Fundraiser, UpdateFundraiserDto } from "@/app/types/fundraiser.interface";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const getFunraisers = async (limit?: number) => {
@@ -64,4 +64,43 @@ const useCreateFundraiser = (
   });
 };
 
-export { useFundraisers, useFundraiser, useCreateFundraiser }
+
+const updateFundraiser = async (dto: UpdateFundraiserDto) => {
+
+  const { id, ...bodyWithoutId } = dto;
+
+  const res = await fetch(`http://localhost:3000/fundraisers/${dto.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...bodyWithoutId
+    })
+  });
+
+  const data = await res.json();
+  return data;
+}
+
+const useUpdateFundraiser = (
+  onUpdateSuccess: () => void,
+  onUpdateError?: (error: FailResult) => void
+) => {
+  return useMutation((dto: UpdateFundraiserDto) => updateFundraiser(dto), {
+    onSuccess: (data: SuccessResult<Fundraiser> | FailResult) => {
+      if (!data.success) {
+        if (onUpdateError) onUpdateError(data)
+      } else {
+        onUpdateSuccess()
+      }
+    },
+    onError: (error: FailResult) => {
+      if (onUpdateError) {
+        onUpdateError(error);
+      }
+    },
+  });
+};
+
+export { useFundraisers, useFundraiser, useCreateFundraiser, useUpdateFundraiser }

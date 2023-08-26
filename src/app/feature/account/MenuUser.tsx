@@ -12,11 +12,11 @@ export function MenuUser() {
   }
 
   const navigation = [
-    { name: 'Home', href: '#', icon: IconHome, current: true },
-    { name: 'My donations', href: '#', icon: IconDonation, current: false },
-    { name: 'My fundraisers', href: '#', icon: IconFundraiser, current: false },
-    { name: 'Edit Profile', href: '#', icon: IconProfile, current: false },
-    { name: 'Register dog', href: '#', icon: IconDog2, current: false },
+    { name: 'Home', href: '/account', icon: IconHome, current: true },
+    { name: 'My donations', href: '/account/donations', icon: IconDonation, current: false },
+    { name: 'My fundraisers', href: '/account/fundraisers', icon: IconFundraiser, current: false },
+    { name: 'Edit Profile', href: '/account/edit', icon: IconProfile, current: false },
+    { name: 'Register dog', href: '/account/dogs', icon: IconDog2, current: false },
   ]
 
   return (

@@ -30,7 +30,7 @@ function FundraiserList({ fundraisers }: { fundraisers: Fundraiser[] }) {
     <div className="mt-8">
       <div className="flex justify-between items-center mb-4">
         <Heading type="h1" text="My Fundraisers" />
-        <a href="#" className="text-teal-600 font-semibold text-sm">+ Create fundraiser</a>
+        <a href="/fundraisers/create" className="text-teal-600 font-semibold text-sm">+ Create fundraiser</a>
       </div>
 
       <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300">

@@ -43,3 +43,15 @@ export interface CreateFundraiserDto {
   userId?: number;
   dogId?: number;
 }
+
+export interface UpdateFundraiserDto {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+  mainImage: string;
+  images: string[];
+  goalAmount: number;
+  startsAt: Date;
+  endsAt: Date;
+}
