@@ -38,7 +38,7 @@ export interface CreateFundraiserDto {
   goalAmount: number;
   startsAt: Date;
   endsAt: Date;
-  createdBy: number;
+  createdById: number;
   shelterId?: number;
   userId?: number;
   dogId?: number;

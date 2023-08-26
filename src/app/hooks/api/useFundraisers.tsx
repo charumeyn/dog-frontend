@@ -45,7 +45,7 @@ const createFundraiser = async (dto: CreateFundraiserDto) => {
 }
 
 const useCreateFundraiser = (
-  onCreateSuccess: () => void,
+  onCreateSuccess: (data: SuccessResult<Fundraiser>) => void,
   onCreateError?: (error: FailResult) => void
 ) => {
   return useMutation((dto: CreateFundraiserDto) => createFundraiser(dto), {
@@ -53,7 +53,7 @@ const useCreateFundraiser = (
       if (!data.success) {
         if (onCreateError) onCreateError(data)
       } else {
-        onCreateSuccess()
+        onCreateSuccess(data)
       }
     },
     onError: (error: FailResult) => {

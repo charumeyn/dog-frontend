@@ -7,12 +7,14 @@ type CreateContentProps = {
   setMainImage: (mainImage: string) => void;
   images: string[];
   setImages: (images: string[]) => void;
+  description: string;
+  setDescription: (description: string) => void;
   content: string;
   setContent: (content: string) => void;
   title: string;
   setTitle: (content: string) => void;
 }
-const CreateContent: React.FunctionComponent<CreateContentProps> = ({ images, setImages, mainImage, setMainImage, content, setContent, title, setTitle }) => {
+const CreateContent: React.FunctionComponent<CreateContentProps> = ({ images, setImages, mainImage, setMainImage, description, setDescription, content, setContent, title, setTitle }) => {
 
 
   return (
@@ -25,6 +27,16 @@ const CreateContent: React.FunctionComponent<CreateContentProps> = ({ images, se
         name="title"
         value={title}
         onChange={(e: any) => setTitle(e.target.value)}
+        className="border border-zinc-300 px-3 py-2 rounded-lg w-full"
+      />
+
+      <h3 className="text-zinc-700 mb-2 mt-4">Short description</h3>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        value={description}
+        onChange={(e: any) => setDescription(e.target.value)}
         className="border border-zinc-300 px-3 py-2 rounded-lg w-full"
       />
 

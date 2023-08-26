@@ -4,6 +4,7 @@ import CreateContent from "@/app/feature/fundraisers/CreateContent"
 import CreateDetails from "@/app/feature/fundraisers/CreateDetails"
 import CreatePurpose from "@/app/feature/fundraisers/CreatePurpose"
 import SectionTab from "@/app/feature/fundraisers/SectionTab"
+import { useAccount } from "@/app/hooks/api/useAuth"
 import { useCreateFundraiser } from "@/app/hooks/api/useFundraisers"
 import { SuccessResult } from "@/app/types/apiResult"
 import { FundraiserSection } from "@/app/types/enum/fundraiserSection.enum"
@@ -28,10 +29,13 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
   const [mainImage, setMainImage] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
+  const [description, setDescription] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [fundraiserId, setFundraiserId] = useState<number | undefined>(undefined);
 
   const { typeParam } = searchParams;
+
+  const { data: account } = useAccount();
 
   useEffect(() => {
     if (fundraiserId) {
@@ -57,25 +61,24 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
   const handleSave = useCallback((e: any) => {
     e.preventDefault();
 
-    if (startDate && endDate) {
+    if (startDate && endDate && account) {
       const body: CreateFundraiserDto = {
         title,
+        description,
         content,
-        main_image: mainImage,
+        mainImage,
         images,
         purpose,
-        goal_amount: Number(goalAmount),
-        starts_at: startDate,
-        ends_at: endDate,
-        created_at: new Date(),
-        created_by: 1,
+        goalAmount: Number(goalAmount),
+        startsAt: startDate,
+        endsAt: endDate,
+        createdById: account?.id,
         type,
-        shelter_id: shelterId ? shelterId : undefined,
-        user_id: userId ? userId : undefined,
-        dog_id: dogId ? Number(dogId) : undefined,
+        shelterId: shelterId ? shelterId : undefined,
+        userId: userId ? userId : undefined,
+        dogId: dogId ? Number(dogId) : undefined,
       }
 
-      console.log(body);
       createFundraiser(body)
     }
 
@@ -156,6 +159,8 @@ export default function CreateFundRaiser({ searchParams }: { searchParams: any }
               setMainImage={setMainImage}
               images={images}
               setImages={setImages}
+              description={description}
+              setDescription={setDescription}
               content={content}
               setContent={setContent}
               title={title}

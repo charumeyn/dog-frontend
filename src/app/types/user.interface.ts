@@ -18,6 +18,7 @@ export interface User {
   comments: Comment[]
   donations: Donation[];
   fundraisers: Fundraiser[];
+  createdFundraisers: Fundraiser[];
 }
 
 export enum UserType {

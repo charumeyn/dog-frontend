@@ -14,6 +14,7 @@ import Button from "../layout/common/Button";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Account } from "@/app/types/account.interface";
 import { useRouter } from "next/navigation";
+import { User } from "@/app/types/user.interface";
 
 type StripeCheckoutProps = {
   donationType: DonationType;
@@ -21,7 +22,7 @@ type StripeCheckoutProps = {
   recipientId?: number;
   fundraiserId?: number;
   amount?: number;
-  account?: Account;
+  account?: User;
 }
 
 
@@ -70,7 +71,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
       shelterId: recipientType === RecipientType.Shelter ? recipientId : undefined,
       userId: recipientType === RecipientType.User ? recipientId : undefined,
       fundraiserId: fundraiserId ? fundraiserId : undefined,
-      donorId: account && account.data.id,
+      donorId: account && account.id,
     }
 
     createDonation(body)
@@ -87,7 +88,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
           amount: amount,
           currency: 'usd',
           description: `Donation for ${fundraiserId ? `Fundraiser ID ${fundraiserId}` : `Dog ID ${recipientId}`} `,
-          email: account && account.data.email,
+          email: account && account.email,
         },
       });
       const clientSecret = data.clientSecret;

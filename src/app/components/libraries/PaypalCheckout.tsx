@@ -10,6 +10,7 @@ import { DonationType } from "@/app/types/enum/donationType.enum";
 import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Fundraiser } from "@/app/types/fundraiser.interface";
+import { User } from "@/app/types/user.interface";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useCallback, useMemo, useState } from "react";
 
@@ -19,7 +20,7 @@ type PaypalCheckoutProps = {
   recipientId?: number;
   fundraiserId?: number;
   amount?: number;
-  account?: Account;
+  account?: User;
 }
 
 const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donationType, recipientType, recipientId, fundraiserId, amount, account }) => {
@@ -58,7 +59,7 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donation
       shelterId: recipientType === RecipientType.Shelter ? recipientId : undefined,
       userId: recipientType === RecipientType.User ? recipientId : undefined,
       fundraiserId: fundraiserId ? fundraiserId : undefined,
-      donorId: account && account.data.id,
+      donorId: account && account.id,
     }
 
     console.log(body);

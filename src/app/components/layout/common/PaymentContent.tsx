@@ -10,15 +10,15 @@ import Checkbox from "./Checkbox";
 import RadioButton from "./RadioButton";
 import Button from "./Button";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
-import { Account } from "@/app/types/account.interface";
 import Heading from "./Heading";
+import { User } from "@/app/types/user.interface";
 
 type PaymentContentProps = {
   image: string;
   name: string;
   type: DonationType;
   recipientId: number;
-  account: Account | undefined;
+  account: User | undefined;
 }
 
 const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, name, type, recipientId, account }) => {

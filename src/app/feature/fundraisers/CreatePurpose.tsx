@@ -27,7 +27,7 @@ type CreatePurposeProps = {
 }
 const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, setPurpose, type, setType, country, setCountry, dogId, setDogId, shelterId, setShelterId, userId, setUserId }) => {
 
-  const { data: dogs } = useDogs();
+  const { data: dogs } = useDogs(10);
 
   const purposes = ["Emergency", "Monthly Bills", "Memorial", "Medical"]
 

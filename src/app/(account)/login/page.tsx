@@ -1,15 +1,19 @@
 "use client";
 
 import { useLogin } from "@/app/hooks/api/useAuth";
-import { redirect, useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { redirect } from 'next/navigation';
+import { useCallback, useEffect, useState } from "react";
 
 export default function Login() {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const router = useRouter();
+  useEffect(() => {
+    if (isSuccess) {
+      redirect(`/`);
+    }
+  }, [])
 
   const onLoginSuccess = useCallback((data: any) => {
     // router.push('/');
@@ -24,7 +28,7 @@ export default function Login() {
     []
   );
 
-  const { mutate: login } = useLogin(onLoginSuccess, onLoginError);
+  const { mutate: login, isSuccess } = useLogin(onLoginSuccess, onLoginError);
 
   const submit = useCallback((e: any) => {
     e.preventDefault();
