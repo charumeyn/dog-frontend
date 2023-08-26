@@ -1,5 +1,7 @@
 "use client"
 
+import { IconHorizontalDots } from "@/app/components/layout/Icons";
+import DropdownMenu from "@/app/components/layout/common/DropdownMenu";
 import Heading from "@/app/components/layout/common/Heading";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useFundraiser } from "@/app/hooks/api/useFundraisers";
@@ -59,6 +61,11 @@ function FundraiserItem({ id }: { id: number }) {
     } else return 0
   }, [fundraiser])
 
+  const menuForPending = [
+    { label: "Edit", url: "/edit" },
+    { label: "View", url: "/fundraisers/" + fundraiser?.id },
+  ];
+
   return (
     fundraiser ?
       <div className="grid grid-cols-2">
@@ -66,15 +73,23 @@ function FundraiserItem({ id }: { id: number }) {
           <a href={`/fundraisers/${fundraiser.id}`} className="font-semibold hover:text-teal-600">{fundraiser.title}</a>
           <p className="text-zinc-500 text-sm">Duration: {moment(fundraiser.startsAt).format("YYYY-MM-DD")} ~ {moment(fundraiser.endsAt).format("YYYY-MM-DD")}</p>
         </div>
-        <div className="col-span-1 flex items-center justify-end gap-x-8 p-5">
-          <div>
+        <div className="grid grid-cols-5 gap-x-8 p-5">
+          <div className="col-span-2">
             <span className="font-semibold">${currentAmount}</span> <span className="text-zinc-200">/</span> ${fundraiser.goalAmount}
           </div>
-          <div>
+          <div className="col-span-2">
             {donationCount}
           </div>
-          <div>
-            ...
+          <div className="col-span-1 text-right">
+            <DropdownMenu
+              menuItems={menuForPending}
+              icon={
+                <IconHorizontalDots
+                  className="h-8 w-8 bg-gray-200 p-1.5 rounded-full"
+                  aria-hidden="true"
+                />
+              }
+            />
           </div>
         </div>
       </div> : null
