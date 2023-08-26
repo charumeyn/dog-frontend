@@ -8,6 +8,7 @@ import { useFundraiser } from "@/app/hooks/api/useFundraisers";
 import { Fundraiser } from "@/app/types/fundraiser.interface";
 import moment from "moment";
 import { useCallback, useMemo } from "react";
+import FundraiserStatus from "../fundraisers/FundraiserStatus";
 
 export default function FundraisersContent() {
 
@@ -70,8 +71,9 @@ function FundraiserItem({ id }: { id: number }) {
     fundraiser ?
       <div className="grid grid-cols-2">
         <div className="col-span-1 p-5">
-          <a href={`/fundraisers/${fundraiser.id}`} className="font-semibold hover:text-teal-600">{fundraiser.title}</a>
-          <p className="text-zinc-500 text-sm">Duration: {moment(fundraiser.startsAt).format("YYYY-MM-DD")} ~ {moment(fundraiser.endsAt).format("YYYY-MM-DD")}</p>
+          <a href={`/fundraisers/${fundraiser.id}`} className="font-semibold hover:text-teal-600 pr-2">{fundraiser.title}</a>
+          <FundraiserStatus startsAt={fundraiser.startsAt} endsAt={fundraiser.endsAt} />
+          <p className="text-zinc-500 text-sm mt-1">Duration: {moment(fundraiser.startsAt).format("YYYY-MM-DD")} ~ {moment(fundraiser.endsAt).format("YYYY-MM-DD")}</p>
         </div>
         <div className="grid grid-cols-5 gap-x-8 p-5">
           <div className="col-span-2">
