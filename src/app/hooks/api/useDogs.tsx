@@ -1,7 +1,8 @@
 import { queryKeys } from "@/app/queryKey/queryKeys";
-import { Dog } from "@/app/types/dog.interface";
+import { FailResult, SuccessResult } from "@/app/types/apiResult";
+import { CreateDogDto, Dog } from "@/app/types/dog.interface";
 import { Gender } from "@/app/types/enum/gender.enum";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Color } from "aws-sdk/clients/lookoutvision";
 
 const getDogs = async (limit?: number, gender?: number) => {
@@ -51,4 +52,39 @@ const useDog = (id: number) => {
   );
 };
 
-export { useDogs, useDog }
+const createDog = async (dto: CreateDogDto) => {
+  const res = await fetch(`http://localhost:3000/dogs/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...dto
+    })
+  });
+
+  const data = await res.json();
+  return data;
+}
+
+const useCreateDog = (
+  onCreateSuccess: (data: SuccessResult<Dog>) => void,
+  onCreateError?: (error: FailResult) => void
+) => {
+  return useMutation((dto: CreateDogDto) => createDog(dto), {
+    onSuccess: (data: SuccessResult<Dog> | FailResult) => {
+      if (!data.success) {
+        if (onCreateError) onCreateError(data)
+      } else {
+        onCreateSuccess(data)
+      }
+    },
+    onError: (error: FailResult) => {
+      if (onCreateError) {
+        onCreateError(error);
+      }
+    },
+  });
+};
+
+export { useDogs, useDog, useCreateDog }

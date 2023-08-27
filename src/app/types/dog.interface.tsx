@@ -27,3 +27,17 @@ export interface Dog {
   donations: Donation[];
   comments: Comment[];
 };
+
+export interface CreateDogDto {
+  name: string;
+  breed: string[];
+  birthdate: Date;
+  color: Color[];
+  size: Size;
+  gender: Gender;
+  coatLength: CoatLength;
+  mainImage: string;
+  images: string[];
+  description: string;
+  shelterId: number;
+}
