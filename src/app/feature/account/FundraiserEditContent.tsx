@@ -141,7 +141,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
               </div>
 
               <div className="col-span-1">
-                <span className="block text-sm font-medium leading-6 text-zinc-900">Start Date</span>
+                <span className="block text-sm font-medium leading-6 text-zinc-900">End Date</span>
                 <DatePicker
                   selected={endsAt}
                   onChange={(date) => setEndsAt(date)}

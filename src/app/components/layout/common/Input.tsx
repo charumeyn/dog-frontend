@@ -1,7 +1,8 @@
 export enum InputType {
   Text = "text",
   Email = "email",
-  Number = "number"
+  Number = "number",
+  Password = "password"
 }
 
 type InputProps = {

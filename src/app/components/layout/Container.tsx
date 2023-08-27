@@ -21,7 +21,7 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, imageConte
 
   return (
     <div className={`
-        ${withBg ? "bg-zinc-300" : ""} 
+        ${withBg ? "bg-zinc-100" : ""} 
         ${className ? className : ""}
     `}>
       <div className={`${type === ContainerType.NarrowColumn ? "max-w-xl" : "max-w-screen-xl"} w-full mx-auto px-4`}>
