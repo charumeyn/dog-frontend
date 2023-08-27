@@ -8,7 +8,7 @@ import Input, { InputType } from "@/app/components/layout/common/Input";
 import S3Uploader from "@/app/components/libraries/S3Uploader";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useFundraiser, useUpdateFundraiser } from "@/app/hooks/api/useFundraisers";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -30,7 +30,6 @@ export default function FundraiserEditContent({ id }: { id: number }) {
 
   const onError = useCallback((error: any) => {
     setError(error.message)
-    console.log(error)
   }, [setError])
 
   const onSuccess = useCallback(() => {
@@ -39,6 +38,12 @@ export default function FundraiserEditContent({ id }: { id: number }) {
       setIsSuccess(false);
     }, 3000);
   }, [setIsSuccess])
+
+  const currentAmount = useMemo(() => {
+    if (fundraiser && fundraiser?.donations.length > 0) {
+      return fundraiser?.donations.reduce((total, x) => total + x.amount, 0);
+    } else return 0
+  }, [fundraiser])
 
   const { mutate: updateFundraiser, isLoading } = useUpdateFundraiser(onSuccess, onError)
 
@@ -110,6 +115,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
                 <Input type={InputType.Text}
                   name={"currentAmount"}
                   label={"Current Amount"}
+                  value={String(currentAmount)}
                   disabled
                 />
               </div>

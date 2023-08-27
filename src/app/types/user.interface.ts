@@ -1,5 +1,6 @@
 import { Address } from "./address.interface";
 import { Comment } from "./comment.interface";
+import { Dog } from "./dog.interface";
 import { Donation } from "./donation.interface";
 import { Fundraiser } from "./fundraiser.interface";
 import { Shelter } from "./shelter.interface";
@@ -19,6 +20,7 @@ export interface User {
   donations: Donation[];
   fundraisers: Fundraiser[];
   createdFundraisers: Fundraiser[];
+  dogs: Dog[];
 }
 
 export enum UserType {
