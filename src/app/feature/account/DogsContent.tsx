@@ -4,6 +4,8 @@ import DogCard from "@/app/components/layout/common/DogCard";
 import Heading from "@/app/components/layout/common/Heading";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { Dog } from "@/app/types/dog.interface";
+import { UserType } from "@/app/types/user.interface";
+import ShelterDogsContent from "./shelter/ShelterDogsContent";
 
 export default function DogsContent() {
 
@@ -11,10 +13,14 @@ export default function DogsContent() {
 
   return (
     account ?
-      <div className="mt-8">
-        <Heading type="h1" text="My Dogs" className="mb-4" />
-
-        <DogsList dogs={account.dogs} />
+      <div>
+        {account.type === UserType.User ?
+          <div>
+            <Heading type="h1" text="My Dogs" className="mb-4" />
+            <DogsList dogs={account.dogs} />
+          </div> :
+          <ShelterDogsContent account={account} />
+        }
       </div> : null
   )
 }

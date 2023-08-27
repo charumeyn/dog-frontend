@@ -38,9 +38,7 @@ export default function RegisterShelterDetailsContent({ userId }: { userId: numb
   const submit = useCallback((e: any) => {
     e.preventDefault();
 
-    console.log({ name, description, content, images, mainImage, userId })
-
-    // createShelter({ name, description, content, images, mainImage, userId })
+    createShelter({ name, description, content, images, mainImage, userId })
   }, [name, description, content, images, mainImage, userId])
 
 

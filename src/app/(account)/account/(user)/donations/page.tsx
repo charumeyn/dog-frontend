@@ -5,11 +5,11 @@ import DonationsContent from "@/app/feature/account/DonationsContent";
 export default function Donations({ params }: { params: any }) {
 
   return (
-    <>
-      <AccountContainer
-        mainContent={
-          <DonationsContent />
-        } />
-    </>
+    <AccountContainer
+      currentPage={'donations'}
+      mainContent={
+        <DonationsContent />
+      }
+    />
   )
 }

@@ -8,6 +8,7 @@ export default function Donations({ params }: { params: any }) {
   return (
     <>
       <AccountContainer
+        currentPage={'dogs'}
         mainContent={
           <DogsContent />
         } />

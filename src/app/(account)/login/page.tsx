@@ -33,6 +33,8 @@ export default function Login() {
   const submit = useCallback((e: any) => {
     e.preventDefault();
 
+    console.log(email, password)
+
     login({ email, password })
   }, [email, password])
 

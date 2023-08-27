@@ -1,40 +1,18 @@
-import Heading from "@/app/components/layout/common/Heading";
+"use client"
+
 import { useAccount } from "@/app/hooks/api/useAuth";
-
-
+import { UserType } from "@/app/types/user.interface";
+import UserHomeContent from "./user/UserHomeContent";
+import ShelterDogsContent from "./shelter/ShelterDogsContent";
+import { useShelter } from "@/app/hooks/api/useShelters";
 
 export default function HomeContent() {
 
   const { data: account, isLoading: isLoadingAccount } = useAccount();
 
   return (
-    <div className="mx-auto flex w-full items-start gap-x-8">
-      <main className="flex-1">
-        <DiaryFeed />
-      </main>
-      <aside className="hidden w-60	shrink-0 lg:block">
-        <FavoritesList />
-      </aside>
-    </div>
+    account ?
+      <div>{account?.type === UserType.User ? <UserHomeContent account={account} /> : <ShelterDogsContent account={account} />}</div>
+      : null
   )
 }
-
-
-function DiaryFeed() {
-  return (
-    <div>
-      <Heading type={"h1"} text={"Doggo diaries from favorite dogs"} />
-
-    </div>
-  )
-}
-
-function FavoritesList() {
-  return (
-    <div>
-      <Heading type={"h2"} text={"My Favorite Dogs"} />
-
-    </div>
-  )
-}
-

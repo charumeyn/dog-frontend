@@ -6,6 +6,7 @@ export default function Fundraisers({ params }: { params: any }) {
   return (
     <>
       <AccountContainer
+        currentPage={'fundraisers'}
         mainContent={
           <FundraisersContent />
         } />
