@@ -17,7 +17,7 @@ export default function ShelterDogsContent({ account }: { account: User }) {
     <div>
       <div className="flex justify-between items-center mb-4">
         <Heading type="h1" text="Dogs in Shelter" />
-        <a href={`/account/register-dog?shelterId=${account.shelter.id}`} className="text-teal-600 font-semibold text-sm">+ Register a dog</a>
+        <a href={`/account/dogs/register`} className="text-teal-600 font-semibold text-sm">+ Register a dog</a>
       </div>
       <div className="grid grid-cols-2 gap-5">
         {shelter?.dogs?.map((dog, i) => (

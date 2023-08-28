@@ -2,31 +2,27 @@
 
 import Button from "@/app/components/layout/common/Button";
 import Input, { InputType } from "@/app/components/layout/common/Input";
-import { colorList } from "@/app/data/colorList";
-import { breedsList } from "@/app/data/breedsList";
-import { useAccount, useRegister } from "@/app/hooks/api/useAuth";
-import { useCreateDog } from "@/app/hooks/api/useDogs";
-import { SuccessResult } from "@/app/types/apiResult";
-import { Dog } from "@/app/types/dog.interface";
+import { useAccount } from "@/app/hooks/api/useAuth";
+import { useDog, useUpdateDog } from "@/app/hooks/api/useDogs";
 import { CoatLength } from "@/app/types/enum/coatLength.enum";
 import { Color } from "@/app/types/enum/color.enum";
 import { Gender } from "@/app/types/enum/gender.enum";
 import { Size } from "@/app/types/enum/size.enum";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Select from 'react-select'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import RadioButton from "@/app/components/layout/common/RadioButton";
 import S3Uploader from "@/app/components/libraries/S3Uploader";
 import Heading from "@/app/components/layout/common/Heading";
+import { IconCheck } from "@/app/components/layout/Icons";
 
 interface SelectList {
   label: string;
   value: string;
 }
 
-export default function RegisterDogContent() {
+export default function EditDogContent({ id }: { id: number }) {
   const [name, setName] = useState<string>("")
   const [birthdate, setBirthdate] = useState<Date>(new Date())
   const [size, setSize] = useState<Size>(Size.S)
@@ -35,61 +31,65 @@ export default function RegisterDogContent() {
   const [mainImage, setMainImage] = useState<string>("")
   const [images, setImages] = useState<string[]>([])
   const [description, setDescription] = useState<string>("")
-  const [selectedColors, setSelectedColors] = useState<SelectList[]>([])
-  const [selectedBreeds, setSelectedBreeds] = useState<SelectList[]>([])
   const [breeds, setBreeds] = useState<string[]>([])
   const [colors, setColors] = useState<Color[]>([])
 
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
+
   const { data: account } = useAccount();
+  const { data: dog } = useDog(id)
 
   const router = useRouter();
 
-  const onCreateSuccess = useCallback((data: SuccessResult<Dog>) => {
-    if (data.success) {
-      router.push(`/account/dogs`)
+  useEffect(() => {
+    if (dog) {
+      setName(dog?.name)
+      setBirthdate(new Date(dog?.birthdate))
+      setSize(dog?.size)
+      setGender(dog?.gender)
+      setCoatLength(dog?.coatLength)
+      setMainImage(dog?.mainImage)
+      setImages(dog?.images)
+      setDescription(dog?.description)
+      setColors(dog?.color)
+      setBreeds(dog?.breed)
     }
-  }, []);
+  }, [dog, setName, setBirthdate, setSize, setGender, setCoatLength, setMainImage, setImages, setDescription, setColors, setBreeds])
 
-  const onCreateError = useCallback(
+  const onSuccess = useCallback(() => {
+    setIsSuccess(true);
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 3000);
+  }, [setIsSuccess])
+
+  const OnError = useCallback(
     (error: any) => {
       console.log("onError", error)
     },
     []
   );
 
-  const { mutate: create } = useCreateDog(onCreateSuccess, onCreateError)
+  const { mutate: update, isLoading } = useUpdateDog(onSuccess, OnError)
 
   const submit = useCallback((e: any) => {
     e.preventDefault();
 
     if (account) {
       const body = {
+        id,
         name,
-        breed: breeds,
         birthdate,
         gender,
-        color: colors,
         size,
         coatLength,
         mainImage,
         images,
         description,
-        shelterId: account?.shelter.id
       }
-      create(body)
+      update(body)
     }
   }, [name, breeds, birthdate, gender, colors, size, coatLength, mainImage, images, description])
-
-
-
-
-  useEffect(() => {
-    setBreeds(selectedBreeds.map((breed) => breed.value))
-  }, [selectedBreeds])
-
-  useEffect(() => {
-    setColors(selectedColors.map((color) => color.value as Color))
-  }, [selectedColors])
 
   return (
     <div>
@@ -99,7 +99,7 @@ export default function RegisterDogContent() {
 
           <div className="col-span-3">
             <Input type={InputType.Text}
-              name={"Name"} placeholder="Name" label="Name"
+              name={"Name"} placeholder="Name" label="Name" value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -122,28 +122,22 @@ export default function RegisterDogContent() {
             </div>
           </div>
 
-          <div className="col-start-1 col-span-4">
-            <span className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Breed (Select multiple if mixed breed)</span>
-            <Select
-              options={breedsList}
-              placeholder="Select breed/s"
-              value={selectedBreeds}
-              onChange={(breed) => setSelectedBreeds(breed as SelectList[])}
-              isSearchable={true}
-              isMulti
-            />
+          <div className="col-start-1 col-span-2">
+            <span className="block text-sm font-medium leading-6 text-zinc-900">Breed/s</span>
+            <div className="bg-zinc-100 mt-2 text-zinc-500 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6">
+              {dog?.breed.map((breed) => (
+                <span>{breed}</span>
+              ))}
+            </div>
           </div>
 
-          <div className="col-start-1 col-span-4">
-            <span className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Colors (Select multiple if has multiple coat color)</span>
-            <Select
-              options={colorList}
-              placeholder="Select color.s"
-              value={selectedColors}
-              onChange={(color) => setSelectedColors(color as SelectList[])}
-              isSearchable={true}
-              isMulti
-            />
+          <div className="col-start-1 col-span-2">
+            <span className="block text-sm font-medium leading-6 text-zinc-900">Color/s</span>
+            <div className="bg-zinc-100 mt-2 text-zinc-500 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6">
+              {dog?.color.map((color) => (
+                <span>{color}</span>
+              ))}
+            </div>
           </div>
 
           <div className="col-start-1 col-span-1">
@@ -183,6 +177,7 @@ export default function RegisterDogContent() {
           <div className="col-span-4">
             <Input type={InputType.Text}
               name={"Description"} placeholder="Description" label="Description"
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
@@ -192,9 +187,11 @@ export default function RegisterDogContent() {
             <S3Uploader images={images} setImages={setImages} mainImage={mainImage} setMainImage={setMainImage} />
           </div>
 
-          <div className="col-span-4 mt-4">
-            <Button type="submit" onClick={submit} content={"Register Dog"} />
-          </div>
+          {isSuccess ?
+            <Button type={"submit"} color="green" disabled={true} content={<div><IconCheck className="w-5 h-5 inline-block mr-2" /> Saved!</div>} />
+            :
+            <Button type={"submit"} onClick={(e: any) => submit(e)} content={isLoading ? "Saving..." : "Save"} disabled={isLoading} />
+          }
         </form>
       </div>
     </div>

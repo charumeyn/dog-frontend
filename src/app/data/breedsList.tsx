@@ -1,4 +1,4 @@
-export const breeds = [
+export const breedsList = [
   {
     "value": "Affenpinscher",
     "label": "Affenpinscher"

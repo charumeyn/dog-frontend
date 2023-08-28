@@ -9,7 +9,7 @@ import { Shelter } from "./shelter.interface";
 export interface Dog {
   id: number;
   name: string;
-  breed: number[];
+  breed: string[];
   birthdate: Date;
   color: Color[];
   size: Size;
@@ -40,4 +40,16 @@ export interface CreateDogDto {
   images: string[];
   description: string;
   shelterId: number;
+}
+
+export interface UpdateDogDto {
+  id: number;
+  name: string;
+  birthdate: Date;
+  size: Size;
+  gender: Gender;
+  coatLength: CoatLength;
+  mainImage: string;
+  images: string[];
+  description: string;
 }
