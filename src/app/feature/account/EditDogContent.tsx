@@ -63,14 +63,14 @@ export default function EditDogContent({ id }: { id: number }) {
     }, 3000);
   }, [setIsSuccess])
 
-  const OnError = useCallback(
+  const onError = useCallback(
     (error: any) => {
       console.log("onError", error)
     },
     []
   );
 
-  const { mutate: update, isLoading } = useUpdateDog(onSuccess, OnError)
+  const { mutate: update, isLoading } = useUpdateDog(onSuccess, onError)
 
   const submit = useCallback((e: any) => {
     e.preventDefault();
@@ -93,7 +93,10 @@ export default function EditDogContent({ id }: { id: number }) {
 
   return (
     <div>
-      <Heading type="h1" text="Register new dog" className="mb-4" />
+      <div className="flex justify-between items-center mb-4">
+        <Heading type="h1" text="Edit Dog" />
+        <a href="/account/dogs/" className="text-gray-500 font-semibold text-sm">Back</a>
+      </div>
       <div className="bg-white p-8 rounded-lg border border-zinc-200">
         <form onSubmit={submit} className="grid gap-5 grid-cols-5">
 

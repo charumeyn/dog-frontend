@@ -29,3 +29,12 @@ export interface CreateShelterDto {
   content: string;
   userId: number;
 }
+
+export interface UpdateShelterDto {
+  id: number;
+  name: string;
+  mainImage: string;
+  images: string[];
+  description: string;
+  content: string;
+}

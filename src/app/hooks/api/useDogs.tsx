@@ -92,7 +92,7 @@ const updateDog = async (dto: UpdateDogDto) => {
   const { id, ...bodyWithoutId } = dto;
 
   const res = await fetch(`http://localhost:3000/dogs/${dto.id}`, {
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },

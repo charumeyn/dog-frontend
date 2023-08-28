@@ -1,7 +1,7 @@
 import { queryKeys } from "@/app/queryKey/queryKeys";
 import { FailResult, SuccessResult } from "@/app/types/apiResult";
 import { Dog } from "@/app/types/dog.interface";
-import { CreateShelterDto, Shelter } from "@/app/types/shelter.interface";
+import { CreateShelterDto, Shelter, UpdateShelterDto } from "@/app/types/shelter.interface";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const getShelters = async (limit?: number) => {
@@ -65,4 +65,42 @@ const useCreateShelter = (
   });
 };
 
-export { useShelters, useShelter, useCreateShelter }
+const updateShelter = async (dto: UpdateShelterDto) => {
+
+  const { id, ...bodyWithoutId } = dto;
+
+  const res = await fetch(`http://localhost:3000/shelters/${dto.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...bodyWithoutId
+    })
+  });
+
+  const data = await res.json();
+  return data;
+}
+
+const useUpdateShelter = (
+  onCreateSuccess: () => void,
+  onCreateError?: (error: FailResult) => void
+) => {
+  return useMutation((dto: UpdateShelterDto) => updateShelter(dto), {
+    onSuccess: (data: SuccessResult<Shelter> | FailResult) => {
+      if (!data.success) {
+        if (onCreateError) onCreateError(data)
+      } else {
+        onCreateSuccess()
+      }
+    },
+    onError: (error: FailResult) => {
+      if (onCreateError) {
+        onCreateError(error);
+      }
+    },
+  });
+};
+
+export { useShelters, useShelter, useCreateShelter, useUpdateShelter }

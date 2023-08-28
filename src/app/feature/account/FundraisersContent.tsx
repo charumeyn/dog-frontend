@@ -29,7 +29,7 @@ function FundraiserList({ fundraisers }: { fundraisers: Fundraiser[] }) {
   return (
     <div className="mt-8">
       <div className="flex justify-between items-center mb-4">
-        <Heading type="h1" text="My Fundraisers" />
+        <Heading type="h1" text="Fundraisers" />
         <a href="/fundraisers/create" className="text-teal-600 font-semibold text-sm">+ Create fundraiser</a>
       </div>
 
@@ -63,8 +63,8 @@ function FundraiserItem({ id }: { id: number }) {
   }, [fundraiser])
 
   const menuForPending = [
-    { label: "Edit", url: "/edit" },
-    { label: "View", url: "/fundraisers/" + fundraiser?.id },
+    { label: "Edit", url: `/account/fundraisers/${id}` },
+    { label: "View", url: `/fundraisers/${id}` },
   ];
 
   return (
