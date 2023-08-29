@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import Container, { ContainerType } from "./Container";
 import { User, UserType } from "@/app/types/user.interface";
 import DropdownMenu from "./common/DropdownMenu";
-import { IconHorizontalDots } from "./Icons";
+import { IconChevronDown, IconHorizontalDots } from "./Icons";
 
 type HeaderProps = {
 }
@@ -14,6 +14,7 @@ type HeaderProps = {
 export default function Header() {
 
   const { data: account, isLoading } = useAccount();
+
   const menu = [
     {
       name: 'Dogs',
@@ -67,11 +68,10 @@ function Username({ account }: { account: User }) {
   const { mutate: logout } = useLogout(onLogoutSuccess, onLogoutError);
 
   const menuForPending = [
-    { label: "Dashboard", url: "/account" },
     { label: "Dogs", url: "/account/dogs" },
     { label: "Fundraisers", url: "/account/fundraisers" },
-    { label: "Donations", url: "/account/donations" },
-    { label: "Edit Shelter", url: "/account/edit" },
+    { label: "Edit Shelter", url: "/account/shelter" },
+    { label: "Edit Profile", url: "/account/edit" },
     { label: "Logout", onClick: () => logout() },
   ];
 
@@ -80,12 +80,15 @@ function Username({ account }: { account: User }) {
       {account.type === UserType.Shelter ?
         <div className="flex items-center gap-3 pl-5">
           <img src={account?.shelter.mainImage} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
-          <a className="" href="/account">Hi, {account?.firstName}!</a>
+          <p className="flex flex-col">
+            <span className="text-orange-700 text-xs font-medium">Shelter</span>
+            <a className="" href="/accoun/dogs">{account?.shelter.name}!</a>
+          </p>
           <DropdownMenu
             menuItems={menuForPending}
             icon={
-              <IconHorizontalDots
-                className="h-8 w-8 bg-gray-200 p-1.5 rounded-full"
+              <IconChevronDown
+                className="h-8 w-8 p-1.5 rounded-full text-zinc-600"
                 aria-hidden="true"
               />
             }

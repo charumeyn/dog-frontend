@@ -1,9 +1,7 @@
-import { IconClose, IconDog, IconDog2, IconDonation, IconFundraiser, IconHome, IconProfile } from "@/app/components/layout/Icons";
-import ButtonLink from "@/app/components/layout/common/ButtonLink";
+import { IconDog2, IconDonation, IconFundraiser, IconHome, IconProfile } from "@/app/components/layout/Icons";
 import Heading from "@/app/components/layout/common/Heading";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { UserType } from "@/app/types/user.interface";
-import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 export function MenuUser({ currentPage }: { currentPage: string }) {
@@ -13,8 +11,6 @@ export function MenuUser({ currentPage }: { currentPage: string }) {
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
   }
-
-  const params = useParams()
 
   const navigation = useMemo(() => {
 
@@ -38,7 +34,7 @@ export function MenuUser({ currentPage }: { currentPage: string }) {
 
   return (
     <div>
-      <Heading type="h3" text="Dashboard" className="mb-4" />
+      <Heading type="h3" text="Dashboard" className="mb-4 mt-1" />
       <ul role="list" className="-mx-2 space-y-1 mb-4">
         {navigation.map((item) => (
           <li key={item.name}>
@@ -46,17 +42,17 @@ export function MenuUser({ currentPage }: { currentPage: string }) {
               href={item.href}
               className={classNames(
                 item.menuPage === currentPage
-                  ? 'font-semibold'
-                  : 'hover:bg-zinc-50',
-                'group flex items-center gap-x-4 rounded-md p-2 text-lg leading-6 text-zinc-900'
+                  ? 'font-semibold text-teal-600 bg-zinc-100'
+                  : 'text-zinc-900 hover:bg-zinc-50',
+                'group flex items-center gap-x-4 rounded-lg px-4 py-2 text-lg leading-6'
               )}
             >
-              <item.icon
+              {/* <item.icon
                 className={classNames(
                   item.icon === IconProfile ? 'h-6 w-6 shrink-0' : 'h-6 w-6 shrink-0',
                 )}
                 aria-hidden="true"
-              />
+              /> */}
               {item.name}
             </a>
           </li>

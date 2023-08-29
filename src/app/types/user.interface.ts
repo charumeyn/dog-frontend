@@ -28,3 +28,9 @@ export enum UserType {
   Admin = "admin",
   Shelter = "shelter",
 }
+
+export interface UpdateUserDto {
+  id: number;
+  firstName: string;
+  lastName: string;
+}

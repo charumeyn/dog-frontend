@@ -49,7 +49,7 @@ function DogCard({ dogId }: { dogId: number }) {
     dog ?
       <div>
         <div className="flex gap-5 border border-zinc-200 rounded-xl p-5">
-          <img src={dog.mainImage} className="w-14 h-14 rounded-full" />
+          <img src={dog.mainImage} className="w-14 h-14 rounded-full aspect-[5/5] object-cover" />
           <div className="w-full">
             <div className="flex justify-between">
               <div>

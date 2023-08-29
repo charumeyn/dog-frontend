@@ -13,8 +13,8 @@ const AccountContainer: React.FunctionComponent<AccountContainerProps> = ({ main
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 my-14">
       <div className="flex min-h-full flex-col">
-        <div className="mx-auto flex w-full items-start gap-x-8">
-          <aside className="hidden w-60	shrink-0 lg:block">
+        <div className="mx-auto flex w-full items-start gap-x-10">
+          <aside className="hidden w-56	shrink-0 lg:block">
             <MenuUser currentPage={currentPage} />
           </aside>
 

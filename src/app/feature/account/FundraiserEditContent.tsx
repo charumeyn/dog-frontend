@@ -25,7 +25,6 @@ export default function FundraiserEditContent({ id }: { id: number }) {
   const [error, setError] = useState<string[]>([])
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-  const { data: account, isLoading: isLoadingAccount } = useAccount();
   const { data: fundraiser, isLoading: isLoadingFundraiser } = useFundraiser(id);
 
   const onError = useCallback((error: any) => {
@@ -58,7 +57,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
       setImages(fundraiser.images)
       setMainImage(fundraiser.mainImage)
     }
-  }, [setTitle, setDescription, setStartsAt, setEndsAt, setContent, setGoalAmount, setImages, setMainImage, fundraiser])
+  }, [fundraiser, setTitle, setDescription, setStartsAt, setEndsAt, setContent, setGoalAmount, setImages, setMainImage, fundraiser])
 
   const onSubmit = useCallback((e: any) => {
     e.preventDefault();
