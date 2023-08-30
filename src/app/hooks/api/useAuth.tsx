@@ -93,6 +93,21 @@ const useAccount = () => {
   );
 };
 
+const getAccountById = async (id: number) => {
+  const res = await fetch(`http://localhost:3000/accounts/${id}`, {
+    credentials: 'include'
+  });
+
+  return res.json();
+};
+
+const useAccountById = (id: number) => {
+  return useQuery<User>(
+    queryKeys.accountId(id),
+    () => getAccountById(id),
+  );
+};
+
 const logout = async () => {
   const res = await fetch(`http://localhost:3000/auth/logout`, {
     credentials: 'include',
@@ -164,4 +179,17 @@ const useUpdateUser = (
   });
 };
 
-export { useRegister, useLogin, useAccount, useLogout, useUpdateUser }
+const getAccounts = async () => {
+  const res = await fetch(`http://localhost:3000/accounts`);
+
+  return res.json();
+};
+
+const useAccounts = () => {
+  return useQuery<User[]>(
+    queryKeys.accounts(),
+    () => getAccounts(),
+  );
+};
+
+export { useRegister, useLogin, useAccount, useLogout, useUpdateUser, useAccounts, useAccountById }

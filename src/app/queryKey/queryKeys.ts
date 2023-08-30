@@ -12,5 +12,7 @@ export const queryKeys = {
   donation: (id: number) => ["donation", id],
   donations: (limit?: number) => ["donations", "limit", limit],
   account: () => ["account"],
+  accounts: () => ["accounts"],
+  accountId: (id: number) => ["account", id],
   comment: (id: number) => ["comment", id],
 };

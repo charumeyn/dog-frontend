@@ -82,7 +82,7 @@ function Username({ account }: { account: User }) {
           <img src={account?.shelter.mainImage} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
           <p className="flex flex-col">
             <span className="text-orange-700 text-xs font-medium">Shelter</span>
-            <a className="" href="/accoun/dogs">{account?.shelter.name}!</a>
+            <a href="/account/dogs">{account?.shelter.name}!</a>
           </p>
           <DropdownMenu
             menuItems={menuForPending}

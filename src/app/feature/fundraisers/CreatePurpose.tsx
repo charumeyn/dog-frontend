@@ -1,15 +1,12 @@
-import { useDog, useDogs } from "@/app/hooks/api/useDogs";
-import { Dog } from "@/app/types/dog.interface";
+import { useDogs } from "@/app/hooks/api/useDogs";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
-import { Shelter } from "@/app/types/shelter.interface";
-import { User } from "@/app/types/user.interface";
-import { useCallback, useEffect, useMemo } from "react";
-import { idText } from "typescript";
-import CreateFundRaiserType from "./SelectedDog";
-import { Country } from "@/app/types/enum/countries.enum"
 import SelectedDog from "./SelectedDog";
-import { useShelters } from "@/app/hooks/api/useShelters";
+import { useAccount, useAccounts } from "@/app/hooks/api/useAuth";
+import { useEffect, useMemo, useState } from "react";
+import { User, UserType } from "@/app/types/user.interface";
+import { useShelter, useShelters } from "@/app/hooks/api/useShelters";
 import SelectedShelter from "./SelectedShelter";
+import SelectedUser from "./SelectedUser";
 
 type CreatePurposeProps = {
   purpose: string;
@@ -24,10 +21,25 @@ type CreatePurposeProps = {
   setShelterId: (shelterId: number | undefined) => void;
   userId: number | undefined;
   setUserId: (userId: number | undefined) => void;
+  account: User;
 }
-const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, setPurpose, type, setType, country, setCountry, dogId, setDogId, shelterId, setShelterId, userId, setUserId }) => {
+const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, setPurpose, type, setType, country, setCountry, dogId, setDogId, shelterId, setShelterId, userId, setUserId, account }) => {
 
-  const { data: dogs } = useDogs(10);
+  const { data: shelter } = useShelter(Number(account?.shelter.id))
+  const { data: shelters } = useShelters(100)
+  const { data: accounts } = useAccounts()
+
+  const dogs = useMemo(() => {
+    if (account) {
+      if (shelter) {
+        if (account?.type === UserType.Shelter) {
+          return shelter.dogs
+        } else {
+          return account?.dogs
+        }
+      }
+    }
+  }, [account, shelter])
 
   const purposes = ["Emergency", "Monthly Bills", "Memorial", "Medical"]
 
@@ -37,8 +49,8 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
       <div className="grid grid-cols-3 gap-x-2">
         {Object.entries(RecipientType).map((text, i) =>
           <label htmlFor={text[1]} key={i}
-            className={`${type == text[1] ? "border-teal-600 text-teal-600" : "hover:border-zinc-500 hover:text-zinc-700"} 
-              font-medium rounded-lg text-center border-2 hover:cursor-pointer py-5 border-zinc-300 text-zinc-500`}>
+            className={`${type == text[1] ? "border-teal-600 text-teal-600" : "hover:border-zinc-400 hover:text-zinc-700"} 
+              font-medium rounded-lg text-center border-2 hover:cursor-pointer py-5 `}>
             <input
               id={text[1]}
               type="radio"
@@ -78,7 +90,7 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
         : null
       }
 
-      {/* {type === RecipientType.Shelter && shelterId === undefined ?
+      {type === RecipientType.Shelter && shelterId === undefined ?
         <div>
           <h3 className="text-zinc-700 mb-2 mt-6">Select a shelter</h3>
           <select
@@ -101,7 +113,32 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
       {type === RecipientType.Shelter && shelterId !== undefined ?
         <SelectedShelter shelterId={shelterId} setShelterId={setShelterId} />
         : null
-      } */}
+      }
+
+      {type === RecipientType.User && userId === undefined ?
+        <div>
+          <h3 className="text-zinc-700 mb-2 mt-6">Select a user</h3>
+          <select
+            id="userId"
+            name="userId"
+            value={userId}
+            onChange={(e: any) => setUserId(e.target.value)}
+            className="block w-full text-sm border border-zinc-300 rounded-md px-4 py-3"
+          >
+            {accounts?.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.firstName} {account.lastName}
+              </option>
+            ))}
+          </select>
+        </div>
+        : null
+      }
+
+      {type === RecipientType.User && userId !== undefined ?
+        <SelectedUser userId={userId} setUserId={setUserId} />
+        : null
+      }
 
       <h3 className="text-zinc-700 mb-2 mt-6">What describes the purpose of your fundraising intiative?</h3>
       <div className="flex gap-x-2">
