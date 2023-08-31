@@ -22,7 +22,13 @@ export default function HomeContent() {
 
   return (
     account ?
-      <div>{account?.type === UserType.User ? <UserHomeContent account={account} /> : <ShelterDogsContent account={account} />}</div>
+      <div>
+        {account?.type === UserType.User ? <UserHomeContent account={account} />
+          :
+          account.shelter != undefined ?
+            <ShelterDogsContent account={account} /> : null
+        }
+      </div>
       : null
   )
 }

@@ -34,7 +34,7 @@ export default function Header() {
         className="sticky top-0"
         mainContent={
           <div className="flex justify-between">
-            <div className="text-teal-600 py-5 text-2xl font-extrabold">Doggo&apos;s Life</div>
+            <a href="/" className="text-teal-600 py-5 text-2xl font-extrabold">Doggo&apos;s Life</a>
             <div className="flex">
               {menu.map((item: any, i: number) =>
                 <a className="px-8 py-5" key={i} href={item.url}>{item.name}</a>
