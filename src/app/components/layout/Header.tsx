@@ -72,7 +72,7 @@ function Username({ account }: { account: User }) {
 
   const userMenu = [
     { label: "Home", url: "/account" },
-    { label: "My Donations", url: "/account/fundraisers" },
+    { label: "My Donations", url: "/account/donations" },
     { label: "My Fundraisers", url: "/account/fundraisers" },
     { label: "My Dogs", url: "/account/dogs" },
     { label: "Edit Profile", url: "/account/edit" },

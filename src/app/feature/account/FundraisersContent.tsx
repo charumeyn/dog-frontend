@@ -26,7 +26,10 @@ export default function FundraisersContent() {
 
   return (
     account ?
-      <FundraiserList fundraisers={account.createdFundraisers} /> : null
+      account.id ?
+        <FundraiserList fundraisers={account.createdFundraisers} />
+        : null
+      : null
   )
 }
 
