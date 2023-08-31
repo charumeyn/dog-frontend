@@ -2,7 +2,7 @@ import { FailResult, SuccessResult } from "@/app/types/apiResult";
 import { LoginDto } from "@/app/types/dto/login.dto";
 import { RegisterDto } from "@/app/types/dto/register.dto";
 import { UpdateUserDto, User } from "@/app/types/user.interface";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/app/queryKey/queryKeys";
 import { Account } from "@/app/types/account.interface";
 
@@ -59,15 +59,19 @@ const login = async (dto: LoginDto) => {
 }
 
 const useLogin = (
-  onLoginSuccess: (data: SuccessResult<User>) => void,
+  onLoginSuccess: () => void,
   onLoginError?: (error: FailResult) => void
 ) => {
+
+  const queryClient = useQueryClient()
+
   return useMutation((dto: LoginDto) => login(dto), {
     onSuccess: (data: SuccessResult<User> | FailResult) => {
       if (!data.success) {
         if (onLoginError) onLoginError(data)
       } else {
-        onLoginSuccess(data)
+        queryClient.invalidateQueries(['account'])
+        onLoginSuccess()
       }
     },
     onError: (error: FailResult) => {
@@ -125,11 +129,15 @@ const useLogout = (
   onLogoutSuccess: () => void,
   onLogoutError?: () => void
 ) => {
+
+  const queryClient = useQueryClient()
+
   return useMutation(() => logout(), {
     onSuccess: (data: SuccessResult<User> | FailResult) => {
       if (!data.success) {
         if (onLogoutError) onLogoutError()
       } else {
+        queryClient.invalidateQueries(['account'])
         onLogoutSuccess()
       }
     },

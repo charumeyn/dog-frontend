@@ -41,8 +41,14 @@ export default function RegisterDogContent() {
   const [colors, setColors] = useState<Color[]>([])
 
   const { data: account } = useAccount();
-
   const router = useRouter();
+
+  useEffect(() => {
+    if (account) {
+      if (account.id === undefined) {
+      }
+    }
+  }, [account])
 
   const onCreateSuccess = useCallback((data: SuccessResult<Dog>) => {
     if (data.success) {

@@ -6,11 +6,22 @@ import Button from "@/app/components/layout/common/Button"
 import Heading from "@/app/components/layout/common/Heading"
 import Input, { InputType } from "@/app/components/layout/common/Input"
 import { useAccount, useUpdateUser } from "@/app/hooks/api/useAuth"
+import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 
 export default function AccountEditContent() {
 
   const { data: account } = useAccount()
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (account) {
+      if (account.id === undefined) {
+        router.push("/login")
+      }
+    }
+  }, [account])
 
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")

@@ -13,7 +13,6 @@ export function MenuUser({ currentPage }: { currentPage: string }) {
   }
 
   const navigation = useMemo(() => {
-
     if (account?.type === UserType.User) {
       return [
         { name: 'Home', href: '/account', icon: IconHome, menuPage: 'home' },
@@ -30,7 +29,7 @@ export function MenuUser({ currentPage }: { currentPage: string }) {
         { name: 'Edit Account', href: '/account/edit', icon: IconDonation, menuPage: 'edit' },
       ]
     }
-  }, [])
+  }, [account])
 
   return (
     <div>
@@ -47,12 +46,6 @@ export function MenuUser({ currentPage }: { currentPage: string }) {
                 'group flex items-center gap-x-4 rounded-lg px-4 py-2 text-lg leading-6'
               )}
             >
-              {/* <item.icon
-                className={classNames(
-                  item.icon === IconProfile ? 'h-6 w-6 shrink-0' : 'h-6 w-6 shrink-0',
-                )}
-                aria-hidden="true"
-              /> */}
               {item.name}
             </a>
           </li>

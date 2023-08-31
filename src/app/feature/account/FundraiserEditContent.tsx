@@ -8,11 +8,23 @@ import Input, { InputType } from "@/app/components/layout/common/Input";
 import S3Uploader from "@/app/components/libraries/S3Uploader";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useFundraiser, useUpdateFundraiser } from "@/app/hooks/api/useFundraisers";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function FundraiserEditContent({ id }: { id: number }) {
+
+  const { data: account } = useAccount();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (account) {
+      if (account.id === undefined) {
+        router.push("/login")
+      }
+    }
+  }, [account])
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");

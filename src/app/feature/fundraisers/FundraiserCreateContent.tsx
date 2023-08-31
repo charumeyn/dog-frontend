@@ -4,7 +4,7 @@ import { SuccessResult } from "@/app/types/apiResult";
 import { FundraiserSection } from "@/app/types/enum/fundraiserSection.enum";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { CreateFundraiserDto, Fundraiser } from "@/app/types/fundraiser.interface";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import SectionTab from "./SectionTab";
 import CreatePurpose from "./CreatePurpose";
@@ -31,6 +31,15 @@ export default function FundraiserCreateContent() {
   const [fundraiserId, setFundraiserId] = useState<number | undefined>(undefined);
 
   const { data: account } = useAccount();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (account) {
+      if (account.id === undefined) {
+        router.push("/login")
+      }
+    }
+  }, [account])
 
   useEffect(() => {
     if (fundraiserId) {
@@ -133,36 +142,39 @@ export default function FundraiserCreateContent() {
 
       {account ?
         <form className="max-w-2xl mx-auto bg-white rounded-2xl">
-          {selectedSection === FundraiserSection.Purpose ?
-            <CreatePurpose
-              account={account}
-              purpose={purpose} setPurpose={setPurpose}
-              type={type} setType={setType}
-              country={country} setCountry={setCountry}
-              dogId={dogId} setDogId={setDogId}
-              shelterId={shelterId} setShelterId={setShelterId}
-              userId={userId} setUserId={setUserId}
-            /> : selectedSection === FundraiserSection.Details ?
-              <CreateDetails
-                goalAmount={goalAmount}
-                setGoalAmount={setGoalAmount}
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate} /> :
-              <CreateContent
-                mainImage={mainImage}
-                setMainImage={setMainImage}
-                images={images}
-                setImages={setImages}
-                description={description}
-                setDescription={setDescription}
-                content={content}
-                setContent={setContent}
-                title={title}
-                setTitle={setTitle}
-              />
-          }
+          {account.shelter != undefined ?
+            <>
+              {selectedSection === FundraiserSection.Purpose ?
+                <CreatePurpose
+                  account={account}
+                  purpose={purpose} setPurpose={setPurpose}
+                  type={type} setType={setType}
+                  country={country} setCountry={setCountry}
+                  dogId={dogId} setDogId={setDogId}
+                  shelterId={shelterId} setShelterId={setShelterId}
+                  userId={userId} setUserId={setUserId}
+                /> : selectedSection === FundraiserSection.Details ?
+                  <CreateDetails
+                    goalAmount={goalAmount}
+                    setGoalAmount={setGoalAmount}
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate} /> :
+                  <CreateContent
+                    mainImage={mainImage}
+                    setMainImage={setMainImage}
+                    images={images}
+                    setImages={setImages}
+                    description={description}
+                    setDescription={setDescription}
+                    content={content}
+                    setContent={setContent}
+                    title={title}
+                    setTitle={setTitle}
+                  />
+              }
+            </> : null}
 
           <div className="flex justify-end gap-x-4 px-6 py-5 border-t border-zinc-300">
             <button

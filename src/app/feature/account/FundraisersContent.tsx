@@ -7,12 +7,22 @@ import { useAccount } from "@/app/hooks/api/useAuth";
 import { useFundraiser } from "@/app/hooks/api/useFundraisers";
 import { Fundraiser } from "@/app/types/fundraiser.interface";
 import moment from "moment";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import FundraiserStatus from "../fundraisers/FundraiserStatus";
+import { useRouter } from "next/navigation";
 
 export default function FundraisersContent() {
 
   const { data: account, isLoading: isLoadingAccount } = useAccount();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (account) {
+      if (account.id === undefined) {
+        router.push("/login")
+      }
+    }
+  }, [account])
 
   return (
     account ?

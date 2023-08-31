@@ -2,14 +2,11 @@
 
 import { useAccount, useLogout } from "@/app/hooks/api/useAuth";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import Container, { ContainerType } from "./Container";
 import { User, UserType } from "@/app/types/user.interface";
 import DropdownMenu from "./common/DropdownMenu";
 import { IconChevronDown, IconHorizontalDots } from "./Icons";
-
-type HeaderProps = {
-}
 
 export default function Header() {
 
@@ -28,8 +25,6 @@ export default function Header() {
   const isLoggedIn = useMemo(() => {
     return account && account.id;
   }, [account])
-
-  console.log(account)
 
 
   return (
@@ -62,15 +57,24 @@ export default function Header() {
 function Username({ account }: { account: User }) {
 
   const router = useRouter();
-  const onLogoutSuccess = () => router.push("/login")
+  const onLogoutSuccess = useCallback(() => router.push("/login"), [])
   const onLogoutError = () => console.log("error logging out")
 
   const { mutate: logout } = useLogout(onLogoutSuccess, onLogoutError);
 
-  const menuForPending = [
+  const shelterMenu = [
     { label: "Dogs", url: "/account/dogs" },
     { label: "Fundraisers", url: "/account/fundraisers" },
     { label: "Edit Shelter", url: "/account/shelter" },
+    { label: "Edit Profile", url: "/account/edit" },
+    { label: "Logout", onClick: () => logout() },
+  ];
+
+  const userMenu = [
+    { label: "Home", url: "/account" },
+    { label: "My Donations", url: "/account/fundraisers" },
+    { label: "My Fundraisers", url: "/account/fundraisers" },
+    { label: "My Dogs", url: "/account/dogs" },
     { label: "Edit Profile", url: "/account/edit" },
     { label: "Logout", onClick: () => logout() },
   ];
@@ -82,10 +86,10 @@ function Username({ account }: { account: User }) {
           <img src={account?.shelter.mainImage} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
           <p className="flex flex-col">
             <span className="text-orange-700 text-xs font-medium">Shelter</span>
-            <a href="/account/dogs">{account?.shelter.name}!</a>
+            <a href="/account/dogs">{account?.shelter.name}</a>
           </p>
           <DropdownMenu
-            menuItems={menuForPending}
+            menuItems={shelterMenu}
             icon={
               <IconChevronDown
                 className="h-8 w-8 p-1.5 rounded-full text-zinc-600"
@@ -95,12 +99,21 @@ function Username({ account }: { account: User }) {
           />
         </div>
         :
-        <div>
-          <a className="" href="/account">Hi, {account?.firstName}!</a>
+        <div className="flex items-center gap-3 pl-5">
+          <p className="flex flex-col">
+            <a href="/account">Hi, {account?.firstName}!</a>
+          </p>
+          <DropdownMenu
+            menuItems={userMenu}
+            icon={
+              <IconChevronDown
+                className="h-8 w-8 p-1.5 rounded-full text-zinc-600"
+                aria-hidden="true"
+              />
+            }
+          />
         </div>
       }
-
-      {/* <span className="" onClick={() => logout()}>Logout</span> */}
     </div>
   )
 }

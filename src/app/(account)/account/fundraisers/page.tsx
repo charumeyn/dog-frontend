@@ -4,12 +4,10 @@ import FundraisersContent from "@/app/feature/account/FundraisersContent";
 export default function Fundraisers({ params }: { params: any }) {
 
   return (
-    <>
-      <AccountContainer
-        currentPage={'fundraisers'}
-        mainContent={
-          <FundraisersContent />
-        } />
-    </>
+    <AccountContainer
+      currentPage={'fundraisers'}
+      mainContent={
+        <FundraisersContent />
+      } />
   )
 }

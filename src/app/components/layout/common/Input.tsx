@@ -13,9 +13,10 @@ type InputProps = {
   placeholder?: string;
   onChange?: (e: any) => void;
   disabled?: boolean;
+  required?: boolean;
 }
 
-const Input: React.FunctionComponent<InputProps> = ({ name, label, type, placeholder, value, onChange, disabled }) => {
+const Input: React.FunctionComponent<InputProps> = ({ name, label, type, placeholder, value, onChange, disabled, required }) => {
   return (
     <div>
       {label ?
@@ -33,6 +34,7 @@ const Input: React.FunctionComponent<InputProps> = ({ name, label, type, placeho
           placeholder={placeholder}
           onChange={onChange}
           disabled={disabled}
+          required={required}
         />
       </div>
     </div>

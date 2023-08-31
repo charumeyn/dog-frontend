@@ -6,13 +6,25 @@ import { useAccount } from "@/app/hooks/api/useAuth";
 import { Dog } from "@/app/types/dog.interface";
 import { UserType } from "@/app/types/user.interface";
 import ShelterDogsContent from "./shelter/ShelterDogsContent";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DogsContent() {
 
   const { data: account, isLoading: isLoadingAccount } = useAccount();
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if (account) {
+      if (account.id === undefined) {
+        router.push("/login")
+      }
+    }
+  }, [account])
+
   return (
-    account ?
+    account && account.id != undefined ?
       <div>
         {account.type === UserType.User ?
           <div>

@@ -8,6 +8,7 @@ import S3Uploader from "@/app/components/libraries/S3Uploader";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useShelter, useUpdateShelter } from "@/app/hooks/api/useShelters";
 import { UpdateShelterDto } from "@/app/types/shelter.interface";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 export default function ShelterEditContent({ id }: { id: number }) {
@@ -22,10 +23,15 @@ export default function ShelterEditContent({ id }: { id: number }) {
 
   const { data: account } = useAccount();
   const { data: shelter } = useShelter(shelterId)
+  const router = useRouter();
 
   useEffect(() => {
     if (account) {
-      setShelterId(account?.shelter.id)
+      if (account.id === undefined) {
+        router.push("/login")
+      } else {
+        setShelterId(account?.shelter.id)
+      }
     }
   }, [account, setShelterId])
 

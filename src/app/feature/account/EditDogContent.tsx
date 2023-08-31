@@ -9,7 +9,7 @@ import { Color } from "@/app/types/enum/color.enum";
 import { Gender } from "@/app/types/enum/gender.enum";
 import { Size } from "@/app/types/enum/size.enum";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import RadioButton from "@/app/components/layout/common/RadioButton";
@@ -33,13 +33,20 @@ export default function EditDogContent({ id }: { id: number }) {
   const [description, setDescription] = useState<string>("")
   const [breeds, setBreeds] = useState<string[]>([])
   const [colors, setColors] = useState<Color[]>([])
-
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const { data: account } = useAccount();
   const { data: dog } = useDog(id)
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (account) {
+      if (account.id === undefined) {
+        router.push("/login")
+      }
+    }
+  }, [account])
 
   useEffect(() => {
     if (dog) {
