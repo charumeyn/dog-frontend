@@ -27,9 +27,7 @@ const StackedAvatars: React.FunctionComponent<StackedAvatarsProps> = ({ text, ur
         ))}
       </div>
       <div>
-        {text}
-        {url ? <a href={url}>{text}</a> : null}
-        {onClick ? <span className="text-sm text-zinc-500" onClick={onClick}>{text}</span> : null}
+        {url ? <a href={url}>{text}</a> : onClick ? <span className="text-sm text-zinc-500" onClick={onClick}>{text}</span> : text}
       </div>
     </div>
   )

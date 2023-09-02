@@ -10,10 +10,12 @@ import ButtonLink from "@/app/components/layout/common/ButtonLink";
 import Share from "@/app/components/layout/common/Share";
 import Modal from "@/app/components/layout/common/Modal";
 import DonationList from "@/app/components/layout/common/DonationList.client";
+import { User } from "@/app/types/user.interface";
+import AddToFavorites from "./AddToFavorites";
 
 type DogInfoProps = {
   dog?: Dog;
-  account?: Account;
+  account?: User;
 }
 
 const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
@@ -92,9 +94,7 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
         fullWidth={true}
       />
 
-      <div className="flex gap-x-2 justify-center text-zinc-500 text-sm mt-5">
-        <IconHeart className="w-4 w-5" />Add to favorites
-      </div>
+      {account && dog ? <AddToFavorites account={account} dogId={dog.id} /> : null}
 
       <Modal setIsOpen={setShowDonations} isOpen={showDonations} title={"Sponsors"}>
         {dog?.donations.map((donation, i) => (

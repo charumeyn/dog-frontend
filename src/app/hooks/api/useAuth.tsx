@@ -1,7 +1,7 @@
 import { FailResult, SuccessResult } from "@/app/types/apiResult";
 import { LoginDto } from "@/app/types/dto/login.dto";
 import { RegisterDto } from "@/app/types/dto/register.dto";
-import { UpdateUserDto, User } from "@/app/types/user.interface";
+import { UpdateFavoritesDto, UpdateUserDto, User } from "@/app/types/user.interface";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/app/queryKey/queryKeys";
 import { Account } from "@/app/types/account.interface";
@@ -200,4 +200,47 @@ const useAccounts = () => {
   );
 };
 
-export { useRegister, useLogin, useAccount, useLogout, useUpdateUser, useAccounts, useAccountById }
+const updateFavorites = async (dto: UpdateFavoritesDto) => {
+
+  // const { id, ...bodyWithoutId } = dto;
+
+  const res = await fetch(`http://localhost:3000/account/${dto.id}/update-favorites`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...dto
+    })
+  });
+
+  const data = await res.json();
+  return data;
+}
+
+const useUpdateFavorites = (
+  onUpdateSuccess: () => void,
+  onUpdateError?: (error: FailResult) => void
+) => {
+  const queryClient = useQueryClient()
+
+  return useMutation((dto: UpdateFavoritesDto) => updateFavorites(dto), {
+    onSuccess: (data: SuccessResult<User> | FailResult) => {
+      if (!data.success) {
+        if (onUpdateError) onUpdateError(data)
+      } else {
+        queryClient.invalidateQueries(['account'])
+        onUpdateSuccess()
+      }
+    },
+    onError: (error: FailResult) => {
+      if (onUpdateError) {
+        onUpdateError(error);
+      }
+    },
+  });
+};
+
+
+
+export { useRegister, useLogin, useAccount, useLogout, useUpdateUser, useAccounts, useAccountById, useUpdateFavorites }

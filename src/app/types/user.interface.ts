@@ -21,6 +21,7 @@ export interface User {
   fundraisers: Fundraiser[];
   createdFundraisers: Fundraiser[];
   dogs: Dog[];
+  favoriteDogIds: number[];
 }
 
 export enum UserType {
@@ -33,4 +34,9 @@ export interface UpdateUserDto {
   id: number;
   firstName: string;
   lastName: string;
+}
+
+export interface UpdateFavoritesDto {
+  id: number;
+  favoriteDogIds: number[];
 }
