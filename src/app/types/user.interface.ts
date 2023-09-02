@@ -13,6 +13,7 @@ export interface User {
   firstName?: string;
   lastName?: string;
   phone?: string;
+  image?: string;
   type: UserType;
   address: Address;
   shelter: Shelter;
@@ -34,6 +35,7 @@ export interface UpdateUserDto {
   id: number;
   firstName: string;
   lastName: string;
+  image: string;
 }
 
 export interface UpdateFavoritesDto {

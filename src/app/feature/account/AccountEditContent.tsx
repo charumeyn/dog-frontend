@@ -5,6 +5,8 @@ import Alert from "@/app/components/layout/common/Alert"
 import Button from "@/app/components/layout/common/Button"
 import Heading from "@/app/components/layout/common/Heading"
 import Input, { InputType } from "@/app/components/layout/common/Input"
+import S3Uploader from "@/app/components/libraries/S3Uploader"
+import S3UploaderSingle from "@/app/components/libraries/S3UploaderSingle"
 import { useAccount, useUpdateUser } from "@/app/hooks/api/useAuth"
 import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
@@ -25,6 +27,7 @@ export default function AccountEditContent() {
 
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
+  const [images, setImages] = useState<string[]>([])
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
   const [error, setError] = useState<string[]>([])
 
@@ -34,6 +37,12 @@ export default function AccountEditContent() {
       setLastName(account.lastName)
     }
   }, [account, setFirstName, setLastName])
+
+  useEffect(() => {
+    if (account?.image) {
+      setImages([account?.image])
+    }
+  }, [account, setImages])
 
   const onSuccess = useCallback(() => {
     setIsSuccess(true);
@@ -52,7 +61,7 @@ export default function AccountEditContent() {
     e.preventDefault();
 
     if (account) {
-      update({ id: account?.id, firstName, lastName })
+      update({ id: account?.id, firstName, lastName, image: images[0] })
     }
   }, [account, firstName, lastName])
 
@@ -93,6 +102,10 @@ export default function AccountEditContent() {
                 value={account?.email}
                 disabled={true}
               />
+            </div>
+
+            <div className="col-span-3">
+              <S3UploaderSingle images={images} setImages={setImages} />
             </div>
 
             <div className="col-span-5">
