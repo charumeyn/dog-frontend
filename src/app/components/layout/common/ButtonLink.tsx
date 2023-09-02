@@ -1,7 +1,3 @@
-
-interface ButtonType {
-}
-
 type ButtonLinkProps = {
   url: string;
   text: string;
