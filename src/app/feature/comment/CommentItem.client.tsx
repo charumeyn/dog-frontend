@@ -23,7 +23,7 @@ const CommentList: React.FunctionComponent<CommentListProps> = ({ comments }) =>
   )
 }
 
-const CommentRow: React.FunctionComponent<CommentRowProps> = ({ commentId }) => {
+export const CommentRow: React.FunctionComponent<CommentRowProps> = ({ commentId }) => {
 
   const { data: comment } = useComment(commentId)
 

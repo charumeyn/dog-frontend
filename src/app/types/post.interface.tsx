@@ -1,3 +1,4 @@
+import { Comment } from "./comment.interface";
 import { Dog } from "./dog.interface";
 
 export interface Post {
@@ -10,4 +11,5 @@ export interface Post {
   updatedAt?: Date;
   deletedAt?: Date;
   dog: Dog;
+  comments: Comment[];
 };
