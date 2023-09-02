@@ -70,21 +70,22 @@ export default function DogDetailContent({ id }: { id: number }) {
         }
       />
 
-      {dog?.posts && dog?.posts.length > 0 ?
-        <section className="py-16 bg-zinc-100">
-          <div className="w-full max-w-screen-2xl mx-auto px-4">
-            <h2 className="mb-5 font-bold text-lg">{dog?.name}'s Doggo Diary</h2>
-            <div className="w-full max-w-screen-2xl mx-auto">
-              <div className="grid grid-cols-3 gap-x-8">
+      <Container
+        type={ContainerType.SingleColumn}
+        withBg
+        className="py-10 mt-10"
+        mainContent={
+          account && dog?.posts && dog?.posts.length > 0 ?
+            <>
+              <Heading type="h1" text={`${dog?.name}'s Doggo Diary`} className="mb-5" />
+              <div className="grid grid-cols-5 gap-x-2">
                 {dog?.posts.map((post, i) =>
-                  <PostCard key={i} post={post} />
+                  <PostCard key={i} post={post} dog={dog} account={account} />
                 )}
               </div>
-            </div>
-          </div>
-        </section>
-        : null
-      }
+            </> : null
+        }
+      />
 
       <Container
         type={ContainerType.SingleColumn}

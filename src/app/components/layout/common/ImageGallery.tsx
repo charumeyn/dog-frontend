@@ -4,9 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 type ImageGalleryProps = {
   images: string[];
   mainImage: string;
+  isSquare?: boolean;
 }
 
-const ImageGallery: React.FunctionComponent<ImageGalleryProps> = ({ images, mainImage }) => {
+const ImageGallery: React.FunctionComponent<ImageGalleryProps> = ({ images, mainImage, isSquare }) => {
 
   const [selectedImage, setSelectedImage] = useState<string>(mainImage);
 
@@ -21,7 +22,7 @@ const ImageGallery: React.FunctionComponent<ImageGalleryProps> = ({ images, main
         ))}
       </div>
       <div className="col-span-7">
-        <img className="aspect-[4/3] object-cover rounded-xl"
+        <img className={`${isSquare ? "aspect-[5/5]" : "aspect-[4/3]"} object-cover rounded-xl`}
           src={selectedImage} alt={"image"} />
       </div>
     </div>)
