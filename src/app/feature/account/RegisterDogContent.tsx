@@ -20,6 +20,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import RadioButton from "@/app/components/layout/common/RadioButton";
 import S3Uploader from "@/app/components/libraries/S3Uploader";
 import Heading from "@/app/components/layout/common/Heading";
+import { UserType } from "@/app/types/user.interface";
 
 interface SelectList {
   label: string;
@@ -35,6 +36,7 @@ export default function RegisterDogContent() {
   const [mainImage, setMainImage] = useState<string>("")
   const [images, setImages] = useState<string[]>([])
   const [description, setDescription] = useState<string>("")
+  const [content, setContent] = useState<string>("")
   const [selectedColors, setSelectedColors] = useState<SelectList[]>([])
   const [selectedBreeds, setSelectedBreeds] = useState<SelectList[]>([])
   const [breeds, setBreeds] = useState<string[]>([])
@@ -80,7 +82,9 @@ export default function RegisterDogContent() {
         mainImage,
         images,
         description,
-        shelterId: account?.shelter.id
+        content,
+        shelterId: account?.type === UserType.Shelter ? Number(account?.shelter.id) : undefined,
+        userId: account?.type === UserType.User ? Number(account?.id) : undefined,
       }
       create(body)
     }
@@ -192,6 +196,20 @@ export default function RegisterDogContent() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
+
+          <div className="col-span-4">
+            <span className="block text-sm font-medium leading-6 text-zinc-900">Content</span>
+            <textarea
+              id="content"
+              name="content"
+              rows={5}
+              cols={20}
+              value={content}
+              onChange={(e: any) => setContent(e.target.value)}
+              className="mt-2 text-zinc-900 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
+            />
+          </div>
+
 
           <div className="col-span-5">
             <h3 className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Upload images</h3>

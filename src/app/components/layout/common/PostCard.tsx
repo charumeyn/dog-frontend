@@ -10,16 +10,17 @@ import { User } from "@/app/types/user.interface";
 import { usePost } from "@/app/hooks/api/usePosts";
 import { useComment } from "@/app/hooks/api/useComment";
 import moment from "moment";
+import { useAccount } from "@/app/hooks/api/useAuth";
 
 type PostCard = {
   post: Post;
   dog: Dog;
-  account: User;
 }
 
-const PostCard: React.FunctionComponent<PostCard> = ({ post, dog, account }) => {
+const PostCard: React.FunctionComponent<PostCard> = ({ post, dog }) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { data: account } = useAccount()
 
   return (
     <>
@@ -35,7 +36,9 @@ const PostCard: React.FunctionComponent<PostCard> = ({ post, dog, account }) => 
         children={
           <div className="grid grid-cols-2 gap-x-8">
             <ImageGallery images={post.images} mainImage={post.mainImage} isSquare />
-            <PostCardContent account={account} dogId={dog.id} postId={post.id} />
+            {dog && account ?
+              <PostCardContent account={account} dogId={dog.id} postId={post.id} />
+              : null}
           </div>
         }
       />
@@ -84,7 +87,7 @@ function CommentRow({ id }: { id: number }) {
   return (
     comment ?
       <div className="flex gap-x-3 mb-4 text-sm">
-        <img src={comment?.dog?.mainImage} alt={comment.user.firstName} className="rounded-full w-10 h-10" />
+        <img src={comment.user.image} alt={comment.user.firstName} className="rounded-full w-10 h-10" />
         <div>
           <p className="text-zinc-800"><span className="font-medium">{comment.user.firstName}</span> {comment.content}</p>
           <p className="text-zinc-500 text-xs mt-1">{moment(comment.createdAt).format("YYYY.MM.DD")}</p>

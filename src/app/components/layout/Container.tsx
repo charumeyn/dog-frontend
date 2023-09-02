@@ -32,7 +32,7 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, imageConte
 
         {type === ContainerType.ImageWithContent ?
           <div className="flex gap-x-8">
-            <div className="max-w-screen-md">
+            <div className="max-w-screen-md w-full">
               {imageContent}
             </div>
             <div className="w-2/5">

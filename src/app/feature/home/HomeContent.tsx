@@ -88,7 +88,7 @@ export default function HomeContent() {
               {isLoadingPosts ?
                 "LOADING" :
                 posts?.map((post: Post, i: number) =>
-                  <PostCard key={i} post={post} />
+                  <PostCard key={i} post={post} dog={post.dog} />
                 )}
             </div>
             <BorderLink url={"/posts/"} text={"View all posts"} withArrow={true} containerClasses="mt-6 text-center" />

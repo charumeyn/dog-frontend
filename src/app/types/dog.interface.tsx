@@ -5,6 +5,7 @@ import { Gender } from "./enum/gender.enum";
 import { Size } from "./enum/size.enum";
 import { Post } from "./post.interface";
 import { Shelter } from "./shelter.interface";
+import { User } from "./user.interface";
 
 export interface Dog {
   id: number;
@@ -18,11 +19,13 @@ export interface Dog {
   mainImage: string;
   images: string[];
   description: string;
+  content: string;
   isActive: boolean;
   createdAt: Date;
   udpatedAt?: Date;
   deletedAt?: Date;
   shelter: Shelter;
+  user: User;
   posts: Post[];
   donations: Donation[];
   comments: Comment[];
@@ -39,7 +42,9 @@ export interface CreateDogDto {
   mainImage: string;
   images: string[];
   description: string;
-  shelterId: number;
+  content: string;
+  shelterId?: number;
+  userId?: number;
 }
 
 export interface UpdateDogDto {
@@ -52,4 +57,5 @@ export interface UpdateDogDto {
   mainImage: string;
   images: string[];
   description: string;
+  content: string;
 }

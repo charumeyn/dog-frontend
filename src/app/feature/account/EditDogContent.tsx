@@ -31,6 +31,7 @@ export default function EditDogContent({ id }: { id: number }) {
   const [mainImage, setMainImage] = useState<string>("")
   const [images, setImages] = useState<string[]>([])
   const [description, setDescription] = useState<string>("")
+  const [content, setContent] = useState<string>("")
   const [breeds, setBreeds] = useState<string[]>([])
   const [colors, setColors] = useState<Color[]>([])
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
@@ -58,10 +59,11 @@ export default function EditDogContent({ id }: { id: number }) {
       setMainImage(dog?.mainImage)
       setImages(dog?.images)
       setDescription(dog?.description)
+      setContent(dog?.content)
       setColors(dog?.color)
       setBreeds(dog?.breed)
     }
-  }, [dog, setName, setBirthdate, setSize, setGender, setCoatLength, setMainImage, setImages, setDescription, setColors, setBreeds])
+  }, [dog, setName, setBirthdate, setSize, setGender, setCoatLength, setMainImage, setImages, setDescription, setContent, setColors, setBreeds])
 
   const onSuccess = useCallback(() => {
     setIsSuccess(true);
@@ -93,6 +95,7 @@ export default function EditDogContent({ id }: { id: number }) {
         mainImage,
         images,
         description,
+        content
       }
       update(body)
     }
@@ -189,6 +192,19 @@ export default function EditDogContent({ id }: { id: number }) {
               name={"Description"} placeholder="Description" label="Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+
+          <div className="col-span-4">
+            <span className="block text-sm font-medium leading-6 text-zinc-900">Content</span>
+            <textarea
+              id="content"
+              name="content"
+              rows={10}
+              cols={20}
+              value={content}
+              onChange={(e: any) => setContent(e.target.value)}
+              className="mt-2 text-zinc-900 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
             />
           </div>
 
