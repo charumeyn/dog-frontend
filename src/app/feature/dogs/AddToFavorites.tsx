@@ -1,6 +1,6 @@
 import { IconClose, IconHeart, IconHeartSolid } from "@/app/components/layout/Icons";
 import { useUpdateFavorites } from "@/app/hooks/api/useAuth";
-import { UpdateFavoritesDto, User } from "@/app/types/user.interface";
+import { UpdateFavoritesDto, User, UserType } from "@/app/types/user.interface";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function AddToFavorites({ account, dogId }: { account: User, dogId: number }) {
@@ -19,7 +19,9 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
   }, [setFavoriteDogIds, account])
 
   const existingId = useMemo(() => {
-    return favoriteDogIds.some(id => Number(id) === Number(dogId));
+    if (account.id && favoriteDogIds) {
+      return favoriteDogIds.some(id => Number(id) === Number(dogId))
+    }
   }, [favoriteDogIds]);
 
   const handleUpdate = useCallback((e: any) => {
@@ -55,10 +57,10 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
   }, [setFavoriteDogIds, favoriteDogIds])
 
   return (
-    <div className="mt-3">
-      {account.id ?
+    account.id ?
+      <>{account.type === UserType.User ?
         existingId ?
-          <div className="flex gap-x-4 justify-center">
+          <div className="flex gap-x-4 justify-center mt-3">
             <div className="flex gap-x-2 justify-center text-sm hover:cursor-pointer text-orange-600">
               <IconHeartSolid className="w-4 w-5 text-orange-600" />Added to favorites
             </div>
@@ -67,15 +69,16 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
               <IconClose className="w-4 w-5" />Remove
             </div>
           </div> :
-          <div className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer"
+
+          <div className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer  mt-3"
             onClick={(e) => handleUpdate(e)}>
             <IconHeart className="w-4 w-5" />Add to favorites
-          </div> :
-        <a className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer"
-          href="/login">
-          <IconHeart className="w-4 w-5" />Add to favorites
-        </a>
-      }
-    </div>
+          </div> : null}
+      </> :
+
+      <a className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer  mt-3"
+        href="/login">
+        <IconHeart className="w-4 w-5" />Add to favorites
+      </a>
   )
 }

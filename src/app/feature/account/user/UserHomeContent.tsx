@@ -1,4 +1,5 @@
 import Heading from "@/app/components/layout/common/Heading";
+import { useDog } from "@/app/hooks/api/useDogs";
 import { User } from "@/app/types/user.interface";
 
 export default function UserHomeContent({ account }: { account: User }) {
@@ -9,7 +10,10 @@ export default function UserHomeContent({ account }: { account: User }) {
         <DiaryFeed />
       </main>
       <aside className="hidden w-60	shrink-0 lg:block">
-        <FavoritesList />
+        <Heading type={"h2"} text={"My Favorite Dogs"} className="!text-zinc-500 mb-5" />
+        {account.favoriteDogIds.map((id, i) => (
+          <FavoritesRow key={i} id={Number(id)} />
+        ))}
       </aside>
     </div>
   )
@@ -25,12 +29,15 @@ function DiaryFeed() {
   )
 }
 
-function FavoritesList() {
-  return (
-    <div>
-      <Heading type={"h2"} text={"My Favorite Dogs"} />
+function FavoritesRow({ id }: { id: number }) {
 
-    </div>
+  const { data: dog } = useDog(id)
+
+  return (
+    <a href={`/dogs/${dog?.id}`} className="flex items-center gap-4 mb-3 hover:cursor-pointer hover:text-teal-600 font-medium">
+      <img src={dog?.mainImage} className="w-14 h-14 rounded-full" />
+      <p>{dog?.name}</p>
+    </a>
   )
 }
 

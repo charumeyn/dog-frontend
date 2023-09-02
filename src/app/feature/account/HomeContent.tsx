@@ -23,7 +23,8 @@ export default function HomeContent() {
   return (
     account ?
       <div>
-        {account?.type === UserType.User ? <UserHomeContent account={account} />
+        {account?.type === UserType.User ?
+          <UserHomeContent account={account} />
           :
           account.shelter != undefined ?
             <ShelterDogsContent account={account} /> : null
