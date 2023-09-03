@@ -42,10 +42,10 @@ const SelectedFilters: React.FunctionComponent<SelectedFiltersProps> = ({
                 setCoatLength(undefined)
               }}
             />
-            {size && setSize ? <FilterCapsule color={"teal"} children={size} onClick={() => setSize(undefined)} hasCloseIcon={true} /> : null}
-            {gender && setGender ? <FilterCapsule color={"teal"} children={gender} onClick={() => setGender(undefined)} hasCloseIcon={true} /> : null}
-            {coatLength && setCoatLength ? <FilterCapsule color={"teal"} children={coatLength} onClick={() => setCoatLength(undefined)} hasCloseIcon={true} /> : null}
-            {color && setColor ? <FilterCapsule color={"teal"} children={color} onClick={() => setColor(undefined)} hasCloseIcon={true} /> : null}
+            {size ? <FilterCapsule color={"teal"} children={size} onClick={() => setSize(undefined)} hasCloseIcon={true} /> : null}
+            {gender ? <FilterCapsule color={"teal"} children={gender} onClick={() => setGender(undefined)} hasCloseIcon={true} /> : null}
+            {coatLength ? <FilterCapsule color={"teal"} children={coatLength} onClick={() => setCoatLength(undefined)} hasCloseIcon={true} /> : null}
+            {color ? <FilterCapsule color={"teal"} children={color} onClick={() => setColor(undefined)} hasCloseIcon={true} /> : null}
           </div>
           :
           <div className="text-zinc-500 text-sm">No filters applied</div>
@@ -59,8 +59,8 @@ const SelectedFilters: React.FunctionComponent<SelectedFiltersProps> = ({
         onChange={(e: any) => setLimit(e.target.value)}
         className="border border-zinc-200 rounded-md text-sm text-zinc-600"
       >
+        <option value={4}>4</option>
         <option value={10}>10</option>
-        <option value={40}>40</option>
         <option value={100}>100</option>
       </select>
     </div>
