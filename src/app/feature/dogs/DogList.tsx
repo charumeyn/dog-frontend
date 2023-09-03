@@ -11,6 +11,7 @@ import { Color } from "@/app/types/enum/color.enum";
 import { Gender } from "@/app/types/enum/gender.enum";
 import { CoatLength } from "@/app/types/enum/coatLength.enum";
 import { IconChevronLeft, IconChevronRight } from "@/app/components/layout/Icons";
+import Pagination from "@/app/components/layout/common/Pagination";
 
 
 export default function DogListContent() {
@@ -70,16 +71,9 @@ export default function DogListContent() {
           null
         }
         mainContent={
-          <div className="flex justify-center gap-5 border-t border-zinc-200 py-8">
-            <a onClick={() => setOffset(offset - limit)}
-              className={`${offset === 1 ? "pointer-events-none	opacity-50" : ""} flex items-center gap-x-2 border border-zinc-200 rounded-full px-4 py-2 text-sm hover:bg-teal-50 hover:text-teal-600 hover:border-teal-200 hover:cursor-pointer`}>
-              <IconChevronLeft className="w-4 h-4" />Previous
-            </a>
-            <a onClick={() => setOffset(offset + limit)}
-              className={`${dogs?.length === 0 ? "pointer-events-none	opacity-50" : ""} flex items-center gap-x-2 border border-zinc-200 rounded-full px-4 py-2 text-sm hover:bg-teal-50 hover:text-teal-600 hover:border-teal-200 hover:cursor-pointer`}>
-              Next<IconChevronRight className="w-4 h-4" />
-            </a>
-          </div>
+          dogs ?
+            <Pagination offset={offset} setOffset={setOffset} limit={limit} currentLength={dogs?.length} />
+            : null
         }
       />
     </>
