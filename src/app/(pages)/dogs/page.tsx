@@ -17,11 +17,7 @@ export default function ListDogs() {
           </div>
         } />
 
-      <Container
-        type={ContainerType.SingleColumn}
-        mainContent={
-          <DogListContent />
-        } />
+      <DogListContent />
     </div>
   );
 }

@@ -45,13 +45,14 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, imageConte
           : null}
 
         {type === ContainerType.LeftSidebar ?
-          <div className="flex gap-x-8">
-            <div className="w-2/5">
+          <div className="flex items-start gap-x-10">
+            <aside className="hidden w-56	shrink-0 lg:block">
               {sidebarContent}
-            </div>
-            <div className="max-w-screen-md">
+            </aside>
+
+            <main className="flex-1">
               {mainContent}
-            </div>
+            </main>
           </div> : null}
 
       </div>

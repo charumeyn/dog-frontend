@@ -6,5 +6,7 @@ export enum Color {
   Gold = "gold",
   Gray = "gray",
   Cream = "cream",
-  Yellow = "yellow"
+  Yellow = "yellow",
+  BlackAndWhite = "black_and_white",
+  BrownAndWhite = "brown_and_white",
 }

@@ -5,24 +5,21 @@ import { Gender } from "@/app/types/enum/gender.enum";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Color } from "aws-sdk/clients/lookoutvision";
 
-const getDogs = async (limit?: number, gender?: number) => {
-  const limitParam = limit ? `?limit=${limit}` : '';
+const getDogs = async (limit: number, gender?: string, size?: string, color?: string, coatLength?: string) => {
   const genderParam = gender ? `&gender=${gender}` : '';
+  const sizeParam = size ? `&size=${size}` : '';
+  const colorParam = color ? `&color=${color}` : '';
+  const coatLengthParam = coatLength ? `&coatLength=${coatLength}` : '';
 
-  // const idPrams = ids
-  //   .map((id) => `&ids[]=${id}`)
-  //   .join("");
-
-
-  const res = await fetch(`http://localhost:3000/dogs/${limitParam}`);
+  const res = await fetch(`http://localhost:3000/dogs/?limit=${limit}${genderParam}${sizeParam}${colorParam}${coatLengthParam}`);
 
   return res.json();
 };
 
-const useDogs = (limit: number) => {
+const useDogs = (limit: number, gender?: string, size?: string, color?: string, coatLength?: string) => {
   return useQuery<Dog[]>(
-    queryKeys.dogs(limit),
-    () => getDogs(limit),
+    queryKeys.dogs(limit, gender, size, color, coatLength),
+    () => getDogs(limit, gender, size, color, coatLength),
   );
 };
 
