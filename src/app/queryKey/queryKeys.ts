@@ -1,4 +1,5 @@
 import { PaginationDto } from "../hooks/api/useDogs";
+import { FundraiserStatus } from "../types/enum/fundraiserStatus.enum";
 
 export const queryKeys = {
   dog: (id: number) => ["dog", id],
@@ -6,7 +7,7 @@ export const queryKeys = {
   post: (id: number) => ["post", id],
   posts: (limit?: number) => ["posts", "limit", limit],
   fundraiser: (id: number) => ["fundraiser", id],
-  fundraisers: (limit?: number) => ["fundraisers", "limit", limit],
+  fundraisers: (limit: number, offset?: Number, status?: FundraiserStatus) => ["fundraisers", "limit", limit, "offset", offset, "status", status],
   shelter: (id: number) => ["shelter", id],
   shelters: (limit?: number) => ["shelters", "limit", limit],
   donation: (id: number) => ["donation", id],

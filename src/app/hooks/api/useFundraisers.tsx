@@ -1,19 +1,21 @@
 import { queryKeys } from "@/app/queryKey/queryKeys";
 import { FailResult, SuccessResult } from "@/app/types/apiResult";
+import { FundraiserStatus } from "@/app/types/enum/fundraiserStatus.enum";
 import { CreateFundraiserDto, Fundraiser, UpdateFundraiserDto } from "@/app/types/fundraiser.interface";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-const getFunraisers = async (limit?: number) => {
-  const limitParam = limit ? `?limit=${limit}` : null;
-  const res = await fetch(`http://localhost:3000/fundraisers${limitParam}`);
+const getFundraisers = async (limit: number, offset?: number, status?: FundraiserStatus) => {
+  const offsetParam = offset ? `&offset=${offset}` : '';
+  const statusParam = status ? `&status=${status}` : '';
+  const res = await fetch(`http://localhost:3000/fundraisers?limit=${limit}${offsetParam}${statusParam}`);
 
   return res.json();
 };
 
-const useFundraisers = (limit?: number) => {
+const useFundraisers = (limit: number, offset?: number, status?: FundraiserStatus) => {
   return useQuery<Fundraiser[]>(
-    queryKeys.posts(limit),
-    () => getFunraisers(limit),
+    queryKeys.fundraisers(limit, offset, status),
+    () => getFundraisers(limit, offset, status),
   );
 };
 

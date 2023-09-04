@@ -1,12 +1,12 @@
 import moment from "moment";
 import { useMemo } from "react";
 
-type FundraiserStatusProps = {
+type StatusLabelProps = {
   startsAt: Date;
   endsAt: Date;
 }
 
-const FundraiserStatus: React.FunctionComponent<FundraiserStatusProps> = ({ startsAt, endsAt }) => {
+const StatusLabel: React.FunctionComponent<StatusLabelProps> = ({ startsAt, endsAt }) => {
 
   const status = useMemo(() => {
     const currentDate = new Date();
@@ -25,4 +25,4 @@ const FundraiserStatus: React.FunctionComponent<FundraiserStatusProps> = ({ star
   return <>{status}</>;
 }
 
-export default FundraiserStatus;
+export default StatusLabel;

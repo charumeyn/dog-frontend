@@ -3,7 +3,7 @@ import Heading from "@/app/components/layout/common/Heading";
 import DogListContent from "@/app/feature/dogs/DogList";
 import React from "react";
 
-export default function ListDogs() {
+export default function DogList() {
 
 
   return (

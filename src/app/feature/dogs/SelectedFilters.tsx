@@ -1,5 +1,4 @@
 import { IconClose } from "@/app/components/layout/Icons";
-import { useDogs } from "@/app/hooks/api/useDogs";
 import { CoatLength } from "@/app/types/enum/coatLength.enum";
 import { Color } from "@/app/types/enum/color.enum";
 import { Gender } from "@/app/types/enum/gender.enum";
@@ -10,13 +9,13 @@ type SelectedFiltersProps = {
   limit: number;
   setLimit: (limit: number) => void;
   gender?: Gender;
-  setGender: (gender: Gender | undefined) => void;
+  setGender?: (gender: Gender | undefined) => void;
   size?: Size;
-  setSize: (size: Size | undefined) => void;
+  setSize?: (size: Size | undefined) => void;
   coatLength?: CoatLength,
-  setCoatLength: (coatLength: CoatLength | undefined) => void;
+  setCoatLength?: (coatLength: CoatLength | undefined) => void;
   color?: Color,
-  setColor: (color: Color | undefined) => void;
+  setColor?: (color: Color | undefined) => void;
 }
 
 const SelectedFilters: React.FunctionComponent<SelectedFiltersProps> = ({
@@ -36,16 +35,16 @@ const SelectedFilters: React.FunctionComponent<SelectedFiltersProps> = ({
               color={"orange"}
               children={"Clear all filter"}
               onClick={() => {
-                setColor(undefined)
-                setGender(undefined)
-                setSize(undefined)
-                setCoatLength(undefined)
+                setColor && setColor(undefined)
+                setGender && setGender(undefined)
+                setSize && setSize(undefined)
+                setCoatLength && setCoatLength(undefined)
               }}
             />
-            {size ? <FilterCapsule color={"teal"} children={size} onClick={() => setSize(undefined)} hasCloseIcon={true} /> : null}
-            {gender ? <FilterCapsule color={"teal"} children={gender} onClick={() => setGender(undefined)} hasCloseIcon={true} /> : null}
-            {coatLength ? <FilterCapsule color={"teal"} children={coatLength} onClick={() => setCoatLength(undefined)} hasCloseIcon={true} /> : null}
-            {color ? <FilterCapsule color={"teal"} children={color} onClick={() => setColor(undefined)} hasCloseIcon={true} /> : null}
+            {size ? <FilterCapsule color={"teal"} children={size} onClick={() => setSize && setSize(undefined)} hasCloseIcon={true} /> : null}
+            {gender ? <FilterCapsule color={"teal"} children={gender} onClick={() => setGender && setGender(undefined)} hasCloseIcon={true} /> : null}
+            {coatLength ? <FilterCapsule color={"teal"} children={coatLength} onClick={() => setCoatLength && setCoatLength(undefined)} hasCloseIcon={true} /> : null}
+            {color ? <FilterCapsule color={"teal"} children={color} onClick={() => setColor && setColor(undefined)} hasCloseIcon={true} /> : null}
           </div>
           :
           <div className="text-zinc-500 text-sm">No filters applied</div>
