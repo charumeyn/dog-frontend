@@ -1,7 +1,7 @@
 import { queryKeys } from "@/app/queryKey/queryKeys";
 import { FailResult, SuccessResult } from "@/app/types/apiResult";
 import { Comment, CreateCommentDto } from "@/app/types/comment.interface";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const getComment = async (id: number) => {
   const res = await fetch(`http://localhost:3000/comments/${id}`);
@@ -34,12 +34,16 @@ const useCreateComment = (
   onCreateSuccess?: (data: SuccessResult<Comment>) => void,
   onCreateError?: (error: FailResult) => void
 ) => {
+
+  const queryClient = useQueryClient()
+
   return useMutation((dto: CreateCommentDto) => createComment(dto), {
-    onSuccess: (data: SuccessResult<Comment> | FailResult) => {
+    onSuccess: (data: SuccessResult<Comment> | FailResult, variables: CreateCommentDto) => {
       if (!data.success) {
         if (onCreateError) onCreateError(data)
       } else if (onCreateSuccess) {
         onCreateSuccess(data)
+        queryClient.invalidateQueries(["post", variables.postId])
       }
     },
     onError: (error: FailResult) => {

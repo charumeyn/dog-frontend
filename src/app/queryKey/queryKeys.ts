@@ -6,6 +6,7 @@ export const queryKeys = {
   dogs: (limit: number, offset?: number, gender?: string, size?: string, color?: string, coatLength?: string) => ["dogs", "limit", limit, "offset", offset, "gender", gender, "size", size, "color", color, "coatLength", coatLength],
   post: (id: number) => ["post", id],
   posts: (limit?: number) => ["posts", "limit", limit],
+  favoriteDogsPosts: (limit: number, dogIds: number[]) => ["favorite_dogs_posts", "limit", limit, "dogIds", dogIds],
   fundraiser: (id: number) => ["fundraiser", id],
   fundraisers: (limit: number, offset?: Number, status?: FundraiserStatus) => ["fundraisers", "limit", limit, "offset", offset, "status", status],
   shelter: (id: number) => ["shelter", id],

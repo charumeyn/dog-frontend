@@ -14,9 +14,10 @@ type InputProps = {
   onChange?: (e: any) => void;
   disabled?: boolean;
   required?: boolean;
+  noMargin?: boolean;
 }
 
-const Input: React.FunctionComponent<InputProps> = ({ name, label, type, placeholder, value, onChange, disabled, required }) => {
+const Input: React.FunctionComponent<InputProps> = ({ name, label, type, placeholder, value, onChange, disabled, required, noMargin }) => {
   return (
     <div>
       {label ?
@@ -24,7 +25,7 @@ const Input: React.FunctionComponent<InputProps> = ({ name, label, type, placeho
           {label}
         </label> : null
       }
-      <div className="mt-2">
+      <div className={`${noMargin ? "" : "mt-2"}`}>
         <input
           type={type}
           name={name}

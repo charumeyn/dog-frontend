@@ -28,4 +28,25 @@ const usePost = (id: number) => {
   );
 };
 
-export { usePosts, usePost }
+const getFavoriteDogsPosts = async (limit: number, dogIds: number[]) => {
+
+  let dogIdsParam: string[] = []
+
+  dogIds.forEach((id) => {
+    dogIdsParam.push(`&dogIds[]=${id}`)
+  })
+
+  // const dogIdsParam = dogIds ? `?dogIds=${dogIds}` : null;
+  const res = await fetch(`http://localhost:3000/posts/favorites?limit=${limit}${dogIdsParam}`);
+
+  return res.json();
+};
+
+const useFavoriteDogsPosts = (limit: number, dogIds: number[]) => {
+  return useQuery<Post[]>(
+    queryKeys.favoriteDogsPosts(limit, dogIds),
+    () => getFavoriteDogsPosts(limit, dogIds),
+  );
+};
+
+export { usePosts, usePost, useFavoriteDogsPosts }

@@ -1,3 +1,4 @@
+import { Comment } from "./comment.interface";
 import { Donation } from "./donation.interface";
 import { CoatLength } from "./enum/coatLength.enum";
 import { Color } from "./enum/color.enum";
@@ -28,7 +29,7 @@ export interface Dog {
   user: User;
   posts: Post[];
   donations: Donation[];
-  comments: Comment[];
+  comments: Comment[]
 };
 
 export interface CreateDogDto {

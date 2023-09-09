@@ -2,22 +2,30 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, ReactNode, useRef } from "react";
 import { IconClose } from "../Icons";
 
-type PostModalProps = {
+type PostModalByIdProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  modalPostId: number | undefined;
+  setModalPostId: (modalPostId: number | undefined) => void;
   title?: string;
   children: ReactNode;
+  postId: number;
 }
 
-const PostModal: React.FunctionComponent<PostModalProps> = ({ isOpen, setIsOpen, title, children }) => {
+const PostModalById: React.FunctionComponent<PostModalByIdProps> = ({ isOpen, setIsOpen, modalPostId, setModalPostId, title, children, postId }) => {
 
   const cancelButtonRef = useRef(null)
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition.Root show={modalPostId === postId} as={Fragment}>
       <Dialog as="div" className="relative z-10"
         initialFocus={cancelButtonRef}
-        onClose={setIsOpen}>
+        onClose={() => {
+          setIsOpen(false);
+          setModalPostId(undefined)
+        }
+        }
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -44,7 +52,11 @@ const PostModal: React.FunctionComponent<PostModalProps> = ({ isOpen, setIsOpen,
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-7xl">
                 <span
                   className="cursor-pointer"
-                  onClick={() => setIsOpen(false)} ref={cancelButtonRef}>
+                  onClick={() => {
+                    setIsOpen(false);
+                    setModalPostId(undefined)
+                  }}
+                  ref={cancelButtonRef}>
                   <IconClose className="w-6 h-6 text-zinc-500 right-6 top-6 absolute" />
                 </span>
                 <div className="bg-white">
@@ -65,12 +77,10 @@ const PostModal: React.FunctionComponent<PostModalProps> = ({ isOpen, setIsOpen,
               </Dialog.Panel>
             </Transition.Child>
           </div>
-
-          fghfgh
         </div>
       </Dialog>
     </Transition.Root>
   )
 }
 
-export default PostModal;
+export default PostModalById;
