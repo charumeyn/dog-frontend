@@ -20,7 +20,12 @@ export default function Header() {
     {
       name: 'Fundraisers',
       url: '/fundraisers'
-    }]
+    },
+    {
+      name: 'Doggo Diaries',
+      url: '/posts'
+    }
+  ]
 
   const isLoggedIn = useMemo(() => {
     return account && account.id;
@@ -34,11 +39,13 @@ export default function Header() {
         className="sticky top-0"
         mainContent={
           <div className="flex justify-between">
-            <a href="/" className="text-teal-600 py-5 text-2xl font-extrabold">Doggo&apos;s Life</a>
-            <div className="flex">
+            <a href="/" className="text-teal-600 hover:text-teal-700 py-5 text-2xl font-extrabold">Doggo&apos;s Life</a>
+            <div className="flex items-center gap-4">
               {menu.map((item: any, i: number) =>
-                <a className="px-8 py-5" key={i} href={item.url}>{item.name}</a>
+                <a className="px-8 py-5 hover:text-teal-600 font-medium" key={i} href={item.url}>{item.name}</a>
               )}
+            </div>
+            <div className="flex">
               {isLoading ? null :
                 isLoggedIn && account ?
                   <Username account={account} />
@@ -100,7 +107,8 @@ function Username({ account }: { account: User }) {
         </div>
         :
         <div className="flex items-center gap-3 pl-5">
-          <p className="flex flex-col">
+          <p className="flex items-center gap-3">
+            <img src={account?.image} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
             <a href="/account">Hi, {account?.firstName}!</a>
           </p>
           <DropdownMenu

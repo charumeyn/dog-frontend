@@ -12,8 +12,8 @@ export default function PostList() {
         type={ContainerType.SingleColumn}
         mainContent={
           <div className="pt-20 pb-10">
-            <Heading type={"h1"} text={"Dogs you can sponsor"} className="text-3xl font-bold mb-3" />
-            <p className="text-zinc-500">Dogs from around the world needs your sponsoring, please help when you can!</p>
+            <Heading type={"h1"} text={"Doggo Diaries"} className="text-3xl font-bold mb-3" />
+            <p className="text-zinc-500">Enjoy a feed full of cute dogs here!</p>
           </div>
         } />
 
