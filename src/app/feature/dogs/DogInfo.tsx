@@ -9,7 +9,7 @@ import { useMemo, useState } from "react";
 import ButtonLink from "@/app/components/layout/common/ButtonLink";
 import Share from "@/app/components/layout/common/Share";
 import Modal from "@/app/components/layout/common/Modal";
-import DonationList from "@/app/components/layout/common/DonationList.client";
+import { DonationRow } from "@/app/components/layout/common/DonationList.client";
 import { User } from "@/app/types/user.interface";
 import AddToFavorites from "./AddToFavorites";
 
@@ -40,52 +40,46 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
         {dog && <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"dog"} id={dog?.id} name={dog?.name} isButton={false} />}
       </div>
 
-      <div className="flex items-center gap-x-1 mt-1 text-zinc-500 mb-4">
-        <IconPin /> Location
-      </div>
-
-      <div className="text-zinc-900 mb-5">{dog?.description}</div>
+      <div className="text-zinc-900 mb-5 mt-2">{dog?.description}</div>
 
       {dog && dog?.donations.length > 0 ?
         sponsorsText &&
-        <StackedAvatars text={sponsorsText} onClick={() => setShowDonations(true)} /> :
+        <StackedAvatars
+          donations={dog?.donations}
+          text={sponsorsText}
+          onClick={() => setShowDonations(true)}
+        /> :
         <div className="text-sm text-zinc-500">No sponsors yet. Be the first ❤️</div>
       }
 
 
-      <div className="grid grid-cols-2 gap-x-10 gap-y-4 mt-6 mb-6">
-        <div className="flex gap-x-2">
-          <IconDog className="w-10 h-10 text-teal-600" />
-          <div>
-            <p className="text-zinc-500 text-sm">Breed</p>
-            <p className="text-lg font-bold">{dog?.breed}</p>
-          </div>
+      <div className="grid grid-cols-2 gap-x-10 gap-y-3 mt-6 mb-2">
+
+        <div className="col-span-2">
+          <p className="text-zinc-500 text-sm">Breed</p>
+          <p className="text-lg font-bold">{dog?.breed.join(", ")}</p>
         </div>
 
-        <div className="flex gap-x-2">
-          <IconDog className="w-10 h-10 text-teal-600" />
-          <div>
-            <p className="text-zinc-500 text-sm">Age</p>
-            <p className="text-lg font-bold">{moment(dog?.birthdate).format("YYYYMMDD")}</p>
-          </div>
+        <div>
+          <p className="text-zinc-500 text-sm">Age</p>
+          <p className="text-lg font-bold">{moment(dog?.birthdate).fromNow(true)}</p>
         </div>
 
-        <div className="flex gap-x-2">
-          <IconDog className="w-10 h-10 text-teal-600" />
-          <div>
-            <p className="text-zinc-500 text-sm">Gender</p>
-            <p className="text-lg font-bold">{dog?.gender}</p>
-          </div>
+        <div>
+          <p className="text-zinc-500 text-sm">Gender</p>
+          <p className="text-lg font-bold capitalize">{dog?.gender}</p>
         </div>
 
-        <div className="flex gap-x-2">
-          <IconDog className="w-10 h-10 text-teal-600" />
-          <div>
-            <p className="text-zinc-500 text-sm">Size</p>
-            <p className="text-lg font-bold">{dog?.size}</p>
-          </div>
+        <div>
+          <p className="text-zinc-500 text-sm">Size</p>
+          <p className="text-lg font-bold capitalize">{dog?.size}</p>
         </div>
-      </div>
+
+        <div>
+          <p className="text-zinc-500 text-sm">Coat Length</p>
+          <p className="text-lg font-bold capitalize">{dog?.coatLength}</p>
+        </div>
+      </div >
 
       <ButtonLink
         text={"Sponsor Me!"}
@@ -98,7 +92,7 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
 
       <Modal setIsOpen={setShowDonations} isOpen={showDonations} title={"Sponsors"}>
         {dog?.donations.map((donation, i) => (
-          <DonationList key={i} donation={donation} />
+          <DonationRow key={i} id={donation.id} />
         ))}
       </Modal>
     </>

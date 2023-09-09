@@ -1,5 +1,5 @@
 import ButtonLink from "@/app/components/layout/common/ButtonLink"
-import DonationList from "@/app/components/layout/common/DonationList.client"
+import { DonationRow } from "@/app/components/layout/common/DonationList.client"
 import Modal from "@/app/components/layout/common/Modal"
 import ProgressBar from "@/app/components/layout/common/ProgressBar"
 import Share from "@/app/components/layout/common/Share"
@@ -82,13 +82,16 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
 
       {fundraiser && fundraiser?.donations.length > 0 ?
         donationsText &&
-        <StackedAvatars text={donationsText} onClick={() => setShowDonations(true)} /> :
+        <StackedAvatars
+          donations={fundraiser?.donations}
+          text={donationsText}
+          onClick={() => setShowDonations(true)} /> :
         <div className="text-sm text-zinc-500">No donations yet. Be the first ❤️</div>
       }
 
       <Modal setIsOpen={setShowDonations} isOpen={showDonations} title={"Sponsors"}>
         {fundraiser?.donations.map((donation, i) => (
-          <DonationList key={i} donation={donation} />
+          <DonationRow key={i} id={donation.id} />
         ))}
       </Modal>
 

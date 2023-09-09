@@ -70,13 +70,13 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
             </div>
           </div> :
 
-          <div className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer  mt-3"
+          <div className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer mt-1"
             onClick={(e) => handleUpdate(e)}>
             <IconHeart className="w-4 w-5" />Add to favorites
           </div> : null}
       </> :
 
-      <a className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer  mt-3"
+      <a className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer  mt-1"
         href="/login">
         <IconHeart className="w-4 w-5" />Add to favorites
       </a>

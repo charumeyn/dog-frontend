@@ -21,4 +21,5 @@ export interface Donation {
   shelter?: Shelter;
   user?: User;
   fundraiser?: Fundraiser;
+  donor: User;
 }

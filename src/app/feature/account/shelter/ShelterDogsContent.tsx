@@ -1,5 +1,5 @@
 import { IconHorizontalDots } from "@/app/components/layout/Icons";
-import DonationList from "@/app/components/layout/common/DonationList.client";
+import { DonationRow } from "@/app/components/layout/common/DonationList.client";
 import DropdownMenu from "@/app/components/layout/common/DropdownMenu";
 import Heading from "@/app/components/layout/common/Heading";
 import Modal from "@/app/components/layout/common/Modal";
@@ -92,7 +92,7 @@ function DogCard({ dogId }: { dogId: number }) {
         </div>
         <Modal setIsOpen={setShowDonations} isOpen={showDonations} title={"Donations"}>
           {dog.donations.map((donation, i) => (
-            <DonationList key={i} donation={donation} />
+            <DonationRow key={i} id={donation.id} />
           ))}
         </Modal>
       </div >
