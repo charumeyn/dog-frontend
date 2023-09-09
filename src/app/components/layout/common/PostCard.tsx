@@ -15,7 +15,7 @@ import Input, { InputType } from "./Input";
 import { CommentType } from "@/app/types/enum/commentType.enum";
 import Button from "./Button";
 import Alert from "./Alert";
-import { IconCheck } from "../Icons";
+import { IconCheck, IconComment } from "../Icons";
 
 type PostCard = {
   post: Post;
@@ -34,7 +34,18 @@ const PostCard: React.FunctionComponent<PostCard> = ({ post, dog }) => {
           <img className="absolute w-full h-full object-cover"
             src={post.mainImage}
             alt={post.title} />
-        </div >
+
+          <div className="absolute w-full h-full object-cover flex flex-col items-center bg-black text-white after:content-[''] after:block after:pb-[100%] opacity-0 hover:opacity-80 hover:cursor-pointer">
+            <div className="flex items-center gap-2 mt-28">
+              {post.comments.length > 0 ?
+                <>
+                  <IconComment />{post.comments.length} comments</>
+                : "Be the first to comment ❤️"
+              }
+            </div>
+          </div>
+        </div>
+
       </div>
       <PostModal
         isOpen={isOpen} setIsOpen={setIsOpen}

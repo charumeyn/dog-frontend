@@ -3,7 +3,7 @@ import { Post } from "@/app/types/post.interface";
 import { useQuery } from "@tanstack/react-query";
 
 const getPosts = async (limit?: number) => {
-  const limitParam = limit ? `?limit=${limit}` : null;
+  const limitParam = limit ? `?limit=${limit}` : '';
   const res = await fetch(`http://localhost:3000/posts${limitParam}`);
 
   return res.json();
