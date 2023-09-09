@@ -66,11 +66,11 @@ export default function DogDetailContent({ id }: { id: number }) {
                 dog ?
                   <div>
                     <p className="mb-2 text-zinc-500 text-sm">Created by {dog?.shelter.name}</p>
-                    <div className="border border-zinc-100 rounded-lg px-5 py-5 mb-8">
+                    <div className="border border-zinc-200 rounded-lg px-5 py-5 mb-8">
                       <p className="text-sm">{dog?.description}</p>
                     </div>
                     <p className="font-medium mb-2">Initiated by</p>
-                    <div className="flex items-center justify-between pb-8 border-b border-zinc-100">
+                    <div className="flex items-center justify-between pb-8 border-b border-zinc-200">
                       <div className="flex items-center gap-x-6">
                         <img src={dog?.shelter.mainImage + '.jpeg'} className="w-20 h-20 rounded-full" />
                         <div>
@@ -92,7 +92,7 @@ export default function DogDetailContent({ id }: { id: number }) {
               mainContent={
                 dog ?
                   <>
-                    <Heading type="h2" text="Comments from the sponsors" className="mb-5" />
+                    <p className="font-medium mb-2">Comments from sponsors</p>
                     <CommentList comments={dog?.comments} />
                   </> : null
               }
@@ -101,7 +101,7 @@ export default function DogDetailContent({ id }: { id: number }) {
             <Container
               type={ContainerType.SingleColumn}
               withBg
-              className="py-10 mt-10"
+              className="pt-12 pb-16 mt-16"
               mainContent={
                 account && dog?.posts && dog?.posts.length > 0 ?
                   <>

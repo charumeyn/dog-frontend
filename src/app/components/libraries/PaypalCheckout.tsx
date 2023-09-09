@@ -31,9 +31,13 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donation
 
   const onSuccess = useCallback((data: SuccessResult<Donation>) => {
     if (data.success) {
-      router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}`)
+      if (fundraiserId) {
+        router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}&fundraiserId=${fundraiserId}`)
+      } else {
+        router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}`)
+      }
     }
-  }, []);
+  }, [donationType, recipientType, recipientId, fundraiserId]);
 
   const onError = useCallback((error: any) => {
     setError(error.message)

@@ -1,5 +1,5 @@
 import Container, { ContainerType } from "@/app/components/layout/Container";
-import { ThankYouContentDog, ThankYouContentFundraiser } from "@/app/feature/payment-complete/ThankYouContentDog";
+import { ThankYouContentDog, ThankYouContentFundraiser } from "@/app/feature/payment-complete/ThankYouContent";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 

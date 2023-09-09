@@ -1,6 +1,5 @@
 import Container, { ContainerType } from "@/app/components/layout/Container"
 import SponsorDogContent from "@/app/feature/dogs/SponsorDogContent"
-import { useEffect, useState } from "react"
 
 
 export default function SponsorDog({ params }: { params: any }) {

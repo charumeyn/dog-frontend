@@ -5,6 +5,7 @@ import PaymentContent from "@/app/components/layout/common/PaymentContent";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useDog } from "@/app/hooks/api/useDogs";
 import { DonationType } from "@/app/types/enum/donationType.enum";
+import { RecipientType } from "@/app/types/enum/recipientType.enum";
 
 
 type SponsorDogContentProps = {
@@ -21,7 +22,8 @@ const SponsorDogContent: React.FunctionComponent<SponsorDogContentProps> = ({ do
       <PaymentContent
         image={dog.mainImage}
         name={dog.name}
-        type={DonationType.Dog}
+        donationType={DonationType.Dog}
+        recipientType={RecipientType.Dog}
         recipientId={dog.id}
         account={account} />
       : null

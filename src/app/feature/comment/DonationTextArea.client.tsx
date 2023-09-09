@@ -14,9 +14,10 @@ type DonationTextAreaProps = {
   recipientType: RecipientType;
   recipientId: number;
   account?: User;
+  fundraiserId?: number;
 }
 
-const DonationTextArea: React.FunctionComponent<DonationTextAreaProps> = ({ donationType, recipientType, recipientId, account }) => {
+const DonationTextArea: React.FunctionComponent<DonationTextAreaProps> = ({ donationType, recipientType, recipientId, account, fundraiserId }) => {
 
   const [comment, setComment] = useState<string>("");
 
@@ -30,21 +31,21 @@ const DonationTextArea: React.FunctionComponent<DonationTextAreaProps> = ({ dona
         userId: account?.id,
         commentType: donationType === DonationType.Dog ? CommentType.Dog : CommentType.Fundraiser,
         dogId: donationType === DonationType.Dog ? recipientId : undefined,
-        fundraiserId: donationType === DonationType.Fundraiser ? recipientId : undefined,
+        fundraiserId: donationType === DonationType.Fundraiser ? fundraiserId : undefined,
         content: comment
       }
 
       postComment(body)
     }
-  }, [comment])
+  }, [comment, account, fundraiserId])
 
   const url = useMemo(() => {
     if (donationType === DonationType.Dog) {
       return `/dogs/${recipientId}`
     } else {
-      return `/fundraisers/${recipientId}`
+      return `/fundraisers/${fundraiserId}`
     }
-  }, [donationType, recipientId])
+  }, [donationType, recipientId, fundraiserId])
 
   return (
     <form>

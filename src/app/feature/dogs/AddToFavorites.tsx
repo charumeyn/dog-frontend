@@ -43,14 +43,14 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
   const handleDelete = useCallback(() => {
     const list = [...favoriteDogIds]
 
-    //@ts-ignore
-    if (list.indexOf(String(dogId)) >= 0) {
+    if (list.indexOf(dogId) >= 0) {
       const filtered = list.filter(id => Number(id) !== Number(dogId))
 
       const body: UpdateFavoritesDto = {
         id: account?.id,
         favoriteDogIds: filtered
       }
+
       updateFavorites(body)
       setFavoriteDogIds(filtered)
     }
@@ -60,7 +60,7 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
     account.id ?
       <>{account.type === UserType.User ?
         existingId ?
-          <div className="flex gap-x-4 justify-center">
+          <div className="flex gap-x-4 justify-center mt-3">
             <div className="flex gap-x-2 justify-center text-sm hover:cursor-pointer text-orange-600">
               <IconHeartSolid className="w-4 w-5 text-orange-600" />Added to favorites
             </div>

@@ -4,7 +4,7 @@ type HeadingProps = {
   className?: string;
 }
 
-const Button: React.FunctionComponent<HeadingProps> = ({ type, text, className }) => {
+const Heading: React.FunctionComponent<HeadingProps> = ({ type, text, className }) => {
   return (
     type === "h1" ? <h1 className={`${className ? className : ""} text-xl font-semibold text-zinc-900`}>{text}</h1> :
       type === "h2" ? <h2 className={`${className ? className : ""} font-semibold text-zinc-900`}>{text}</h2> :
@@ -12,4 +12,4 @@ const Button: React.FunctionComponent<HeadingProps> = ({ type, text, className }
   )
 }
 
-export default Button;
+export default Heading;

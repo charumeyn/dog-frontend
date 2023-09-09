@@ -39,9 +39,13 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
 
   const onSuccess = useCallback((data: SuccessResult<Donation>) => {
     if (data.success) {
-      router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}`)
+      if (fundraiserId) {
+        router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}&fundraiserId=${fundraiserId}`)
+      } else {
+        router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}`)
+      }
     }
-  }, []);
+  }, [donationType, recipientType, recipientId, fundraiserId]);
 
   const onError = useCallback((error: any) => {
     setError(error.message)
@@ -56,8 +60,10 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
       transactionFirstName: firstName,
       transactionLastName: lastName,
       email: order.email,
-      recipientType: recipientType === RecipientType.Dog ? RecipientType.Dog : recipientType === RecipientType.Shelter ? RecipientType.Shelter : RecipientType.User,
-      donationType: donationType === DonationType.Dog ? DonationType.Dog : DonationType.Fundraiser,
+      recipientType: recipientType,
+      donationType: donationType,
+      // recipientType: recipientType === RecipientType.Dog ? RecipientType.Dog : recipientType === RecipientType.Shelter ? RecipientType.Shelter : RecipientType.User,
+      // donationType: donationType === DonationType.Dog ? DonationType.Dog : DonationType.Fundraiser,
       paymentGateway: PaymentGateway.Stripe,
       status: order.status,
       amount: order.amount / 100,

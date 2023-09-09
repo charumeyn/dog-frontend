@@ -6,11 +6,12 @@ import Share from "@/app/components/layout/common/Share"
 import StackedAvatars from "@/app/components/layout/common/StackedAvatars"
 import { Account } from "@/app/types/account.interface"
 import { Fundraiser } from "@/app/types/fundraiser.interface"
+import { User } from "@/app/types/user.interface"
 import { useMemo, useState } from "react"
 
 type FundraiserInfoProps = {
   fundraiser?: Fundraiser;
-  account?: Account;
+  account?: User;
 }
 
 const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundraiser, account }) => {
@@ -46,6 +47,16 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
     }
   }, [fundraiser])
 
+  const recipientId = useMemo(() => {
+    if (fundraiser?.dog != null) {
+      return fundraiser?.dog.id
+    } else if (fundraiser?.shelter != null) {
+      return fundraiser?.shelter.id
+    } else if (fundraiser?.user != null) {
+      return fundraiser?.user.id
+    }
+  }, [fundraiser])
+
   return (
     <>
       <h1 className="text-2xl font-medium mb-5">{fundraiser?.title}</h1>
@@ -59,7 +70,7 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
         text={"Donate"}
         color={"text-white bg-orange-600 hover:bg-orange-700"}
         classNames="my-3"
-        url={`/fundraiser/${fundraiser?.id}/donate`}
+        url={`/fundraisers/${fundraiser?.id}/donate?recipientId=${recipientId}`}
         fullWidth={true}
       />
 

@@ -16,13 +16,14 @@ import { User } from "@/app/types/user.interface";
 type PaymentContentProps = {
   image: string;
   name: string;
-  type: DonationType;
+  donationType: DonationType;
+  recipientType: RecipientType;
   recipientId: number;
   fundraiserId?: number;
   account: User | undefined;
 }
 
-const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, name, type, recipientId, fundraiserId, account }) => {
+const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, name, recipientType, donationType, recipientId, fundraiserId, account }) => {
 
   const amountOptions = [10, 20, 30, 50, 100]
   const [amount, setAmount] = useState<number | undefined>(0);
@@ -90,11 +91,25 @@ const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, n
         </div>
 
         {selectedGateway === PaymentGateway.Paypal ?
-          <PaypalCheckout donationType={DonationType.Dog} recipientType={RecipientType.Dog} recipientId={recipientId} fundraiserId={fundraiserId} amount={amount} account={account} />
+          <PaypalCheckout
+            donationType={donationType}
+            recipientType={recipientType}
+            recipientId={recipientId}
+            fundraiserId={fundraiserId}
+            amount={amount}
+            account={account}
+          />
           :
           selectedGateway === PaymentGateway.Stripe ?
             <Elements stripe={stripePromise}>
-              <StripeCheckout donationType={DonationType.Dog} recipientType={RecipientType.Dog} recipientId={recipientId} fundraiserId={fundraiserId} amount={amount} account={account} />
+              <StripeCheckout
+                donationType={donationType}
+                recipientType={recipientType}
+                recipientId={recipientId}
+                fundraiserId={fundraiserId}
+                amount={amount}
+                account={account}
+              />
             </Elements>
             :
             <div className="col-span-2 mt-4">

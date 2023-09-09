@@ -19,7 +19,7 @@ const CommentList: React.FunctionComponent<CommentListProps> = ({ comments }) =>
     comments.length > 0 ?
       comments.map((comment: Comment) => (
         <CommentRow key={comment.id} commentId={comment.id} />
-      )) : <div className="border border-zinc-100 rounded-md px-6 py-6 text-sm">No comments posted yet.</div>
+      )) : <div className="border border-zinc-200 rounded-md px-6 py-6 text-sm">No comments posted yet.</div>
   )
 }
 
@@ -30,7 +30,7 @@ export const CommentRow: React.FunctionComponent<CommentRowProps> = ({ commentId
   return (
     comment ?
       <div className="flex gap-x-4 mb-8">
-        <img src={comment?.dog?.mainImage} alt={comment.user.firstName} className="rounded-full w-14 h-14" />
+        <img src={comment?.user?.image} alt={comment.user.firstName} className="rounded-full w-14 h-14" />
         <div>
           {comment.user.firstName ?
             <Heading type="h2" text={comment.user.firstName} /> : null}

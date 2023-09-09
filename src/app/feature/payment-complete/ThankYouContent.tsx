@@ -3,22 +3,12 @@
 import PaymentComplete from "@/app/components/layout/common/PaymentComplete";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useDog } from "@/app/hooks/api/useDogs";
+import { useFundraiser } from "@/app/hooks/api/useFundraisers";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { useState } from "react";
 
-type ThankYouContentProps = {
-  searchParams: DonationParams;
-}
-
-interface DonationParams {
-  donationType: DonationType;
-  recipientType: RecipientType;
-  recipientId: number;
-  id: number;
-}
-
-export const ThankYouContentDog: React.FunctionComponent<ThankYouContentProps> = ({ searchParams }) => {
+export const ThankYouContentDog = ({ searchParams }: { searchParams: any }) => {
 
   const { data: account } = useAccount();
   const { data: dog } = useDog(searchParams.recipientId)
@@ -27,34 +17,33 @@ export const ThankYouContentDog: React.FunctionComponent<ThankYouContentProps> =
     dog ?
       <PaymentComplete
         image={dog?.mainImage} name={dog?.name}
-        type={searchParams.donationType}
+        donationType={searchParams.donationType}
         recipientId={searchParams.recipientId}
         account={account}
         donationId={searchParams.id}
+        recipientType={searchParams.recipientType}
       /> :
       null
   )
 }
 
-export const ThankYouContentFundraiser: React.FunctionComponent<ThankYouContentProps> = ({ searchParams }) => {
+export const ThankYouContentFundraiser = ({ searchParams }: { searchParams: any }) => {
 
   const { data: account } = useAccount();
-
-  const [name, setName] = useState<string>("")
-  const [image, setImage] = useState<string>("")
-
-  const { data: fundraiser } = useDog(searchParams.recipientId)
+  const { data: fundraiser } = useFundraiser(searchParams.fundraiserId)
 
   return (
-    <>
-      {JSON.stringify(fundraiser)}
+    fundraiser ?
       <PaymentComplete
-        image={image} name={name}
-        type={searchParams.donationType}
+        image={fundraiser.mainImage}
+        name={fundraiser.title}
+        donationType={searchParams.donationType}
+        recipientType={searchParams.recipientType}
         recipientId={searchParams.recipientId}
         account={account}
         donationId={searchParams.id}
-      />
-    </>
+        fundraiserId={searchParams.fundraiserId}
+      /> :
+      null
   )
 }

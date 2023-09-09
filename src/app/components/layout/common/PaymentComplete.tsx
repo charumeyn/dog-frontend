@@ -9,13 +9,15 @@ import { User } from "@/app/types/user.interface";
 type PaymentCompleteProps = {
   name: string;
   image: string;
-  type: DonationType;
+  donationType: DonationType;
+  recipientType: RecipientType;
   recipientId: number;
   account?: User;
   donationId: number;
+  fundraiserId?: number;
 }
 
-const PaymentComplete: React.FunctionComponent<PaymentCompleteProps> = ({ name, image, type, recipientId, account, donationId }) => {
+const PaymentComplete: React.FunctionComponent<PaymentCompleteProps> = ({ name, image, donationType, recipientType, recipientId, account, donationId, fundraiserId }) => {
 
   return (
     <div className="bg-white rounded-xl px-20 py-16">
@@ -32,7 +34,7 @@ const PaymentComplete: React.FunctionComponent<PaymentCompleteProps> = ({ name, 
             type={"h1"}
             text={`Leave a message for  ${name}`}
             className="mb-5" />
-          <DonationTextArea donationType={type} recipientType={RecipientType.Dog} recipientId={recipientId} account={account} />
+          <DonationTextArea donationType={donationType} recipientType={recipientType} recipientId={recipientId} account={account} fundraiserId={fundraiserId} />
         </div>
       </div>
     </div>

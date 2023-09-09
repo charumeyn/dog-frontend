@@ -2,6 +2,7 @@ import { Comment } from "./comment.interface";
 import { Dog } from "./dog.interface";
 import { Donation } from "./donation.interface";
 import { RecipientType } from "./enum/recipientType.enum";
+import { Shelter } from "./shelter.interface";
 import { User } from "./user.interface";
 
 export interface Fundraiser {
@@ -17,13 +18,13 @@ export interface Fundraiser {
   donations: Donation[];
   startsAt: Date;
   endsAt: Date;
-  createdBy: number;
+  createdByUser: User;
   createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
   dog: Dog;
   user: User;
-  shelter: any;
+  shelter: Shelter;
   comments: Comment[];
 };
 
