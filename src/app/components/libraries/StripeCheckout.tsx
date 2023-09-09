@@ -12,9 +12,9 @@ import React, { useCallback, useMemo, useState } from "react";
 import Input, { InputType } from "../layout/common/Input";
 import Button from "../layout/common/Button";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
-import { Account } from "@/app/types/account.interface";
 import { useRouter } from "next/navigation";
 import { User } from "@/app/types/user.interface";
+import Alert from "../layout/common/Alert";
 
 type StripeCheckoutProps = {
   donationType: DonationType;
@@ -28,32 +28,26 @@ type StripeCheckoutProps = {
 
 const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipientType, donationType, recipientId, fundraiserId, amount, account }) => {
 
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
+  const [error, setError] = useState<string[]>([])
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const stripe = useStripe();
   const elements = useElements();
 
   const router = useRouter();
 
-  const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
-    // console.log("onSuccess", data)
-    // window.location.reload();
+  const onSuccess = useCallback((data: SuccessResult<Donation>) => {
     if (data.success) {
-      router.push(`/thank-you/donationType=${donationType}&id=${data.data.id}/recipientType=${recipientType}/recipientId=${recipientId}`)
+      router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}`)
     }
-    // /thank-you?donationType=dog&recipientType=dog&recipientId=10&id=12
-  },
-    []
-  );
+  }, []);
 
-  const onCreateError = useCallback(
-    (error: any) => {
-      console.log("onError", error)
-    },
-    []
-  );
+  const onError = useCallback((error: any) => {
+    setError(error.message)
+  }, [setError])
 
-  const { mutate: createDonation } = useCreateDonation(onCreateSuccess, onCreateError);
+  const { mutate: createDonation, isLoading } = useCreateDonation(onSuccess, onError);
 
   const handleOnApprove = useCallback((order: any) => {
 
@@ -66,7 +60,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
       donationType: donationType === DonationType.Dog ? DonationType.Dog : DonationType.Fundraiser,
       paymentGateway: PaymentGateway.Stripe,
       status: order.status,
-      amount: order.amount,
+      amount: order.amount / 100,
       dogId: recipientType === RecipientType.Dog ? recipientId : undefined,
       shelterId: recipientType === RecipientType.Shelter ? recipientId : undefined,
       userId: recipientType === RecipientType.User ? recipientId : undefined,
@@ -79,6 +73,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true)
     const cardElement = elements?.getElement("card");
 
     try {
@@ -99,7 +94,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
 
       handleOnApprove(data)
     } catch (error) {
-      console.log("error", error);
+      setError(error as string[])
     }
   };
 
@@ -110,6 +105,9 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
 
   return (
     <form onSubmit={onSubmit}>
+
+      <Alert type="error" message={error} setMessage={setError} />
+
       <div className="mt-4 grid grid-cols-2 gap-y-6 gap-x-4">
 
         <Input
@@ -138,7 +136,7 @@ const StripeCheckout: React.FunctionComponent<StripeCheckoutProps> = ({ recipien
         </div>
 
         <div className="col-span-2 mt-2">
-          <Button type="submit" content="Pay with Card" classNames="w-full" disabled={disableButton} />
+          <Button type="submit" content={isLoading || isSubmitting ? "Loading..." : "Pay with Card"} classNames="w-full" disabled={disableButton || isLoading || isSubmitting} />
         </div>
       </div>
     </form>

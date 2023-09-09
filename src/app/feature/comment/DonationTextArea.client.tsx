@@ -6,13 +6,14 @@ import { Account } from "@/app/types/account.interface";
 import { CommentType } from "@/app/types/enum/commentType.enum";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
+import { User } from "@/app/types/user.interface";
 import { useCallback, useMemo, useState } from "react";
 
 type DonationTextAreaProps = {
   donationType: DonationType;
   recipientType: RecipientType;
   recipientId: number;
-  account?: Account;
+  account?: User;
 }
 
 const DonationTextArea: React.FunctionComponent<DonationTextAreaProps> = ({ donationType, recipientType, recipientId, account }) => {
@@ -24,9 +25,9 @@ const DonationTextArea: React.FunctionComponent<DonationTextAreaProps> = ({ dona
   const submit = useCallback((e: any) => {
     e.preventDefault();
 
-    if (account) {
+    if (account && comment) {
       const body = {
-        userId: account?.data.id,
+        userId: account?.id,
         commentType: donationType === DonationType.Dog ? CommentType.Dog : CommentType.Fundraiser,
         dogId: donationType === DonationType.Dog ? recipientId : undefined,
         fundraiserId: donationType === DonationType.Fundraiser ? recipientId : undefined,

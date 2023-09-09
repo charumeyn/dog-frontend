@@ -22,7 +22,5 @@ export default function ThankYou({ searchParams }: { searchParams: DonationParam
           <ThankYouContentFundraiser searchParams={searchParams} />
       }
     />
-
-
   )
 }

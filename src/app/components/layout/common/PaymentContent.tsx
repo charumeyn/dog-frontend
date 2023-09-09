@@ -53,8 +53,8 @@ const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, n
         <div className="pt-6">
           <h2 className="text-base font-semibold leading-7 text-zinc-900">Choose an amount</h2>
           <div className="grid grid-cols-5 gap-3 mt-2">
-            {amountOptions.map((option) =>
-              <div key={option}
+            {amountOptions.map((option, i) =>
+              <div key={i}
                 onClick={() => {
                   setAmount(option)
                 }}
@@ -83,8 +83,8 @@ const PaymentContent: React.FunctionComponent<PaymentContentProps> = ({ image, n
         <div className="pt-8">
           <h2 className="text-base font-semibold leading-7 text-zinc-900">Payment Method</h2>
           <div className="flex items-center space-x-10 space-y-0 mt-2">
-            {Object.values(PaymentGateway).map((value) =>
-              <RadioButton value={value} selected={selectedGateway} setSelected={setSelectedGateway} />
+            {Object.values(PaymentGateway).map((value, i) =>
+              <RadioButton key={i} value={value} selected={selectedGateway} setSelected={setSelectedGateway} />
             )}
           </div>
         </div>

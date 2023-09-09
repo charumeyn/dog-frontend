@@ -1,19 +1,17 @@
 "use client"
 
-import { Account } from "@/app/types/account.interface";
-import { SuccessResult } from "@/app/types/apiResult";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import Heading from "./Heading";
-import CommentTextArea from "@/app/feature/comment/DonationTextArea.client";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import DonationTextArea from "@/app/feature/comment/DonationTextArea.client";
+import { User } from "@/app/types/user.interface";
 
 type PaymentCompleteProps = {
   name: string;
   image: string;
   type: DonationType;
   recipientId: number;
-  account?: Account;
+  account?: User;
   donationId: number;
 }
 
@@ -26,7 +24,7 @@ const PaymentComplete: React.FunctionComponent<PaymentCompleteProps> = ({ name, 
           <img src={image} alt={name} className="w-44 h-44 rounded-full mb-10" />
           <Heading
             type={"h1"}
-            text={`${account?.data.firstName}, thank you for sponsoring ${name}!`}
+            text={`${account?.firstName}, thank you for sponsoring ${name}!`}
             className="!text-teal-600 !text-2xl !font-bold max-w-sm" />
         </div>
         <div>

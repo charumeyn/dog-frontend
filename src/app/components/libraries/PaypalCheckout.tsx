@@ -12,6 +12,7 @@ import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import { Fundraiser } from "@/app/types/fundraiser.interface";
 import { User } from "@/app/types/user.interface";
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
 type PaypalCheckoutProps = {
@@ -25,23 +26,20 @@ type PaypalCheckoutProps = {
 
 const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donationType, recipientType, recipientId, fundraiserId, amount, account }) => {
 
-  const onCreateSuccess = useCallback((data: SuccessResult<Donation>) => {
-    console.log("onSuccess", data)
-    window.location.reload();
-  },
-    []
-  );
+  const [error, setError] = useState<string[]>([])
+  const router = useRouter();
 
-  const onCreateError = useCallback(
-    (error: any) => {
-      console.log("onError", error)
-    },
-    []
-  );
+  const onSuccess = useCallback((data: SuccessResult<Donation>) => {
+    if (data.success) {
+      router.push(`/thank-you?donationType=${donationType}&id=${data.data.id}&recipientType=${recipientType}&recipientId=${recipientId}`)
+    }
+  }, []);
 
-  const { mutate: createDonation } = useCreateDonation(onCreateSuccess, onCreateError);
+  const onError = useCallback((error: any) => {
+    setError(error.message)
+  }, [setError])
 
-  const [error, setError] = useState("");
+  const { mutate: createDonation } = useCreateDonation(onSuccess, onError);
 
   const handleOnApprove = useCallback((order: any) => {
 
@@ -61,8 +59,6 @@ const PaypalCheckout: React.FunctionComponent<PaypalCheckoutProps> = ({ donation
       fundraiserId: fundraiserId ? fundraiserId : undefined,
       donorId: account && account.id,
     }
-
-    console.log(body);
 
     createDonation(body)
   }, [createDonation])
