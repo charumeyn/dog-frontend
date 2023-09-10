@@ -66,7 +66,6 @@ export default function Fundraiser({ params }: { params: any }) {
         mainContent={
           fundraiser ?
             <div>
-              <p className="mb-2 text-zinc-500 text-sm">Created by </p>
               <div className="border border-zinc-200 rounded-lg px-5 py-5 mb-8">
                 <p className="text-sm">{fundraiser?.description}</p>
               </div>
@@ -92,7 +91,7 @@ export default function Fundraiser({ params }: { params: any }) {
         mainContent={
           fundraiser ?
             <>
-              <p className="font-medium mb-2">Initiated by</p>
+              <p className="font-medium mb-2">Comments from donors</p>
               <CommentList comments={fundraiser?.comments} />
             </> : null
         }
@@ -100,7 +99,7 @@ export default function Fundraiser({ params }: { params: any }) {
 
       <Container
         type={ContainerType.SingleColumn}
-        className="bg-zinc-100 py-14"
+        className="bg-zinc-100 pt-12 pb-16 mt-16"
         mainContent={
           <>
             <Heading type="h1" text="Help other fundraisers" className="mb-8 text-center" />

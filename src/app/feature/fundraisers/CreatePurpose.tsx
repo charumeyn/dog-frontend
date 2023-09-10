@@ -1,20 +1,15 @@
-import { useDogs } from "@/app/hooks/api/useDogs";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
 import SelectedDog from "./SelectedDog";
-import { useAccount, useAccounts } from "@/app/hooks/api/useAuth";
-import { useEffect, useMemo, useState } from "react";
+import { useAccounts } from "@/app/hooks/api/useAuth";
+import { useMemo } from "react";
 import { User, UserType } from "@/app/types/user.interface";
 import { useShelter, useShelters } from "@/app/hooks/api/useShelters";
 import SelectedShelter from "./SelectedShelter";
 import SelectedUser from "./SelectedUser";
 
 type CreatePurposeProps = {
-  purpose: string;
-  setPurpose: (purpose: string) => void;
   type: string;
   setType: (type: RecipientType) => void;
-  country: string;
-  setCountry: (countru: string) => void;
   dogId: number | undefined;
   setDogId: (dogId: number | undefined) => void;
   shelterId: number | undefined;
@@ -23,25 +18,22 @@ type CreatePurposeProps = {
   setUserId: (userId: number | undefined) => void;
   account: User;
 }
-const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, setPurpose, type, setType, country, setCountry, dogId, setDogId, shelterId, setShelterId, userId, setUserId, account }) => {
+const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ type, setType, dogId, setDogId, shelterId, setShelterId, userId, setUserId, account }) => {
 
-  const { data: shelter } = useShelter(Number(account?.shelter.id))
   const { data: shelters } = useShelters(100)
   const { data: accounts } = useAccounts()
 
   const dogs = useMemo(() => {
-    if (account) {
+    if (account?.type === UserType.Shelter) {
+      const { data: shelter } = useShelter(Number(account?.shelter.id))
       if (shelter) {
-        if (account?.type === UserType.Shelter) {
-          return shelter.dogs
-        } else {
-          return account?.dogs
-        }
+        return shelter.dogs
       }
+    } else {
+      return account?.dogs
     }
-  }, [account, shelter])
+  }, [account])
 
-  const purposes = ["Emergency", "Monthly Bills", "Memorial", "Medical"]
 
   return (
     <div className="px-6 py-6">
@@ -66,22 +58,24 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
       </div>
 
       {type === RecipientType.Dog && dogId === undefined ?
-        <div>
-          <h3 className="text-zinc-700 mb-2 mt-6">Select a dog</h3>
-          <select
-            id="dogId"
-            name="dogId"
-            value={dogId}
-            onChange={(e: any) => setDogId(e.target.value)}
-            className="block w-full text-sm border border-zinc-300 rounded-md px-4 py-3"
-          >
-            {dogs?.map((dog) => (
-              <option key={dog.id} value={dog.id}>
-                {dog.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        dogs && dogs?.length > 0 ?
+          <div>
+            <h3 className="text-zinc-700 mb-2 mt-6">Select a dog</h3>
+            <select
+              id="dogId"
+              name="dogId"
+              value={dogId}
+              onChange={(e: any) => setDogId(e.target.value)}
+              className="block w-full text-sm border border-zinc-300 rounded-md px-4 py-3"
+            >
+              {dogs?.map((dog) => (
+                <option key={dog.id} value={dog.id}>
+                  {dog.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          : <div className="mt-5 text-zinc-500 text-sm">No dog registered on your account. Please <a className="text-teal-600" href="/dogs/register">register a dog</a> first</div>
         : null
       }
 
@@ -139,32 +133,6 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ purpose, s
         <SelectedUser userId={userId} setUserId={setUserId} />
         : null
       }
-
-      <h3 className="text-zinc-700 mb-2 mt-6">What describes the purpose of your fundraising intiative?</h3>
-      <div className="flex gap-x-2">
-        {purposes.map((text, i) =>
-          <span key={i} onClick={() => setPurpose(text)}
-            className={`${text === purpose ? "border-teal-600 text-teal-600" : "hover:border-zinc-500 hover:text-zinc-700"} 
-              border px-4 py-2 rounded-full hover:cursor-pointer border-zinc-300 text-zinc-500`}>
-            {text}
-          </span>
-        )}
-      </div>
-
-      {/* <h3 className="text-zinc-700 mb-2 mt-6">Where are you located?</h3> */}
-      {/* <select
-        id="country"
-        name="country"
-        value={country}
-        onChange={(e: any) => setCountry(e.target.value)}
-        className="block w-full text-sm border border-zinc-300 rounded-md px-4 py-3"
-      >
-        {Object.entries(Country).map((country, index) => (
-          <option key={country[0]} value={country[1]}>
-            {country[0]}
-          </option>
-        ))}
-      </select> */}
     </div>
   )
 }

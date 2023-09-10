@@ -12,9 +12,7 @@ export interface Fundraiser {
   content: string;
   mainImage: string;
   images: string[];
-  purpose: string;
   goalAmount: number;
-  currentAmount: number;
   donations: Donation[];
   startsAt: Date;
   endsAt: Date;
@@ -34,7 +32,6 @@ export interface CreateFundraiserDto {
   content: string;
   mainImage: string;
   images: string[];
-  purpose: string;
   type: RecipientType;
   goalAmount: number;
   startsAt: Date;
