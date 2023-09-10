@@ -3,7 +3,6 @@ import { Dog } from "./dog.interface";
 
 export interface Post {
   id: number;
-  title: string;
   content: string;
   mainImage: string;
   images: string[];
@@ -13,3 +12,10 @@ export interface Post {
   dog: Dog;
   comments: Comment[];
 };
+
+export interface CreatePostDto {
+  dogId: number | undefined;
+  content: string;
+  mainImage: string;
+  images: string[];
+}

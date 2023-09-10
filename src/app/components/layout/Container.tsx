@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 export enum ContainerType {
   SingleColumn = "SingleColumn",
   NarrowColumn = "NarrowColumn",
+  MidColumn = "MidColumn",
   FlushLeft = "FlushLeft",
   ImageWithContent = "ImageWithContent",
   LeftSidebar = "LeftSidebar"
@@ -24,9 +25,9 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, imageConte
         ${withBg ? "bg-zinc-100" : ""} 
         ${className ? className : ""}
     `}>
-      <div className={`${type === ContainerType.NarrowColumn ? "max-w-xl" : "max-w-screen-xl"} w-full mx-auto px-4`}>
+      <div className={`${type === ContainerType.NarrowColumn ? "max-w-xl" : type === ContainerType.MidColumn ? "max-w-2xl" : "max-w-screen-xl"} w-full mx-auto px-4`}>
 
-        {type === ContainerType.SingleColumn || type === ContainerType.NarrowColumn ?
+        {type === ContainerType.SingleColumn || type === ContainerType.NarrowColumn || type === ContainerType.MidColumn ?
           mainContent
           : null}
 

@@ -40,7 +40,7 @@ export default function Header() {
         mainContent={
           <div className="flex justify-between">
             <a href="/" className="text-teal-600 hover:text-teal-700 py-5 text-2xl font-extrabold">Doggo&apos;s Life</a>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center">
               {menu.map((item: any, i: number) =>
                 <a className="px-8 py-5 hover:text-teal-600 font-medium" key={i} href={item.url}>{item.name}</a>
               )}
@@ -50,8 +50,9 @@ export default function Header() {
                 isLoggedIn && account ?
                   <Username account={account} />
                   :
-                  <a className="border-l border-zinc-200 py-5 px-8" href="/login">Login</a>
+                  null
               }
+              {!isLoggedIn ? <a className="border-l border-zinc-200 py-5 px-8" href="/login">Login</a> : null}
             </div>
           </div>
         } />
@@ -87,41 +88,49 @@ function Username({ account }: { account: User }) {
   ];
 
   return (
-    <div className="flex border-l border-zinc-200 ">
-      {account.type === UserType.Shelter ?
-        <div className="flex items-center gap-3 pl-5">
-          <img src={account?.shelter.mainImage} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
-          <p className="flex flex-col">
-            <span className="text-orange-700 text-xs font-medium">Shelter</span>
-            <a href="/account/dogs">{account?.shelter.name}</a>
-          </p>
-          <DropdownMenu
-            menuItems={shelterMenu}
-            icon={
-              <IconChevronDown
-                className="h-8 w-8 p-1.5 rounded-full text-zinc-600"
-                aria-hidden="true"
-              />
-            }
-          />
-        </div>
-        :
-        <div className="flex items-center gap-3 pl-5">
-          <p className="flex items-center gap-3">
-            <img src={account?.image} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
-            <a href="/account">Hi, {account?.firstName}!</a>
-          </p>
-          <DropdownMenu
-            menuItems={userMenu}
-            icon={
-              <IconChevronDown
-                className="h-8 w-8 p-1.5 rounded-full text-zinc-600"
-                aria-hidden="true"
-              />
-            }
-          />
-        </div>
-      }
-    </div>
+    <>
+      <div className="flex items-center text-sm pr-5">
+        {account.type === UserType.Shelter ?
+          <a className="text-teal-600 hover:border-b hover:border-teal-600" href="/posts/create">+ Create Post</a> :
+          <a className="text-teal-600 hover:border-b hover:border-teal-600" href="/fundraisers/create">+ Create Fundraiser</a>
+        }
+      </div>
+      <div className="flex border-l border-zinc-200 ">
+        {account.type === UserType.Shelter ?
+          <div className="flex items-center gap-3 pl-5">
+            <img src={account?.shelter.mainImage} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
+            <p className="flex flex-col">
+              <span className="text-orange-700 text-xs font-medium">Shelter</span>
+              <a href="/account/dogs">{account?.shelter.name}</a>
+            </p>
+            <DropdownMenu
+              menuItems={shelterMenu}
+              icon={
+                <IconChevronDown
+                  className="h-8 w-8 p-1.5 rounded-full text-zinc-600"
+                  aria-hidden="true"
+                />
+              }
+            />
+          </div>
+          :
+          <div className="flex items-center gap-3 pl-5">
+            <p className="flex items-center gap-3">
+              <img src={account?.image} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
+              <a href="/account">Hi, {account?.firstName}!</a>
+            </p>
+            <DropdownMenu
+              menuItems={userMenu}
+              icon={
+                <IconChevronDown
+                  className="h-8 w-8 p-1.5 rounded-full text-zinc-600"
+                  aria-hidden="true"
+                />
+              }
+            />
+          </div>
+        }
+      </div>
+    </>
   )
 }

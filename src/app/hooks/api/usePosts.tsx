@@ -1,6 +1,7 @@
 import { queryKeys } from "@/app/queryKey/queryKeys";
-import { Post } from "@/app/types/post.interface";
-import { useQuery } from "@tanstack/react-query";
+import { FailResult, SuccessResult } from "@/app/types/apiResult";
+import { CreatePostDto, Post } from "@/app/types/post.interface";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const getPosts = async (limit?: number) => {
   const limitParam = limit ? `?limit=${limit}` : '';
@@ -36,7 +37,6 @@ const getFavoriteDogsPosts = async (limit: number, dogIds: number[]) => {
     dogIdsParam.push(`&dogIds[]=${id}`)
   })
 
-  // const dogIdsParam = dogIds ? `?dogIds=${dogIds}` : null;
   const res = await fetch(`http://localhost:3000/posts/favorites?limit=${limit}${dogIdsParam}`);
 
   return res.json();
@@ -49,4 +49,39 @@ const useFavoriteDogsPosts = (limit: number, dogIds: number[]) => {
   );
 };
 
-export { usePosts, usePost, useFavoriteDogsPosts }
+const createPost = async (dto: CreatePostDto) => {
+  const res = await fetch(`http://localhost:3000/posts/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...dto
+    })
+  });
+
+  const data = await res.json();
+  return data;
+}
+
+const useCreatePost = (
+  onCreateSuccess: (data: SuccessResult<Post>) => void,
+  onCreateError?: (error: FailResult) => void
+) => {
+  return useMutation((dto: CreatePostDto) => createPost(dto), {
+    onSuccess: (data: SuccessResult<Post> | FailResult) => {
+      if (!data.success) {
+        if (onCreateError) onCreateError(data)
+      } else {
+        onCreateSuccess(data)
+      }
+    },
+    onError: (error: FailResult) => {
+      if (onCreateError) {
+        onCreateError(error);
+      }
+    },
+  });
+};
+
+export { usePosts, usePost, useFavoriteDogsPosts, useCreatePost }
