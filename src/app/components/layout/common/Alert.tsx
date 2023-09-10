@@ -26,8 +26,8 @@ const Alert: React.FunctionComponent<AlertProps> = ({ type, message, setMessage,
             ${type === "error" ? "text-red-700" : ""}
             ${type === "success" ? "" : "text-green-600"} 
             space-y-1 text-sm`}>
-          {message.map((message) => (
-            <li className="">{message}</li>
+          {message.map((message, i) => (
+            <li className="" key={i}>{message}</li>
           ))}
         </ul>
       </div>

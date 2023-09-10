@@ -23,7 +23,7 @@ export default function UserHomeContent({ account }: { account: User }) {
           {account.favoriteDogIds.length > 0 ?
             account.favoriteDogIds.map((id, i) => (
               <FavoritesRow key={i} id={Number(id)} />
-            )) : "No favorite dogs yet."}
+            )) : <div className="text-zinc-600">No favorite dogs yet.</div>}
         </aside>
       </div> : null
   )
@@ -40,35 +40,37 @@ function DiaryFeed({ dogIds, account }: { dogIds: number[], account: User }) {
     <div>
       <Heading type={"h1"} text={"Doggo diaries from favorite dogs"} className="mb-4" />
       <div className="rounded-xl border border-zinc-200 divide-y divide-zinc-200">
-        {posts?.map((post) => (
-          <div className="p-8">
-            <div className="flex justify-between items-center mb-5">
-              <div className="flex items-center gap-5">
-                <img src={post.dog.mainImage} className="w-14 h-14 rounded-full" />
-                <div>
-                  <p className="font-medium">{post.dog.name}</p>
-                  <p className="text-sm text-zinc-500">{moment(post.createdAt).fromNow()}</p>
+        {posts && posts?.length > 0 ?
+          posts?.map((post) => (
+            <div className="p-8">
+              <div className="flex justify-between items-center mb-5">
+                <div className="flex items-center gap-5">
+                  <img src={post.dog.mainImage} className="w-14 h-14 rounded-full" />
+                  <div>
+                    <p className="font-medium">{post.dog.name}</p>
+                    <p className="text-sm text-zinc-500">{moment(post.createdAt).fromNow()}</p>
+                  </div>
                 </div>
-              </div>
 
-              {post.comments.length > 0 ?
-                <CommentButton
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                  modalPostId={modalPostId}
-                  setModalPostId={setModalPostId}
-                  account={account}
-                  post={post} />
-                :
-                <span>Be the first to comment</span>
-              }
+                {post.comments.length > 0 ?
+                  <CommentButton
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    modalPostId={modalPostId}
+                    setModalPostId={setModalPostId}
+                    account={account}
+                    post={post} />
+                  :
+                  <span>Be the first to comment</span>
+                }
+              </div>
+              <p className="mb-5">{post.content}</p>
+              <div>
+                <ImageGallery images={post.images} mainImage={post.mainImage} isHorizontal={true} />
+              </div>
             </div>
-            <p className="mb-5">{post.content}</p>
-            <div>
-              <ImageGallery images={post.images} mainImage={post.mainImage} isHorizontal={true} />
-            </div>
-          </div>
-        ))}
+          )) :
+          <div className="p-8 text-center text-zinc-500">No posts to show. Add <a className="text-teal-600" href="/dogs">dogs</a> to your favorites!</div>}
       </div>
 
     </div>

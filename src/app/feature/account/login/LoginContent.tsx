@@ -11,6 +11,7 @@ export default function LoginContent() {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string[]>([])
 
   const router = useRouter();
 
@@ -19,10 +20,10 @@ export default function LoginContent() {
   }, []);
 
   const onError = useCallback((error: any) => {
-    console.log("onError", error)
-  }, []);
+    setError(error.message)
+  }, [setError])
 
-  const { mutate: login } = useLogin(onSuccess, onError);
+  const { mutate: login, isLoading } = useLogin(onSuccess, onError);
 
   const submit = useCallback((e: any) => {
     e.preventDefault();
@@ -44,7 +45,7 @@ export default function LoginContent() {
         <Input type={InputType.Password} name="password" placeholder="Password" required
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button type="submit" content="Login" onClick={submit} classNames="w-full" />
+        <Button type="submit" onClick={submit} content={isLoading ? "Logging in..." : "Login"} disabled={isLoading} />
       </form>
 
       <p className="text-center mt-14 text-zinc-500">
