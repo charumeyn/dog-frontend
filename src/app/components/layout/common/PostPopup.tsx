@@ -49,7 +49,7 @@ const PostModal: React.FunctionComponent<PostModalProps> = ({ isOpen, setIsOpen,
                 </span>
                 <div className="bg-white">
                   <div className="sm:flex sm:items-start">
-                    <div className="mt-3 text-center sm:mt-0 sm:text-left">
+                    <div className="mt-3 sm:mt-0">
                       <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-zinc-900">
                         {title}
                       </Dialog.Title>

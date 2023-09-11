@@ -36,7 +36,7 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
   return (
     <>
       <div className="flex justify-between">
-        <h1 className="text-2xl">Hello, I'm <strong>{dog?.name}</strong></h1>
+        <h1 className="text-xl md:text-2xl">Hello, I'm <strong>{dog?.name}</strong></h1>
         {dog && <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"dog"} id={dog?.id} name={dog?.name} isButton={false} />}
       </div>
 

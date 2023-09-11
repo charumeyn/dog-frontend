@@ -1,3 +1,5 @@
+"use client"
+
 import Container, { ContainerType } from "@/app/components/layout/Container";
 import ImageGallery from "@/app/components/layout/common/ImageGallery";
 import { useAccount } from "@/app/hooks/api/useAuth";
@@ -8,8 +10,8 @@ import CommentList from "../comment/CommentItem.client";
 import PostCard from "@/app/components/layout/common/PostCard";
 import Grid from "@/app/components/layout/common/Grid";
 import DogCard from "@/app/components/layout/common/DogCard";
-import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function DogDetailContent({ id }: { id: number }) {
 
@@ -53,7 +55,7 @@ export default function DogDetailContent({ id }: { id: number }) {
                   <ImageGallery images={dog?.images} mainImage={dog?.mainImage} /> : null
               }
               mainContent={
-                <div className="bg-white rounded-xl py-8 px-8 border border-zinc-300">
+                <div className="bg-white rounded-xl p-4 md:p-8 border border-zinc-300">
                   <DogInfo dog={dog} account={account} />
                 </div>
               }
@@ -121,13 +123,11 @@ export default function DogDetailContent({ id }: { id: number }) {
               mainContent={
                 <>
                   <Heading type={"h1"} text={"Meet other dogs"} className="text-center mb-10" />
-                  <Grid
-                    columns={4}
-                    content={
-                      dogs?.map((dog, i) =>
-                        <DogCard key={i} dog={dog} />
-                      )
-                    } />
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6">
+                    {dogs?.map((dog, i) =>
+                      <DogCard key={i} dog={dog} />
+                    )}
+                  </div>
                   <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/fundraisers/`}>View all dogs</a>
                 </>
               }

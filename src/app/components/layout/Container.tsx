@@ -32,17 +32,17 @@ const Container: React.FunctionComponent<Container> = ({ mainContent, imageConte
           : null}
 
         {type === ContainerType.ImageWithContent ?
-          <div className="flex gap-x-8">
-            <div className="max-w-screen-md w-full">
+          <div className="flex-col md:flex-row flex gap-x-8 gap-y-6">
+            <div className="w-full md:max-w-md lg:max-w-screen-md">
               {imageContent}
             </div>
-            <div className="w-2/5">
+            <div className="w-full md:w-4/5 lg:w-2/5">
               {mainContent}
             </div>
           </div> : null}
 
         {type === ContainerType.FlushLeft ?
-          <div className="max-w-screen-md">{mainContent}</div>
+          <div className="max-w-screen-md mx-auto lg:ml-0 lg:mr-0">{mainContent}</div>
           : null}
 
         {type === ContainerType.LeftSidebar ?

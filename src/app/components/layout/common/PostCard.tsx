@@ -50,7 +50,7 @@ const PostCard: React.FunctionComponent<PostCard> = ({ post, dog }) => {
       <PostModal
         isOpen={isOpen} setIsOpen={setIsOpen}
         children={
-          <div className="grid grid-cols-2 gap-x-8">
+          <div className="grid md:grid-cols-2 gap-x-8">
             <ImageGallery images={post.images} mainImage={post.mainImage} isSquare />
             {dog && account ?
               <PostCardContent account={account} dogId={dog.id} postId={post.id} />
