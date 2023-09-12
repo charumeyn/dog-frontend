@@ -13,8 +13,8 @@ const DogCard: React.FunctionComponent<DogCard> = ({ dog }) => {
           src={dog.images.length > 0 ? dog.images[0] : "https://images.pexels.com/photos/3104709/pexels-photo-3104709.jpeg"}
           alt={dog.name} />
       </div >
-      <p className="font-bold text-xl mt-5 mb-2">{dog.name}</p>
-      <p className="text-zinc-600 mb-2">{dog.description}</p>
+      <p className="font-bold text-lg mt-3 mb-0.5">{dog.name}</p>
+      <p className="text-zinc-600 mb-2 line-clamp-2 text-sm">{dog.description}</p>
     </a>
   )
 }

@@ -10,8 +10,9 @@ import { Size } from "@/app/types/enum/size.enum";
 import { Color } from "@/app/types/enum/color.enum";
 import { Gender } from "@/app/types/enum/gender.enum";
 import { CoatLength } from "@/app/types/enum/coatLength.enum";
-import { IconChevronLeft, IconChevronRight } from "@/app/components/layout/Icons";
+import { IconChevronLeft, IconChevronRight, IconFilter } from "@/app/components/layout/Icons";
 import Pagination from "@/app/components/layout/common/Pagination";
+import SlideOver from "@/app/components/layout/common/SlideOver";
 
 
 export default function DogListContent() {
@@ -21,6 +22,7 @@ export default function DogListContent() {
   const [size, setSize] = useState<Size | undefined>()
   const [color, setColor] = useState<Color | undefined>()
   const [coatLength, setCoatLength] = useState<CoatLength | undefined>()
+  const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
 
   const { data: dogs, isLoading, isFetching, error } = useDogs(limit, offset, gender, size, color, coatLength);
 
@@ -29,31 +31,49 @@ export default function DogListContent() {
       <Container
         type={ContainerType.SingleColumn}
         mainContent={
-          <SelectedFilters
-            limit={limit}
-            setLimit={setLimit}
-            gender={gender} setGender={setGender}
-            size={size} setSize={setSize}
-            coatLength={coatLength} setCoatLength={setCoatLength}
-            color={color} setColor={setColor}
-          />
+          <>
+            <SelectedFilters
+              limit={limit}
+              setLimit={setLimit}
+              gender={gender} setGender={setGender}
+              size={size} setSize={setSize}
+              coatLength={coatLength} setCoatLength={setCoatLength}
+              color={color} setColor={setColor}
+              isOpenFilter={isOpenFilter} setIsOpenFilter={setIsOpenFilter}
+            />
+          </>
         }
       />
       <Container
         type={ContainerType.LeftSidebar}
         sidebarContent={
-          <Filter
-            gender={gender} setGender={setGender}
-            size={size} setSize={setSize}
-            coatLength={coatLength} setCoatLength={setCoatLength}
-            color={color} setColor={setColor}
-          />
+          <>
+            <div className="hidden lg:block">
+              <Filter
+                gender={gender} setGender={setGender}
+                size={size} setSize={setSize}
+                coatLength={coatLength} setCoatLength={setCoatLength}
+                color={color} setColor={setColor} />
+            </div>
+            <SlideOver
+              isOpen={isOpenFilter}
+              setIsOpen={setIsOpenFilter}
+              title={"Filters"}
+              children={
+                <Filter
+                  gender={gender} setGender={setGender}
+                  size={size} setSize={setSize}
+                  coatLength={coatLength} setCoatLength={setCoatLength}
+                  color={color} setColor={setColor} />
+              }
+            />
+          </>
         }
         mainContent={
           dogs ?
             <>
               <div>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-5">
                   {dogs.map((dog, i) => (
                     <DogCard key={i} dog={dog} />
                   ))}
