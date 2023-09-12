@@ -71,7 +71,7 @@ export default function DogDetailContent({ id }: { id: number }) {
                     <div className="border border-zinc-200 rounded-lg px-5 py-5 mb-8">
                       <p className="text-sm">{dog?.description}</p>
                     </div>
-                    <p className="font-medium mb-2">Comments from sponsors</p>
+                    <p className="font-medium mb-2">Initiated By</p>
                     <div className="flex items-center justify-between pb-8 border-b border-zinc-200">
                       <div className="flex items-center gap-x-6">
                         <img src={dog?.shelter.mainImage + '.jpeg'} className="w-20 h-20 rounded-full" />
@@ -108,7 +108,7 @@ export default function DogDetailContent({ id }: { id: number }) {
                 account && dog?.posts && dog?.posts.length > 0 ?
                   <>
                     <Heading type="h1" text={`${dog?.name}'s Doggo Diary`} className="mb-5" />
-                    <div className="grid grid-cols-5 gap-x-2">
+                    <div className="grid grid-cols-3 gap-1 md:grid-cols-5 md:gap-2">
                       {dog?.posts.map((post, i) =>
                         <PostCard key={i} post={post} dog={dog} />
                       )}
@@ -123,12 +123,12 @@ export default function DogDetailContent({ id }: { id: number }) {
               mainContent={
                 <>
                   <Heading type={"h1"} text={"Meet other dogs"} className="text-center mb-10" />
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {dogs?.map((dog, i) =>
                       <DogCard key={i} dog={dog} />
                     )}
                   </div>
-                  <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/fundraisers/`}>View all dogs</a>
+                  <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/dogs/`}>View all dogs</a>
                 </>
               }
             />

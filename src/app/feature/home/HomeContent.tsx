@@ -60,7 +60,7 @@ export default function HomeContent() {
         mainContent={
           <div>
             <Heading type={"h1"} text={"Meet The Dogs"} className="!text-2xl text-center mb-6" />
-            <div className="grid grid-cols-4 gap-x-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {isLoadingDogs ?
                 "LOADING" :
                 dogs?.map((dog: Dog, i: number) =>
@@ -102,7 +102,7 @@ export default function HomeContent() {
         mainContent={
           <div>
             <Heading type={"h1"} text={"Featured Fundraisers"} className="!text-2xl text-center mb-6" />
-            <div className="grid grid-cols-4 gap-x-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {isLoadingFundraisers ?
                 "LOADING" :
                 fundraisers?.map((fundraiser: Fundraiser, i: number) =>

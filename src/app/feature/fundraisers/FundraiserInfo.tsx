@@ -59,7 +59,7 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
 
   return (
     <>
-      <h1 className="text-2xl font-medium mb-5">{fundraiser?.title}</h1>
+      <h1 className="text-xl md:text-2xl font-medium mb-2">{fundraiser?.title}</h1>
 
       <div className="text-zinc-900 mb-5">{fundraiser?.description}</div>
 

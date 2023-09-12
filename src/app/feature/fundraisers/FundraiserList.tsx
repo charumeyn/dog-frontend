@@ -13,12 +13,12 @@ const FundraiserList: React.FunctionComponent<FundraiserListProps> = ({ currentF
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-x-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {fundraisers?.map((fundraiser) => (
           <FundraiserCard fundraiser={fundraiser} />
         ))}
       </div>
-      <ButtonLink url={"/fundraisers"} text={"View other fundraisers >"} color="bg-white text-teal-600 border border-teal-600" classNames="table mx-auto mt-5" />
+      <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/fundraisers/`}>View all fundraisers</a>
     </>
   )
 

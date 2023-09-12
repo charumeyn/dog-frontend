@@ -42,7 +42,7 @@ function DogsList({ dogs }: { dogs: Dog[] }) {
 
   return (
     dogs.length > 0 ?
-      <div className="grid grid-cols-4 gap-x-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {dogs?.map((dog: Dog, i: number) =>
           <DogCard key={i} dog={dog} />
         )}

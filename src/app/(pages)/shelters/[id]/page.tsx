@@ -40,7 +40,7 @@ export default function Shelter({ params }: { params: any }) {
         <div className="w-full max-w-screen-2xl mx-auto px-4">
           <h2 className="mb-5 font-bold text-lg text-center">Dogs from {shelter?.name}</h2>
           <div className="w-full max-w-screen-2xl mx-auto">
-            <div className="grid grid-cols-4 gap-x-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {shelter?.dogs.map((dog: Dog, i: number) =>
                 <DogCard key={i} dog={dog} />
               )}

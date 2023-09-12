@@ -36,7 +36,7 @@ export default function LoginContent() {
     <div className="bg-white px-8 py-14 rounded-lg">
 
       <Heading type={"h3"} text={"Welcome Back!"} className="font-normal text-center mb-2" />
-      <Heading type={"h1"} text={"Log in to Doggos Life"} className="!text-3xl !font-bold mb-6 text-center" />
+      <Heading type={"h1"} text={"Log in to Doggos Life"} className="!text-2xl md:!text-3xl !font-bold mb-6 text-center" />
 
       <form className="flex flex-col gap-4 max-w-xl mx-auto">
         <Input type={InputType.Email} name="email" placeholder="Email" required

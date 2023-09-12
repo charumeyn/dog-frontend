@@ -54,7 +54,7 @@ export default function Fundraiser({ params }: { params: any }) {
             <ImageGallery images={fundraiser?.images} mainImage={fundraiser?.mainImage} /> : null
         }
         mainContent={
-          <div className="bg-white rounded-xl py-8 px-8 border border-zinc-300">
+          <div className="bg-white rounded-xl p-4 md:p-8 border border-zinc-300">
             <FundraiserInfo fundraiser={fundraiser} account={account} />
           </div>
         }

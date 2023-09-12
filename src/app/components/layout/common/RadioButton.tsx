@@ -18,7 +18,7 @@ const RadioButton: React.FunctionComponent<RadioButtonProps> = ({ value, selecte
         onChange={() => setSelected(value)}
       />
       <label htmlFor={value} className="ml-3 block text-sm font-medium leading-6 text-zinc-900 cursor-pointer">
-        {value === PaymentGateway.Stripe ? "Debit or Credit Card" : value}
+        {value === PaymentGateway.Stripe ? "Debit or Credit Card" : value === PaymentGateway.Paypal ? "Paypal" : value}
       </label>
     </div>
   )

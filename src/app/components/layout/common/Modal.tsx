@@ -29,7 +29,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ isOpen, setIsOpen, title, 
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -47,7 +47,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ isOpen, setIsOpen, title, 
                 </span>
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-10">
                   <div className="sm:flex sm:items-start">
-                    <div className="mt-3 text-center sm:mt-0 sm:text-left">
+                    <div className="mt-3sm:mt-0">
                       <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-zinc-900">
                         {title}
                       </Dialog.Title>
