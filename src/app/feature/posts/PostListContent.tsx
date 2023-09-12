@@ -22,7 +22,7 @@ export default function PostListContent() {
               setLimit={setLimit}
               length={posts.length}
             />
-            <div className="grid grid-cols-5 gap-x-2 mb-10">
+            <div className="grid grid-cols-3 gap-1 md:grid-cols-5 md:gap-2 mb-10">
               {posts.map((post, i) =>
                 <PostCard key={i} post={post} dog={post.dog} />
               )}

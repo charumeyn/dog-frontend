@@ -35,8 +35,8 @@ const PostCard: React.FunctionComponent<PostCard> = ({ post, dog }) => {
             src={post.mainImage}
             alt={String(post.id)} />
 
-          <div className="absolute w-full h-full object-cover flex flex-col items-center bg-black text-white after:content-[''] after:block after:pb-[100%] opacity-0 hover:opacity-80 hover:cursor-pointer">
-            <div className="flex items-center gap-2 mt-28">
+          <div className="absolute w-full h-full object-cover flex flex-col items-center bg-black text-white after:content-[''] after:block after:pb-[100%] opacity-0 hover:opacity-80 hover:cursor-pointer text-sm md:text-normal">
+            <div className="flex items-center gap-2 mt-5 lg:mt-28 text-center">
               {post.comments ? post.comments.length > 0 ?
                 <>
                   <IconComment />{post.comments.length} comments</>
@@ -77,7 +77,7 @@ export function PostCardContent({ account, dogId, postId }: { account: User, dog
     post ?
       <div className="flex flex-col">
         <div>
-          <div className="flex gap-x-5 items-center border-b border-zinc-200 pb-2  mb-4">
+          <div className="flex gap-x-5 justify-between md:justify-start border-b border-zinc-200 pb-2 mb-4 mt-2 md:mt-0">
             <div className="flex items-center gap-x-3">
               <img src={post.mainImage} className="w-10 h-10 rounded-full" />
               <span className="text-sm font-medium">
@@ -152,6 +152,10 @@ export function CommentBox({ account, postId }: { account: User, postId: number 
     createComment(body)
   }, [account, postId, comment])
 
+  const isLoggedIn = useMemo(() => {
+    return account && account.id;
+  }, [account])
+
   return (
     <>
       <Alert type="error" message={error} setMessage={setError} />
@@ -174,7 +178,7 @@ export function CommentBox({ account, postId }: { account: User, postId: number 
         {isSuccess ?
           <Button type={"submit"} color="green" disabled={true} content={<div>Posted!</div>} />
           :
-          <Button type={"submit"} onClick={handleComment} content={isLoading ? "Posting..." : "Post"} disabled={isLoading} />
+          <Button type={"submit"} onClick={handleComment} content={isLoading ? "Posting..." : "Post"} disabled={isLoading || !isLoggedIn} />
         }
       </div>
     </>

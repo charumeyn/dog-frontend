@@ -34,7 +34,7 @@ export default function FundraiserListContent() {
           fundraisers ?
             <>
               <div>
-                <div className="grid grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-5">
                   {fundraisers.map((fundraiser, i) => (
                     <FundraiserCard key={i} fundraiser={fundraiser} />
                   ))}

@@ -62,7 +62,7 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
         existingId ?
           <div className="flex gap-x-4 justify-center mt-3">
             <div className="flex gap-x-2 justify-center text-sm hover:cursor-pointer text-orange-600">
-              <IconHeartSolid className="w-4 w-5 text-orange-600" />Added to favorites
+              <IconHeartSolid className="w-4 w-5 text-orange-600" /><span className="hidden md:inline">Add to favorites</span> <span className="md:hidden">Add</span>
             </div>
             <div className="flex gap-x-2 justify-center text-sm hover:cursor-pointer border-l border-zinc-200 text-zinc-400 pl-4 font-normal"
               onClick={() => handleDelete()}>
@@ -70,15 +70,15 @@ export default function AddToFavorites({ account, dogId }: { account: User, dogI
             </div>
           </div> :
 
-          <div className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer mt-1"
+          <div className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer"
             onClick={(e) => handleUpdate(e)}>
-            <IconHeart className="w-4 w-5" />Add to favorites
+            <IconHeart className="w-4 w-5" /><span className="hidden md:inline">Add to favorites</span> <span className="md:hidden">Add</span>
           </div> : null}
       </> :
 
-      <a className="flex gap-x-2 justify-center text-zinc-500 text-sm hover:cursor-pointer  mt-1"
+      <a className="flex gap-x-2 justify-center items-center text-zinc-500 text-sm hover:cursor-pointer"
         href="/login">
-        <IconHeart className="w-4 w-5" />Add to favorites
+        <IconHeart className="w-4 w-5" /><span className="hidden md:inline">Add to favorites</span> <span className="md:hidden">Add</span>
       </a>
   )
 }
