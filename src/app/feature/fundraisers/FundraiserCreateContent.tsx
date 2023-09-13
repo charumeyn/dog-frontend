@@ -127,8 +127,8 @@ export default function FundraiserCreateContent() {
 
   return (
     <div className="bg-zinc-100 py-20">
-      <h1 className="text-2xl font-bold max-w-2xl mx-auto mb-4 text-center">Create a Fundraiser</h1>
-      <div className="grid grid-cols-5 gap-x-4 max-w-2xl mx-auto mb-4">
+      <h1 className="text-xl md:text-2xl font-bold max-w-2xl mx-auto mb-4 text-center">Create a Fundraiser</h1>
+      <div className="grid grid-cols-5 gap-x-2 md:gap-x-4 max-w-2xl mx-auto mb-4">
         <SectionTab section={FundraiserSection.Purpose} selectedSection={selectedSection} number={1} />
         <div className="flex gap-x-2 items-center">
           <div className="h-0.5 w-full bg-zinc-300"></div>
@@ -174,23 +174,23 @@ export default function FundraiserCreateContent() {
             }
           </>
 
-          <div className="flex justify-end gap-x-4 px-6 py-5 border-t border-zinc-300">
+          <div className="flex justify-end gap-x-3 md:gap-x-4 px-6 py-5 border-t border-zinc-300">
             <button
               value={selectedSection}
               onClick={(e: any) => handlePrevClick(e)}
-              className="text-zinc-500 border border-zinc-300 px-6 py-3 rounded-lg hover:cursor-pointer hover:bg-zinc-100">
+              className="text-zinc-500 border border-zinc-300 text-sm md:text-base px-4 md:px-6 py-2 md:py-3 rounded-lg hover:cursor-pointer hover:bg-zinc-100">
               Back
             </button>
             {selectedSection === FundraiserSection.Content ?
               <span
                 onClick={(e: any) => handleSave(e)}
-                className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-zinc-200 text-zinc-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}>
+                className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-zinc-200 text-zinc-500 hover:cursor-disabled"} text-sm md:text-base px-4 md:px-6 py-2 md:py-3 rounded-lg`}>
                 Save
               </span> :
               <button
                 value={selectedSection}
                 onClick={(e: any) => handleNextClick(e)}
-                className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-zinc-200 text-zinc-500 hover:cursor-disabled"} px-6 py-3 rounded-lg`}
+                className={`${isActive ? "bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer" : "bg-zinc-200 text-zinc-500 hover:cursor-disabled"} text-sm md:text-base px-4 md:px-6 py-2 md:py-3 rounded-lg`}
                 disabled={!isActive}>
                 Continue
               </button>}

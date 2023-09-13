@@ -1,3 +1,4 @@
+import Input, { InputType } from "@/app/components/layout/common/Input";
 import S3Uploader from "@/app/components/libraries/S3Uploader";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -18,42 +19,43 @@ const CreateContent: React.FunctionComponent<CreateContentProps> = ({ images, se
 
 
   return (
-    <div className="px-6 py-6">
-
-      <h3 className="text-zinc-700 mb-2 mt-4">Fundraiser Title</h3>
-      <input
-        type="text"
-        id="title"
-        name="title"
+    <div className="px-6 py-6 grid grid-cols-1 gap-4">
+      <Input
+        type={InputType.Text}
+        name={"title"}
+        placeholder="Enter fundraiser title"
+        label="Title"
         value={title}
-        onChange={(e: any) => setTitle(e.target.value)}
-        className="border border-zinc-300 px-3 py-2 rounded-lg w-full"
+        onChange={(e) => setTitle(e.target.value)}
       />
 
-      <h3 className="text-zinc-700 mb-2 mt-4">Short description</h3>
-      <input
-        type="text"
-        id="description"
-        name="description"
+      <Input
+        type={InputType.Text}
+        name={"description"}
+        placeholder="Enter short description"
+        label="Short description"
         value={description}
-        onChange={(e: any) => setDescription(e.target.value)}
-        className="border border-zinc-300 px-3 py-2 rounded-lg w-full"
+        onChange={(e) => setDescription(e.target.value)}
       />
 
-      <h3 className="text-zinc-700 mb-2  mt-4">Upload images</h3>
-      <S3Uploader images={images} setImages={setImages} mainImage={mainImage} setMainImage={setMainImage} />
+      <div>
+        <h3 className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Upload images</h3>
+        <S3Uploader images={images} setImages={setImages} mainImage={mainImage} setMainImage={setMainImage} />
+      </div>
 
-      <h3 className="text-zinc-700 mb-2 mt-4">Create content</h3>
-      <textarea
-        id="content"
-        name="content"
-        rows={10}
-        cols={20}
-        value={content}
-        onChange={(e: any) => setContent(e.target.value)}
-        className="border border-zinc-300 px-3 py-2 rounded-lg w-full"
-      />
-    </div >
+      <div>
+        <h3 className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Content</h3>
+        <textarea
+          id="content"
+          name="content"
+          rows={10}
+          cols={20}
+          value={content}
+          onChange={(e: any) => setContent(e.target.value)}
+          className="mt-2 text-zinc-900 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
+        />
+      </div>
+    </div>
   )
 }
 

@@ -15,7 +15,7 @@ export default function RegisterShelter() {
           <Heading type={"h1"} text={"Register a Shelter Account"} className="font-bold mb-8 text-center" />
           <div className="grid grid-cols-2 gap-x-4 max-w-2xl mx-auto mb-8 px-20">
             <div className="flex gap-x-2 items-center">
-              <span className="bg-teal-600 flex items-center justify-center text-white font-medium rounded-full w-8 h-8">
+              <span className="md:inline bg-teal-600 flex items-center justify-center text-white font-medium rounded-full w-8 h-8">
                 1
               </span>
               <h2 className="text-teal-600 font-medium">User Account</h2>

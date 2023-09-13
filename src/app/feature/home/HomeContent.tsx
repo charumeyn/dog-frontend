@@ -83,7 +83,7 @@ export default function HomeContent() {
         mainContent={
           <div>
             <Heading type={"h1"} text={"The Doggo Diaries"} className="!text-2xl" />
-            <Heading type={"h3"} text={"Life updates from our precious dogs!"} className="mb-6 !text-normal" />
+            <Heading type={"h3"} text={"Life updates from our precious dogs!"} className="mb-6 !text-base" />
             <div className="grid grid-cols-4 gap-x-8">
               {isLoadingPosts ?
                 "LOADING" :

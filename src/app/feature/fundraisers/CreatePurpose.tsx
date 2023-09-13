@@ -6,6 +6,7 @@ import { User, UserType } from "@/app/types/user.interface";
 import { useShelter, useShelters } from "@/app/hooks/api/useShelters";
 import SelectedShelter from "./SelectedShelter";
 import SelectedUser from "./SelectedUser";
+import { Dog } from "@/app/types/dog.interface";
 
 type CreatePurposeProps = {
   type: string;
@@ -23,26 +24,14 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ type, setT
   const { data: shelters } = useShelters(100)
   const { data: accounts } = useAccounts()
 
-  const dogs = useMemo(() => {
-    if (account?.type === UserType.Shelter) {
-      const { data: shelter } = useShelter(Number(account?.shelter.id))
-      if (shelter) {
-        return shelter.dogs
-      }
-    } else {
-      return account?.dogs
-    }
-  }, [account])
-
-
   return (
     <div className="px-6 py-6">
-      <h3 className="text-zinc-700 mb-2">Who are you fundraising for?</h3>
+      <h3 className="block text-sm md:text-base font-medium leading-6 text-zinc-900 mb-2">Who are you fundraising for?</h3>
       <div className="grid grid-cols-3 gap-x-2">
         {Object.entries(RecipientType).map((text, i) =>
           <label htmlFor={text[1]} key={i}
             className={`${type == text[1] ? "border-teal-600 text-teal-600" : "hover:border-zinc-400 hover:text-zinc-700"} 
-              font-medium rounded-lg text-center border-2 hover:cursor-pointer py-5 `}>
+              font-medium rounded-lg text-center border-2 hover:cursor-pointer py-2 md:py-5 text-sm md:text-base`}>
             <input
               id={text[1]}
               type="radio"
@@ -58,26 +47,9 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ type, setT
       </div>
 
       {type === RecipientType.Dog && dogId === undefined ?
-        dogs && dogs?.length > 0 ?
-          <div>
-            <h3 className="text-zinc-700 mb-2 mt-6">Select a dog</h3>
-            <select
-              id="dogId"
-              name="dogId"
-              value={dogId}
-              onChange={(e: any) => setDogId(e.target.value)}
-              className="block w-full text-sm border border-zinc-300 rounded-md px-4 py-3"
-            >
-              {dogs?.map((dog) => (
-                <option key={dog.id} value={dog.id}>
-                  {dog.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          : <div className="mt-5 text-zinc-500 text-sm">No dog registered on your account. Please <a className="text-teal-600" href="/dogs/register">register a dog</a> first</div>
-        : null
-      }
+        account?.type === UserType.Shelter ?
+          <ShelterDogDropdown shelterId={account?.shelter.id} dogId={dogId} setDogId={setDogId} /> : <UserDogDropdown dogs={account?.dogs} dogId={dogId} setDogId={setDogId} />
+        : null}
 
       {type === RecipientType.Dog && dogId !== undefined ?
         <SelectedDog dogId={dogId} setDogId={setDogId} />
@@ -86,7 +58,7 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ type, setT
 
       {type === RecipientType.Shelter && shelterId === undefined ?
         <div>
-          <h3 className="text-zinc-700 mb-2 mt-6">Select a shelter</h3>
+          <h3 className="block text-sm md:text-base font-medium leading-6 text-zinc-900 mb-2 mt-5">Select a shelter</h3>
           <select
             id="shelterId"
             name="shelterId"
@@ -111,7 +83,7 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ type, setT
 
       {type === RecipientType.User && userId === undefined ?
         <div>
-          <h3 className="text-zinc-700 mb-2 mt-6">Select a user</h3>
+          <h3 className="block text-sm md:text-base font-medium leading-6 text-zinc-900 mb-2 mt-5">Select a user</h3>
           <select
             id="userId"
             name="userId"
@@ -138,3 +110,55 @@ const CreatePurpose: React.FunctionComponent<CreatePurposeProps> = ({ type, setT
 }
 
 export default CreatePurpose;
+
+function ShelterDogDropdown({ shelterId, dogId, setDogId }: { shelterId: number, dogId?: number, setDogId: (dogId: number) => void }) {
+  const { data: shelter } = useShelter(Number(shelterId))
+
+  return (
+    shelter ?
+      shelter.dogs && shelter.dogs.length > 0 ?
+        <div>
+          <h3 className="block text-sm md:text-base font-medium leading-6 text-zinc-900 mb-2 mt-5">Select a dog</h3>
+          <select
+            id="dogId"
+            name="dogId"
+            value={dogId}
+            onChange={(e: any) => setDogId(e.target.value)}
+            className="block w-full text-sm border border-zinc-300 rounded-md px-4 py-3"
+          >
+            {shelter.dogs?.map((dog) => (
+              <option key={dog.id} value={dog.id}>
+                {dog.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        :
+        <div className="mt-5 text-zinc-500 text-sm">No dog registered on your account. Please <a className="text-teal-600" href="/dogs/register">register a dog</a> first</div>
+      : null
+  )
+}
+
+function UserDogDropdown({ dogs, dogId, setDogId }: { dogs: Dog[], dogId?: number, setDogId: (dogId: number) => void }) {
+  return (
+    dogs && dogs.length > 0 ?
+      <div>
+        <h3 className="block text-sm md:text-base font-medium leading-6 text-zinc-900 mb-2 mt-5">Select a dog</h3>
+        <select
+          id="dogId"
+          name="dogId"
+          value={dogId}
+          onChange={(e: any) => setDogId(e.target.value)}
+          className="block w-full text-sm border border-zinc-300 rounded-md px-4 py-3"
+        >
+          {dogs.map((dog) => (
+            <option key={dog.id} value={dog.id}>
+              {dog.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      :
+      <div className="mt-5 text-zinc-500 text-sm">No dog registered on your account. Please <a className="text-teal-600" href="/dogs/register">register a dog</a> first</div>
+  )
+}
