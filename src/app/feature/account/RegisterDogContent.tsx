@@ -76,7 +76,7 @@ export default function RegisterDogContent() {
         breed: breeds,
         birthdate,
         gender,
-        color: colors,
+        color: colors[0],
         size,
         coatLength,
         mainImage,
@@ -98,7 +98,7 @@ export default function RegisterDogContent() {
   }, [selectedBreeds])
 
   useEffect(() => {
-    setColors(selectedColors.map((color) => color.value as Color))
+    setColors(selectedColors as any)
   }, [selectedColors])
 
   return (
@@ -107,14 +107,14 @@ export default function RegisterDogContent() {
       <div className="bg-white px-5 py-4 md:p-8 rounded-lg border border-zinc-200">
         <form onSubmit={submit} className="grid gap-5 grid-cols-5">
 
-          <div className="col-span-5 md:col-span-3">
+          <div className="col-span-5 lg:col-span-3">
             <Input type={InputType.Text}
               name={"Name"} placeholder="Name" label="Name"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
-          <div className="col-start-1 col-span-2 md:col-span-1">
+          <div className="col-span-5 lg:col-start-1 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Birthdate</span>
             <DatePicker
               selected={birthdate}
@@ -123,17 +123,17 @@ export default function RegisterDogContent() {
             />
           </div>
 
-          <div className="col-span-1">
+          <div className="col-span-5 lg:col-span-1">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Gender</span>
-            <div className="flex items-center space-x-10 space-y-0 mt-4">
+            <div className="flex items-center space-x-10 space-y-0 mt-4 capitalize">
               {Object.values(Gender).map((value, i) =>
                 <RadioButton key={i} value={value} selected={gender} setSelected={setGender} />
               )}
             </div>
           </div>
 
-          <div className="col-start-1 col-span-5 md:col-span-4">
-            <span className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Breed (Select multiple if mixed breed)</span>
+          <div className="col-span-5 lg:col-start-1 lg:col-span-2">
+            <span className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Breed (Select multiple if mixed)</span>
             <Select
               options={breedsList}
               placeholder="Select breed/s"
@@ -144,19 +144,18 @@ export default function RegisterDogContent() {
             />
           </div>
 
-          <div className="col-start-1 col-span-5 md:col-span-4">
-            <span className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Colors (Select multiple if has multiple coat color)</span>
+          <div className="col-span-5 lg:col-span-2">
+            <span className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Color</span>
             <Select
               options={colorList}
               placeholder="Select color.s"
               value={selectedColors}
-              onChange={(color) => setSelectedColors(color as SelectList[])}
+              onChange={(color) => setSelectedColors(color as any)}
               isSearchable={true}
-              isMulti
             />
           </div>
 
-          <div className="col-start-1 col-span-2 md:col-span-1">
+          <div className="col-span-5 lg:col-start-1 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Size</span>
             <select
               id="size"
@@ -173,7 +172,7 @@ export default function RegisterDogContent() {
             </select>
           </div>
 
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-5 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Coat Length</span>
             <select
               id="coatLength"
@@ -190,14 +189,14 @@ export default function RegisterDogContent() {
             </select>
           </div>
 
-          <div className="col-span-5 md:col-span-4">
+          <div className="col-span-5 lg:col-span-4">
             <Input type={InputType.Text}
               name={"Description"} placeholder="Description" label="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
 
-          <div className="col-span-5 md:col-span-4">
+          <div className="col-span-5 lg:col-span-4">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Content</span>
             <textarea
               id="content"
