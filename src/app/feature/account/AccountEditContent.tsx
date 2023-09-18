@@ -68,13 +68,13 @@ export default function AccountEditContent() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <Heading type="h1" text="Edit Account" />
+        <Heading type="h1" text="Edit Profile" />
       </div>
 
       <form onSubmit={onSubmit}>
         <Alert type="error" message={error} setMessage={setError} />
 
-        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg divide-y divide-gray-300 px-5 md:px-8 py-4">
+        <div className="bg-white px-5 py-4 md:p-8 rounded-lg border border-zinc-200">
 
           <div className="grid grid-cols-5 gap-5">
             <div className="col-span-4 md:col-span-3">

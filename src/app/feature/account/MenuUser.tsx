@@ -26,7 +26,7 @@ export function MenuUser({ currentPage }: { currentPage: string }) {
         { name: 'Dogs', href: '/account/dogs', icon: IconDog2, menuPage: 'dogs' },
         { name: 'Fundraisers', href: '/account/fundraisers', icon: IconFundraiser, menuPage: 'fundraisers' },
         { name: 'Edit Shelter', href: '/account/shelter', icon: IconDonation, menuPage: 'shelter' },
-        { name: 'Edit Account', href: '/account/edit', icon: IconDonation, menuPage: 'edit' },
+        { name: 'Edit Profile', href: '/account/edit', icon: IconDonation, menuPage: 'edit' },
       ]
     }
   }, [account])

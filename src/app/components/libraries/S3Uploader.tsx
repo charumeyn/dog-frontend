@@ -55,7 +55,7 @@ const S3Uploader: React.FunctionComponent<S3UploaderProps> = ({ images, setImage
 
   return (
     <>
-      <div className="grid grid-cols-5 gap-x-3">
+      <div className="grid grid-cols-3 sm:grid-cols-5 gap-x-3">
         {images?.map((image: string, i: number) =>
           <div key={i} className={`${image == mainImage ? "border-2 border-teal-600 " : "border-2 border-white "} hover:cursor-pointer col-span-1 relative mb-3`}
             onClick={() => setMainImage(image)}>

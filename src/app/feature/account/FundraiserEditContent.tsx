@@ -92,6 +92,16 @@ export default function FundraiserEditContent({ id }: { id: number }) {
 
   }, [title, description, startsAt, endsAt, content, goalAmount, images, mainImage])
 
+  const recepient = useMemo(() => {
+    if (fundraiser?.dog != undefined) {
+      return fundraiser?.dog.name
+    } else if (fundraiser?.user != undefined) {
+      return fundraiser?.user.firstName
+    } else if (fundraiser?.shelter != undefined) {
+      return fundraiser.shelter.name
+    }
+  }, [fundraiser])
+
   return (
     <div className="mt-6 lg:mt-8">
       <div className="flex justify-between items-center mb-4">
@@ -104,9 +114,9 @@ export default function FundraiserEditContent({ id }: { id: number }) {
         <form onSubmit={onSubmit}>
           <Alert type="error" message={error} setMessage={setError} />
 
-          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300 px-8 py-6">
-            <div className="grid grid-cols-5 gap-5">
-              <div className="col-span-3">
+          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300 px-8 py-6 rounded-md">
+            <div className="grid grid-cols-4 lg:grid-cols-5 gap-5">
+              <div className="col-span-4 lg:col-span-3">
                 <Input type={InputType.Text}
                   label={"Title"}
                   name={"title"}
@@ -115,14 +125,15 @@ export default function FundraiserEditContent({ id }: { id: number }) {
                   onChange={(e: any) => setTitle(e.target.value)}
                 />
               </div>
-              <div className="col-span-1">
+              <div className="col-span-4 lg:col-span-1">
                 <Input type={InputType.Text}
                   name={"Recepient"}
                   label={"Recepient"}
+                  value={recepient}
                   disabled
                 />
               </div>
-              <div className="col-start-1 col-span-1">
+              <div className="lg:col-start-1 col-span-2 lg:col-span-1">
                 <Input type={InputType.Text}
                   name={"currentAmount"}
                   label={"Current Amount"}
@@ -130,7 +141,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
                   disabled
                 />
               </div>
-              <div className="col-span-1">
+              <div className="col-span-2 lg:col-span-1">
                 <Input type={InputType.Number}
                   label={"Goal Amount"}
                   name={"goalAmount"}
@@ -138,7 +149,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
                   onChange={(e: any) => setGoalAmount(Number(e.target.value))}
                 />
               </div>
-              <div className="col-start-1 col-span-1">
+              <div className="lg:col-start-1 col-span-2 lg:col-span-1">
                 <span className="block text-sm font-medium leading-6 text-zinc-900">Start Date</span>
                 <DatePicker
                   selected={startsAt}
@@ -151,7 +162,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
                 />
               </div>
 
-              <div className="col-span-1">
+              <div className="col-span-2 lg:col-span-1">
                 <span className="block text-sm font-medium leading-6 text-zinc-900">End Date</span>
                 <DatePicker
                   selected={endsAt}
@@ -165,7 +176,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
                 />
               </div>
 
-              <div className="col-span-5">
+              <div className="col-span-4 lg:col-span-5">
                 <h3 className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Upload images</h3>
                 <S3Uploader images={images} setImages={setImages} mainImage={mainImage} setMainImage={setMainImage} />
               </div>

@@ -110,14 +110,14 @@ export default function EditDogContent({ id }: { id: number }) {
       <div className="bg-white px-5 py-4 md:p-8 rounded-lg border border-zinc-200">
         <form onSubmit={submit} className="grid gap-5 grid-cols-5">
 
-          <div className="col-span-3">
+          <div className="col-span-5 lg:col-span-3">
             <Input type={InputType.Text}
               name={"Name"} placeholder="Name" label="Name" value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
-          <div className="col-start-1 col-span-1">
+          <div className="col-span-5 lg:col-start-1 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Birthdate</span>
             <DatePicker
               selected={birthdate}
@@ -126,16 +126,16 @@ export default function EditDogContent({ id }: { id: number }) {
             />
           </div>
 
-          <div className="col-span-1">
+          <div className="col-span-5 lg:col-span-1">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Gender</span>
-            <div className="flex items-center space-x-10 space-y-0 mt-4">
+            <div className="flex items-center space-x-10 space-y-0 mt-4 capitalize">
               {Object.values(Gender).map((value, i) =>
                 <RadioButton key={i} value={value} selected={gender} setSelected={setGender} />
               )}
             </div>
           </div>
 
-          <div className="col-start-1 col-span-2">
+          <div className="col-span-5 lg:col-start-1 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Breed/s</span>
             <div className="bg-zinc-100 mt-2 text-zinc-500 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6">
               {dog?.breed.map((breed) => (
@@ -144,14 +144,14 @@ export default function EditDogContent({ id }: { id: number }) {
             </div>
           </div>
 
-          <div className="col-start-1 col-span-2">
+          <div className="col-span-5 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Color/s</span>
             <div className="bg-zinc-100 mt-2 text-zinc-500 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6">
               {dog?.color}
             </div>
           </div>
 
-          <div className="col-start-1 col-span-1">
+          <div className="col-span-5 lg:col-start-1 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Size</span>
             <select
               id="size"
@@ -168,7 +168,7 @@ export default function EditDogContent({ id }: { id: number }) {
             </select>
           </div>
 
-          <div className="col-span-1">
+          <div className="col-span-5 lg:col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Coat Length</span>
             <select
               id="coatLength"
@@ -185,7 +185,7 @@ export default function EditDogContent({ id }: { id: number }) {
             </select>
           </div>
 
-          <div className="col-span-4">
+          <div className="col-span-5 lg:col-span-4">
             <Input type={InputType.Text}
               name={"Description"} placeholder="Description" label="Description"
               value={description}
@@ -193,7 +193,7 @@ export default function EditDogContent({ id }: { id: number }) {
             />
           </div>
 
-          <div className="col-span-4">
+          <div className="col-span-5 lg:col-span-4">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Content</span>
             <textarea
               id="content"
