@@ -4,7 +4,7 @@ import { IconClose } from '../Icons'
 
 export default function SlideOver(
   { isOpen, setIsOpen, title, children }
-    : { isOpen: boolean, setIsOpen: (isOpen: boolean) => void, title: string, children: ReactNode }
+    : { isOpen: boolean, setIsOpen: (isOpen: boolean) => void, title?: string, children: ReactNode }
 ) {
 
   return (

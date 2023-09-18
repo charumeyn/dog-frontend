@@ -81,24 +81,24 @@ export default function ShelterEditContent({ id }: { id: number }) {
       <div className="flex justify-between items-center mb-4">
         <Heading type="h1" text="Edit Shelter" />
       </div>
-      <div className="bg-white p-8 rounded-lg border border-zinc-200">
+      <div className="bg-white px-5 py-4 md:p-8 rounded-lg border border-zinc-200">
         <form onSubmit={submit} className="grid gap-5 grid-cols-5">
 
-          <div className="col-span-3">
+          <div className="col-span-5 md:col-span-3">
             <Input type={InputType.Text}
               name={"Name"} placeholder="Name" label="Name" value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
-          <div className="col-span-3">
+          <div className="col-span-5 md:col-span-3">
             <Input type={InputType.Text}
               name={"Description"} placeholder="Description" label="Description" value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
 
-          <div className="col-span-4">
+          <div className="col-span-5 md:col-span-4">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Content</span>
             <textarea
               id="content"

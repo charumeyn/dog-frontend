@@ -33,7 +33,7 @@ export default function EditDogContent({ id }: { id: number }) {
   const [description, setDescription] = useState<string>("")
   const [content, setContent] = useState<string>("")
   const [breeds, setBreeds] = useState<string[]>([])
-  const [colors, setColors] = useState<Color[]>([])
+  const [colors, setColors] = useState<Color>()
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const { data: account } = useAccount();
@@ -107,7 +107,7 @@ export default function EditDogContent({ id }: { id: number }) {
         <Heading type="h1" text="Edit Dog" />
         <a href="/account/dogs/" className="text-gray-500 font-semibold text-sm">Back</a>
       </div>
-      <div className="bg-white p-8 rounded-lg border border-zinc-200">
+      <div className="bg-white px-5 py-4 md:p-8 rounded-lg border border-zinc-200">
         <form onSubmit={submit} className="grid gap-5 grid-cols-5">
 
           <div className="col-span-3">
@@ -147,9 +147,7 @@ export default function EditDogContent({ id }: { id: number }) {
           <div className="col-start-1 col-span-2">
             <span className="block text-sm font-medium leading-6 text-zinc-900">Color/s</span>
             <div className="bg-zinc-100 mt-2 text-zinc-500 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6">
-              {dog?.color.map((color) => (
-                <span>{color}</span>
-              ))}
+              {dog?.color}
             </div>
           </div>
 

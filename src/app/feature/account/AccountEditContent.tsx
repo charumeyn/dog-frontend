@@ -74,10 +74,10 @@ export default function AccountEditContent() {
       <form onSubmit={onSubmit}>
         <Alert type="error" message={error} setMessage={setError} />
 
-        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300 px-8 py-6">
+        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg divide-y divide-gray-300 px-5 md:px-8 py-4">
 
           <div className="grid grid-cols-5 gap-5">
-            <div className="col-span-3">
+            <div className="col-span-4 md:col-span-3">
               <Input type={InputType.Text}
                 label={"First Name"}
                 name={"firstName"}
@@ -86,7 +86,7 @@ export default function AccountEditContent() {
                 onChange={(e: any) => setFirstName(e.target.value)}
               />
             </div>
-            <div className="col-span-3">
+            <div className="col-span-4 md:col-span-3">
               <Input type={InputType.Text}
                 label={"Last Name"}
                 name={"lastName"}
@@ -95,7 +95,7 @@ export default function AccountEditContent() {
                 onChange={(e: any) => setLastName(e.target.value)}
               />
             </div>
-            <div className="col-span-3">
+            <div className="col-span-4 md:col-span-3">
               <Input type={InputType.Text}
                 label={"Email"}
                 name={"email"}
@@ -104,7 +104,7 @@ export default function AccountEditContent() {
               />
             </div>
 
-            <div className="col-span-3">
+            <div className="col-span-5 md:col-span-3">
               <S3UploaderSingle images={images} setImages={setImages} />
             </div>
 

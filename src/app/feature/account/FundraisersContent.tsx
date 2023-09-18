@@ -42,7 +42,7 @@ function FundraiserList({ fundraisers }: { fundraisers: Fundraiser[] }) {
   }, [])
 
   return (
-    <div className="mt-8">
+    <div className="mt-6 lg:mt-8">
       <div className="flex justify-between items-center mb-4">
         <Heading type="h1" text="Fundraisers" />
         <a href="/fundraisers/create" className="text-teal-600 font-semibold text-sm">+ Create fundraiser</a>
@@ -85,12 +85,12 @@ function FundraiserItem({ id }: { id: number }) {
   return (
     fundraiser ?
       <div className="grid grid-cols-2">
-        <div className="col-span-1 p-5">
+        <div className="col-span-2 md:col-span-1 p-5">
           <a href={`/fundraisers/${fundraiser.id}`} className="font-semibold hover:text-teal-600 pr-2">{fundraiser.title}</a>
-          <StatusLabel startsAt={fundraiser.startsAt} endsAt={fundraiser.endsAt} />
+          <br className="block md:hidden" /><StatusLabel startsAt={fundraiser.startsAt} endsAt={fundraiser.endsAt} />
           <p className="text-zinc-500 text-sm mt-1">Duration: {moment(fundraiser.startsAt).format("YYYY-MM-DD")} ~ {moment(fundraiser.endsAt).format("YYYY-MM-DD")}</p>
         </div>
-        <div className="grid grid-cols-5 gap-x-8 p-5">
+        <div className="col-span-2 md:col-span-1 grid grid-cols-5 gap-x-8 pb-2 px-5 md:p-5">
           <div className="col-span-2">
             <span className="font-semibold">${currentAmount}</span> <span className="text-zinc-200">/</span> ${fundraiser.goalAmount}
           </div>

@@ -93,7 +93,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
   }, [title, description, startsAt, endsAt, content, goalAmount, images, mainImage])
 
   return (
-    <div className="mt-8">
+    <div className="mt-6 lg:mt-8">
       <div className="flex justify-between items-center mb-4">
         <Heading type="h1" text="Edit Fundraiser" />
         <a href="/account/fundraisers/" className="text-gray-500 font-semibold text-sm">Back</a>

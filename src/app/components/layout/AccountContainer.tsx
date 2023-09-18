@@ -2,6 +2,7 @@
 
 import { MenuUser } from "@/app/feature/account/MenuUser";
 import { ReactNode } from "react";
+import { IconMenu } from "./Icons";
 
 type AccountContainerProps = {
   mainContent: ReactNode;
@@ -11,7 +12,7 @@ type AccountContainerProps = {
 const AccountContainer: React.FunctionComponent<AccountContainerProps> = ({ mainContent, currentPage }) => {
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-4 my-14">
+    <div className="w-full max-w-screen-xl mx-auto px-4 py-6 lg:my-14">
       <div className="flex min-h-full flex-col">
         <div className="mx-auto flex w-full items-start gap-x-10">
           <aside className="hidden w-56	shrink-0 lg:block">

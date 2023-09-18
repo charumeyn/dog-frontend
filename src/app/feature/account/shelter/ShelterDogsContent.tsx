@@ -19,7 +19,7 @@ export default function ShelterDogsContent({ account }: { account: User }) {
         <Heading type="h1" text="Dogs in Shelter" />
         <a href={`/account/dogs/register`} className="text-teal-600 font-semibold text-sm">+ Register a dog</a>
       </div>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {shelter?.dogs?.map((dog, i) => (
           <DogCard key={i} dogId={dog.id} />
         ))}
@@ -54,7 +54,8 @@ function DogCard({ dogId }: { dogId: number }) {
             <div className="flex justify-between">
               <div>
                 <span className="font-bold text-lg"><a href={`/dogs/${dog.id}`}>{dog.name}</a></span>
-                <span className="text-sm text-zinc-500 pl-2">({moment(dog.birthdate).format("YYYY-MM-DD")})</span>
+                <br className="block md:hidden" />
+                <span className="text-sm text-zinc-500 md:pl-2">({moment(dog.birthdate).format("YYYY-MM-DD")})</span>
               </div>
               {menu ?
                 <DropdownMenu

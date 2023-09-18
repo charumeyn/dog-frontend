@@ -13,7 +13,7 @@ export interface Dog {
   name: string;
   breed: string[];
   birthdate: Date;
-  color: Color[];
+  color: Color;
   size: Size;
   gender: Gender;
   coatLength: CoatLength;

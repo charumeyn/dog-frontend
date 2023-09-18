@@ -42,7 +42,7 @@ function UserDonationList() {
   ]
 
   return (
-    <div className="mt-8">
+    <div className="mt-6 lg:mt-8">
       <Heading type="h2" text="My Donations" className="mb-4" />
 
       <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
