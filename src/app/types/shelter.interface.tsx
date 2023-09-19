@@ -17,7 +17,7 @@ export interface Shelter {
   createdAt: Date;
   dogs?: Dog[];
   fundraisers?: Fundraiser[];
-  address?: Address;
+  address: string;
   user?: User;
 }
 
@@ -25,6 +25,7 @@ export interface CreateShelterDto {
   name: string;
   mainImage: string;
   images: string[];
+  address: string;
   description: string;
   content: string;
   userId: number;
@@ -34,6 +35,7 @@ export interface UpdateShelterDto {
   id: number;
   name: string;
   mainImage: string;
+  address: string;
   images: string[];
   description: string;
   content: string;
