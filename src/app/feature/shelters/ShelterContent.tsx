@@ -58,7 +58,13 @@ export function ShelterContent({ id }: { id: number }) {
           <div className="flex lg:items-center gap-x-2 mb-2 text-sm">
             <IconPin className="w-4 h-4" />{shelter?.address}
           </div>
-          {isLoaded ? shelter?.address && <Map address={shelter?.address} /> : "is Loading"}
+          {isLoaded ? shelter?.address && <Map address={shelter?.address} />
+            :
+            <div className="animate-pulse rounded-lg">
+              <div className="block h-80 w-full bg-zinc-200">
+              </div>
+            </div>
+          }
           {shelter ?
             <div className="mt-4">
               <Share isOpen={isOpen} setIsOpen={setIsOpen} type={"shelter"} id={shelter?.id} name={shelter?.name} isButton={true} />
@@ -104,9 +110,9 @@ function Map({ address }: { address: string }) {
 
   return (
     <>
-      {/* <div className="places-container">
+      <div className="places-container">
         <PlacesAutocomplete setSelected={setSelected} />
-      </div> */}
+      </div>
 
       <GoogleMap
         zoom={10}
@@ -144,7 +150,7 @@ const PlacesAutocomplete = ({ setSelected }: { setSelected: (selected: any) => v
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
-        className="combobox-input"
+        className="text-zinc-900 focus:ring-teal-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset text-sm sm:leading-6 mb-2 mt-2"
         placeholder="Search an address"
       />
       <ComboboxPopover>

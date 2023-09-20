@@ -1,5 +1,4 @@
 import Container, { ContainerType } from "@/app/components/layout/Container";
-import Heading from "@/app/components/layout/common/Heading";
 import { ShelterContent } from "@/app/feature/shelters/ShelterContent";
 
 

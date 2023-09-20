@@ -7,15 +7,19 @@ import Input, { InputType } from "@/app/components/layout/common/Input";
 import S3Uploader from "@/app/components/libraries/S3Uploader";
 import { useAccount } from "@/app/hooks/api/useAuth";
 import { useShelter, useUpdateShelter } from "@/app/hooks/api/useShelters";
-import { UpdateShelterDto } from "@/app/types/shelter.interface";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { useLoadScript } from "@react-google-maps/api";
+import { Map } from "@/app/feature/shelters/Maps"
+
 
 export default function ShelterEditContent({ id }: { id: number }) {
 
   const [name, setName] = useState<string>("")
   const [description, setDescription] = useState<string>("")
   const [content, setContent] = useState<string>("")
+  const [address, setAddress] = useState<string>("")
+  const [phone, setPhone] = useState<string>("")
   const [images, setImages] = useState<string[]>([])
   const [mainImage, setMainImage] = useState<string>("")
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
@@ -40,10 +44,12 @@ export default function ShelterEditContent({ id }: { id: number }) {
       setName(shelter?.name)
       setDescription(shelter?.description)
       setContent(shelter?.content)
+      setAddress(shelter?.address)
+      setPhone(shelter?.phone)
       setImages(shelter?.images)
       setMainImage(shelter?.mainImage)
     }
-  }, [shelter, setName, setDescription, setContent, setImages, setMainImage])
+  }, [shelter, setName, setDescription, setContent, setAddress, setPhone, setImages, setMainImage])
 
   const onSuccess = useCallback(() => {
     setIsSuccess(true);
@@ -69,12 +75,23 @@ export default function ShelterEditContent({ id }: { id: number }) {
       name,
       description,
       content,
+      address,
+      phone,
       images,
       mainImage,
     }
 
     update(body)
-  }, [shelterId, name, description, content, images, mainImage])
+  }, [shelterId, name, description, content, address, phone, images, mainImage])
+
+  const { isLoaded } = useLoadScript({
+    //@ts-ignore
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    libraries: ["places"]
+  })
+
+  const [isEditAddress, setIsEditAddress] = useState<boolean>(false)
+
 
   return (
     <div>
@@ -89,6 +106,38 @@ export default function ShelterEditContent({ id }: { id: number }) {
               name={"Name"} placeholder="Name" label="Name" value={name}
               onChange={(e) => setName(e.target.value)}
             />
+          </div>
+
+          <div className="col-span-5 md:col-span-3">
+            <Input type={InputType.Text}
+              name={"Phone"} placeholder="Phone" label="Phone" value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+
+          <div className="col-span-5 md:col-span-3">
+            <span className="block text-sm font-medium leading-6 text-zinc-900">
+              Address
+              <span className="pl-3 text-teal-600 font-normal hover:cursor-pointer" onClick={() => setIsEditAddress(!isEditAddress)}>
+                {isEditAddress ? 'Cancel' : 'Change Address'}
+              </span>
+            </span>
+            {isEditAddress ? null :
+              <div className="mb-2">
+                <Input type={InputType.Text}
+                  name={"Address"} placeholder="Address" value={address}
+                  disabled={true}
+                />
+              </div>
+            }
+            {isLoaded ? shelter?.address && <Map address={shelter?.address} setAddress={setAddress} isEditAddress={isEditAddress} />
+              :
+              <div className="animate-pulse rounded-lg">
+                <div className="block h-80 w-full bg-zinc-200">
+                </div>
+              </div>
+            }
+
           </div>
 
           <div className="col-span-5 md:col-span-3">
