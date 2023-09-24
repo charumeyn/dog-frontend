@@ -6,7 +6,7 @@ export default function RegisterShelterThankYou() {
   return (
     <Container
       type={ContainerType.NarrowColumn}
-      className="pt-20"
+      className="pt-20 pb-20"
       mainContent={
         <div>Successfully registered shelter! Login now</div>
       } />

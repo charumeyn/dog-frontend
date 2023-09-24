@@ -1,13 +1,17 @@
 import Container, { ContainerType } from "@/app/components/layout/Container";
 import Heading from "@/app/components/layout/common/Heading";
 import RegisterShelterDetailsContent from "@/app/feature/account/RegisterShelterDetailsContent";
+import { useAccount } from "@/app/hooks/api/useAuth";
+import { UserType } from "@/app/types/user.interface";
+import { useMemo } from "react";
 
 export default function RegisterShelter({ searchParams }: { searchParams: any }) {
+
 
   return (
     <Container
       type={ContainerType.NarrowColumn}
-      className="pt-20"
+      className="pt-20 pb-20"
       withBg
       mainContent={
         <div>
@@ -20,7 +24,7 @@ export default function RegisterShelter({ searchParams }: { searchParams: any })
               <h2 className="text-zinc-400 font-medium">User Account</h2>
             </div>
             <div className="flex gap-x-2 items-center">
-              <span className="bg-teal-300 flex items-center justify-center text-white font-medium rounded-full w-8 h-8">
+              <span className="bg-teal-600 flex items-center justify-center text-white font-medium rounded-full w-8 h-8">
                 2
               </span>
               <h2 className="text-teal-600 font-medium">Shelter Details</h2>

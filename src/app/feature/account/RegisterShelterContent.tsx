@@ -2,7 +2,7 @@
 
 import Button from "@/app/components/layout/common/Button";
 import Input, { InputType } from "@/app/components/layout/common/Input";
-import { useRegister } from "@/app/hooks/api/useAuth";
+import { useAccount, useRegister } from "@/app/hooks/api/useAuth";
 import { SuccessResult } from "@/app/types/apiResult";
 import { User, UserType } from "@/app/types/user.interface";
 import { useRouter } from "next/navigation";

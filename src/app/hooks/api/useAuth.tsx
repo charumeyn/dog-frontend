@@ -59,7 +59,7 @@ const login = async (dto: LoginDto) => {
 }
 
 const useLogin = (
-  onLoginSuccess: () => void,
+  onLoginSuccess: (data: SuccessResult<User>) => void,
   onLoginError?: (error: FailResult) => void
 ) => {
 
@@ -71,7 +71,7 @@ const useLogin = (
         if (onLoginError) onLoginError(data)
       } else {
         queryClient.invalidateQueries(['account'])
-        onLoginSuccess()
+        onLoginSuccess(data)
       }
     },
     onError: (error: FailResult) => {

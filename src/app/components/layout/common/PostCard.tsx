@@ -15,20 +15,21 @@ import Input, { InputType } from "./Input";
 import { CommentType } from "@/app/types/enum/commentType.enum";
 import Button from "./Button";
 import Alert from "./Alert";
-import { IconCheck, IconComment } from "../Icons";
+import { IconComment } from "../Icons";
 
 type PostCard = {
-  post: Post;
+  id: number;
   dog: Dog;
 }
 
-const PostCard: React.FunctionComponent<PostCard> = ({ post, dog }) => {
+const PostCard: React.FunctionComponent<PostCard> = ({ id, dog }) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { data: post } = usePost(id)
   const { data: account } = useAccount()
 
   return (
-    <>
+    post ? <>
       <div onClick={() => setIsOpen(true)}>
         <div className="relative after:content-[''] after:block after:pb-[100%]">
           <img className="absolute w-full h-full object-cover"
@@ -37,11 +38,12 @@ const PostCard: React.FunctionComponent<PostCard> = ({ post, dog }) => {
 
           <div className="absolute w-full h-full object-cover flex flex-col items-center bg-black text-white after:content-[''] after:block after:pb-[100%] opacity-0 hover:opacity-80 hover:cursor-pointer text-sm md:text-base">
             <div className="flex items-center gap-2 mt-5 lg:mt-28 text-center">
-              {post.comments ? post.comments.length > 0 ?
+              {post.comments && post.comments.length > 0 ?
                 <>
-                  <IconComment />{post.comments.length} comments</>
+                  <IconComment />{post.comments.length} comments
+                </>
                 : "Be the first to comment ❤️"
-                : "Be the first to comment ❤️"}
+              }
             </div>
           </div>
         </div>
@@ -59,6 +61,7 @@ const PostCard: React.FunctionComponent<PostCard> = ({ post, dog }) => {
         }
       />
     </>
+      : null
   )
 }
 

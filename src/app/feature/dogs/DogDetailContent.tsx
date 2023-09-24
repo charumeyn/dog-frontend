@@ -110,7 +110,7 @@ export default function DogDetailContent({ id }: { id: number }) {
                     <Heading type="h1" text={`${dog?.name}'s Doggo Diary`} className="mb-5" />
                     <div className="grid grid-cols-3 gap-1 md:grid-cols-5 md:gap-2">
                       {dog?.posts.map((post, i) =>
-                        <PostCard key={i} post={post} dog={dog} />
+                        <PostCard key={i} id={post.id} dog={dog} />
                       )}
                     </div>
                   </> : null

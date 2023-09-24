@@ -4,6 +4,8 @@ import Button from "@/app/components/layout/common/Button";
 import Heading from "@/app/components/layout/common/Heading";
 import Input, { InputType } from "@/app/components/layout/common/Input";
 import { useLogin } from "@/app/hooks/api/useAuth";
+import { SuccessResult } from "@/app/types/apiResult";
+import { User, UserType } from "@/app/types/user.interface";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
@@ -15,7 +17,7 @@ export default function LoginContent() {
 
   const router = useRouter();
 
-  const onSuccess = useCallback(() => {
+  const onSuccess = useCallback((data: SuccessResult<User>) => {
     router.push(`/`)
   }, []);
 
@@ -49,8 +51,8 @@ export default function LoginContent() {
       </form>
 
       <p className="text-center mt-14 text-zinc-500">
-        Don't have an account?{' '}
-        <a href="/register" className="text-teal-600 underline">Register</a>
+        Don't have an account?<br />
+        Register for a <a href="/register" className="text-teal-600 underline">user account</a> or <a href="/register-shelter" className="text-teal-600 underline">shelter account</a>
       </p>
     </div>
   )
