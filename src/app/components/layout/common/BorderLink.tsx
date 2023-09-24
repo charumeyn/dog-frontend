@@ -13,10 +13,10 @@ const BorderLink: React.FunctionComponent<BorderLinkProps> = ({ text, url, fullW
     <div className={containerClasses ? containerClasses : ""}>
       <a
         href={url}
-        className={`${fullWidth ? "w-full inline-block text-center" : "inline-block"} border border-zinc-500 text-zinc-700 items-center gap-x-2 rounded-full px-6 py-3 font-medium shadow-sm`}>
-        <div className="flex">
+        className={`${fullWidth ? "w-full inline-block text-center" : "inline-block"} text-sm border border-zinc-200 text-teal-600 items-center gap-x-2 rounded-full pl-6 pr-5 py-3 font-medium shadow-sm`}>
+        <div className="flex items-center gap-1">
           {text}
-          {withArrow ? <IconChevronRight /> : null}
+          {withArrow ? <IconChevronRight className="w-4 h-4" /> : null}
         </div>
       </a>
     </div>

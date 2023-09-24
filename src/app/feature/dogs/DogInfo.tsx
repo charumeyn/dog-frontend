@@ -10,7 +10,7 @@ import ButtonLink from "@/app/components/layout/common/ButtonLink";
 import Share from "@/app/components/layout/common/Share";
 import Modal from "@/app/components/layout/common/Modal";
 import { DonationRow } from "@/app/components/layout/common/DonationList.client";
-import { User } from "@/app/types/user.interface";
+import { User, UserType } from "@/app/types/user.interface";
 import AddToFavorites from "./AddToFavorites";
 
 type DogInfoProps = {
@@ -32,6 +32,10 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
       }
     }
   }, [dog])
+
+  const isLoggedIn = useMemo(() => {
+    return account && account.id;
+  }, [account])
 
   return (
     <>
@@ -81,12 +85,29 @@ const DogInfo: React.FunctionComponent<DogInfoProps> = ({ dog, account }) => {
         </div>
       </div >
 
-      <ButtonLink
-        text={"Sponsor Me!"}
-        classNames="my-5"
-        url={`/dogs/${dog?.id}/sponsor`}
-        fullWidth={true}
-      />
+      {account?.type === UserType.User ?
+        <ButtonLink
+          text={"Sponsor Me!"}
+          classNames="my-5"
+          url={`/dogs/${dog?.id}/sponsor`}
+          fullWidth={true}
+        /> : account?.type === UserType.Shelter ?
+          <ButtonLink
+            text={"Sponsor Me!"}
+            classNames="my-5 hover:cursor-default pointer-events-none	"
+            color="text-white bg-zinc-300 hover:bg-zinc-300"
+            url={`#`}
+            fullWidth={true}
+          /> :
+          <ButtonLink
+            text={"Sponsor Me!"}
+            classNames="my-5"
+            url={`/login`}
+            fullWidth={true}
+          />
+      }
+
+      {account?.type === UserType.Shelter ? <div className="text-zinc-400 text-center text-sm">Shelter accounts cannot sponsor</div> : null}
 
       {account && dog ? <AddToFavorites account={account} dogId={dog.id} /> : null}
 

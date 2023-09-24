@@ -114,7 +114,7 @@ export default function FundraiserEditContent({ id }: { id: number }) {
         <form onSubmit={onSubmit}>
           <Alert type="error" message={error} setMessage={setError} />
 
-          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300 px-8 py-6 rounded-md">
+          <div className="shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300 px-8 py-6 rounded-md">
             <div className="grid grid-cols-4 lg:grid-cols-5 gap-5">
               <div className="col-span-4 lg:col-span-3">
                 <Input type={InputType.Text}

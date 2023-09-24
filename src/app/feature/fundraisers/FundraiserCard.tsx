@@ -8,10 +8,11 @@ import moment from "moment";
 import { useMemo } from "react";
 
 type FundraiserCardProps = {
+  containerClasses?: string;
   fundraiser: Fundraiser;
 }
 
-const FundraiserCard: React.FunctionComponent<FundraiserCardProps> = ({ fundraiser }) => {
+const FundraiserCard: React.FunctionComponent<FundraiserCardProps> = ({ fundraiser, containerClasses }) => {
 
   const status = useMemo(() => {
     const today = new Date()
@@ -33,10 +34,8 @@ const FundraiserCard: React.FunctionComponent<FundraiserCardProps> = ({ fundrais
     }
   }, [fundraiser])
 
-
-
   return (
-    <a href={`/fundraisers/${fundraiser.id}`}>
+    <a href={`/fundraisers/${fundraiser.id}`} className={containerClasses ? containerClasses : ''}>
       <div className="relative after:content-[''] after:block after:pb-[100%] mb-3">
         <img className="absolute w-full h-full object-cover rounded-lg"
           src={fundraiser.mainImage}

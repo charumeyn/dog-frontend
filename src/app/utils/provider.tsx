@@ -12,7 +12,7 @@ function Providers({ children }: React.PropsWithChildren) {
 
   return (
     <PayPalScriptProvider
-      options={{ "client-id": "AdzRG5jYeYS7r53aOoSDg7SjAHqkSMNGvOActwKb9sStySlpqSgMCwuK26yaful-5HTYXFBU0SYvUWGk" }}
+      options={{ "client-id": "AdzRG5jYeYS7r53aOoSDg7SjAHqkSMNGvOActwKb9sStySlpqSgMCwuK26yaful-5HTYXFBU0SYvUWGk", components: 'buttons' }}
     >
       <QueryClientProvider client={client}>
         {children}

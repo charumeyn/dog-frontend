@@ -48,7 +48,7 @@ function FundraiserList({ fundraisers }: { fundraisers: Fundraiser[] }) {
         <a href="/fundraisers/create" className="text-teal-600 font-semibold text-sm">+ Create fundraiser</a>
       </div>
 
-      <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300">
+      <div className="shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg divide-y divide-gray-300">
         {fundraisers.map((fundraiser, i) => (
           <FundraiserItem key={i} id={fundraiser.id} />
         ))}
@@ -88,7 +88,7 @@ function FundraiserItem({ id }: { id: number }) {
         <div className="col-span-2 md:col-span-1 p-5">
           <a href={`/fundraisers/${fundraiser.id}`} className="font-semibold hover:text-teal-600 pr-2">{fundraiser.title}</a>
           <br className="block md:hidden" /><StatusLabel startsAt={fundraiser.startsAt} endsAt={fundraiser.endsAt} />
-          <p className="text-zinc-500 text-sm mt-1">Duration: {moment(fundraiser.startsAt).format("YYYY-MM-DD")} ~ {moment(fundraiser.endsAt).format("YYYY-MM-DD")}</p>
+          <p className="text-zinc-500 text-sm mt-1">Duration: {moment(fundraiser.startsAt).format("MMMM Do YYYY")} ~ {moment(fundraiser.endsAt).format("MMMM Do YYYY")}</p>
         </div>
         <div className="col-span-2 md:col-span-1 grid grid-cols-5 gap-x-8 pb-2 px-5 md:p-5">
           <div className="col-span-2">

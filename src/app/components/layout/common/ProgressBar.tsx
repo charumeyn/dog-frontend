@@ -27,11 +27,11 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({ fundraiser, cl
           <div className="w-full bg-orange-100 rounded-full h-3">
             <div className={`bg-orange-600 h-3 rounded-full`} style={{ ["width" as any]: (total / fundraiser?.goalAmount) * 100 + '%' }}></div>
           </div>
-          <div className="w-14 text-right text-sm md:text-base">
+          <div className="w-14 text-right text-sm font-medium text-orange-600">
             {percent}
           </div>
         </div>
-        <p><span className="font-medium text-sm md:text-base">${total}</span> raised of ${fundraiser?.goalAmount} </p>
+        <p className="text-sm text-zinc-500 mt-1"><span className="font-medium">${total}</span> raised of ${fundraiser?.goalAmount} </p>
       </div> : null
   )
 }

@@ -148,7 +148,7 @@ export default function RegisterDogContent() {
             <span className="block text-sm font-medium leading-6 text-zinc-900 mb-2">Color</span>
             <Select
               options={colorList}
-              placeholder="Select color.s"
+              placeholder="Select color"
               value={selectedColors}
               onChange={(color) => setSelectedColors(color as any)}
               isSearchable={true}
@@ -205,6 +205,7 @@ export default function RegisterDogContent() {
               cols={20}
               value={content}
               onChange={(e: any) => setContent(e.target.value)}
+              placeholder="Content"
               className="mt-2 text-zinc-900 focus:ring-indigo-600 ring-zinc-300 placeholder:text-zinc-400 block w-full rounded-md border-0 px-3 py-2.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
             />
           </div>

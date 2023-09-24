@@ -17,7 +17,6 @@ export default function Fundraiser({ params }: { params: any }) {
   const id = Number(params.id);
 
   const { data: fundraiser, isLoading: isLoadingFundraiser } = useFundraiser(id);
-  const { data: fundraisers, isLoading: isLoadingFundraisers } = useFundraisers(4);
   const { data: account } = useAccount();
 
   const image = useMemo(() => {
@@ -101,10 +100,11 @@ export default function Fundraiser({ params }: { params: any }) {
         type={ContainerType.SingleColumn}
         className="bg-zinc-100 pt-12 pb-16 mt-16"
         mainContent={
-          <>
-            <Heading type="h1" text="Help other fundraisers" className="mb-8 text-center" />
-            <FundraiserList currentFundraiser={fundraiser} />
-          </>
+          fundraiser ?
+            <>
+              <Heading type="h1" text="Help other fundraisers" className="mb-8 text-center" />
+              <FundraiserList currentFundraiser={fundraiser} />
+            </> : null
         }
       />
 
