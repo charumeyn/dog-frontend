@@ -66,6 +66,8 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
       {fundraiser ?
         <ProgressBar fundraiser={fundraiser} classNames="mt-5 mb-5" /> : null}
 
+      {account?.type === UserType.Shelter ? <div className="text-zinc-400 text-center text-sm">Shelter accounts cannot donate</div> : null}
+
       {account?.type === UserType.User ?
         <ButtonLink
           text={"Donate"}
@@ -76,7 +78,7 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
         /> : account?.type === UserType.Shelter ?
           <ButtonLink
             text={"Donate"}
-            classNames="mt-5 hover:cursor-default pointer-events-none	"
+            classNames="mt-1 mb-3 hover:cursor-default pointer-events-none	"
             color="text-white bg-zinc-300 hover:bg-zinc-300"
             url={`#`}
             fullWidth={true}
@@ -88,8 +90,6 @@ const FundraiserInfo: React.FunctionComponent<FundraiserInfoProps> = ({ fundrais
             fullWidth={true}
           />
       }
-
-      {account?.type === UserType.Shelter ? <div className="text-zinc-400 text-center text-sm mt-1 mb-3">Shelter accounts cannot donate</div> : null}
 
       <div className="flex gap-x-2 justify-center text-zinc-500 text-sm mb-8">
         {fundraiser ?

@@ -82,13 +82,19 @@ export function PostCardContent({ account, dogId, postId }: { account: User, dog
         <div>
           <div className="flex gap-x-5 justify-between md:justify-start border-b border-zinc-200 pb-2 mb-4 mt-2 md:mt-0">
             <div className="flex items-center gap-x-3">
-              <img src={post.mainImage} className="w-10 h-10 rounded-full" />
+              <img src={post.dog.mainImage} className="w-10 h-10 rounded-full" />
               <span className="text-sm font-medium">
                 {post.dog.name}
               </span>
+              <span className="text-sm text-zinc-400">
+                •
+              </span>
+              <span className="text-sm">
+                {post.content}
+              </span>
+              {existingId ?
+                null : <AddToFavorites account={account} dogId={dogId} />}
             </div>
-            {existingId ?
-              null : <AddToFavorites account={account} dogId={dogId} />}
           </div>
 
           {post?.comments ?

@@ -34,7 +34,7 @@ export const CommentRow: React.FunctionComponent<CommentRowProps> = ({ commentId
         <div>
           {comment.user.firstName ?
             <Heading type="h2" text={comment.user.firstName} /> : null}
-          <p className="text-zinc-500 mb-2 text-sm">{moment(comment.createdAt).format("YYYY.MM.DD")}</p>
+          <p className="text-zinc-500 mb-2 text-sm">{moment(comment.createdAt).fromNow()}</p>
           <p className="text-zinc-800">{comment.content}</p>
         </div>
       </div> : null

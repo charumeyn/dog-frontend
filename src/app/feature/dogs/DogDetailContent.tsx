@@ -70,15 +70,14 @@ export default function DogDetailContent({ id }: { id: number }) {
                   <div>
                     <p className="mb-2 text-zinc-500 text-sm">Created by {dog?.shelter.name}</p>
                     <div className="border border-zinc-200 rounded-lg px-5 py-5 mb-8">
-                      <p className="text-sm">{dog?.description}</p>
+                      <p className="text-sm leading-relaxed">{dog?.content}</p>
                     </div>
                     <p className="font-medium mb-2">Initiated By</p>
                     <div className="flex items-center justify-between pb-8 border-b border-zinc-200">
                       <div className="flex items-center gap-x-6">
-                        <img src={dog?.shelter.mainImage + '.jpeg'} className="w-20 h-20 rounded-full" />
+                        <img src={dog?.shelter.mainImage} className="w-20 h-20 rounded-full" />
                         <div>
                           <h3 className="font-bold">{dog?.shelter.name}</h3>
-                          <p className="text-zinc-500 text-sm">insert description</p>
                         </div>
                       </div>
                       <div>

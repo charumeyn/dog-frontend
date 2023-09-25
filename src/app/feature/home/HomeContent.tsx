@@ -20,7 +20,7 @@ import { DogCardSkeleton, FundraiserCardSkeleton, PostCardSkeleton } from "@/app
 export default function HomeContent() {
 
   const { data: dogs, isLoading: isLoadingDogs } = useDogs(10);
-  const { data: posts, isLoading: isLoadingPosts } = usePosts(3);
+  const { data: posts, isLoading: isLoadingPosts } = usePosts(6);
   const { data: fundraisers, isLoading: isLoadingFundraisers } = useFundraisers(4);
 
   const [currentIndex, setCurrentIndex] = useState(0);

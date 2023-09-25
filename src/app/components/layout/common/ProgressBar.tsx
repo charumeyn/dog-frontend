@@ -16,7 +16,7 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({ fundraiser, cl
   }, [fundraiser])
 
   const percent = useMemo(() => {
-    return (total / 100) * 100 + `%`
+    return (total / fundraiser?.goalAmount) * 100 + `%`
   }, [total])
 
 
