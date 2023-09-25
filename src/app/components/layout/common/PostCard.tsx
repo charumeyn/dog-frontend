@@ -37,7 +37,7 @@ const PostCard: React.FunctionComponent<PostCard> = ({ id, dog }) => {
             alt={String(post.id)} />
 
           <div className="absolute w-full h-full object-cover flex flex-col items-center bg-black text-white after:content-[''] after:block after:pb-[100%] opacity-0 hover:opacity-80 hover:cursor-pointer text-sm md:text-base">
-            <div className="flex items-center gap-2 mt-5 lg:mt-28 text-center">
+            <div className="flex items-center gap-2 mt-5 lg:mt-20 text-center text-sm">
               {post.comments && post.comments.length > 0 ?
                 <>
                   <IconComment />{post.comments.length} comments

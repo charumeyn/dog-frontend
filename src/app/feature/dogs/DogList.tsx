@@ -10,14 +10,13 @@ import { Size } from "@/app/types/enum/size.enum";
 import { Color } from "@/app/types/enum/color.enum";
 import { Gender } from "@/app/types/enum/gender.enum";
 import { CoatLength } from "@/app/types/enum/coatLength.enum";
-import { IconChevronLeft, IconChevronRight, IconFilter } from "@/app/components/layout/Icons";
 import Pagination from "@/app/components/layout/common/Pagination";
 import SlideOver from "@/app/components/layout/common/SlideOver";
 import { DogCardSkeleton } from "@/app/components/layout/common/CardSkeleton";
 
 
 export default function DogListContent() {
-  const [limit, setLimit] = useState<number>(4);
+  const [limit, setLimit] = useState<number>(12);
   const [offset, setOffset] = useState<number>(1);
   const [gender, setGender] = useState<Gender | undefined>()
   const [size, setSize] = useState<Size | undefined>()

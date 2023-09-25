@@ -81,8 +81,8 @@ const SelectedFilters: React.FunctionComponent<SelectedFiltersProps> = ({
         onChange={(e: any) => setLimit(e.target.value)}
         className="border border-zinc-200 rounded-md text-sm text-zinc-600 hidden md:inline"
       >
-        <option value={4}>4</option>
-        <option value={10}>10</option>
+        <option value={12}>12</option>
+        <option value={40}>40</option>
         <option value={100}>100</option>
       </select>
     </div>

@@ -10,7 +10,7 @@ import { FundraiserStatus } from "@/app/types/enum/fundraiserStatus.enum";
 import { FundraiserCardSkeleton } from "@/app/components/layout/common/CardSkeleton";
 
 export default function FundraiserListContent() {
-  const [limit, setLimit] = useState<number>(4);
+  const [limit, setLimit] = useState<number>(10);
   const [offset, setOffset] = useState<number>(0);
   const [status, setStatus] = useState<FundraiserStatus | undefined>(FundraiserStatus.InProgress)
 
