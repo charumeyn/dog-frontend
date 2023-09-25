@@ -15,6 +15,7 @@ import BorderLink from "@/app/components/layout/common/BorderLink";
 import { useEffect, useState } from "react";
 import { IconChevronRight } from "@/app/components/layout/Icons";
 import HomeStats from "./HomeStats";
+import { DogCardSkeleton, FundraiserCardSkeleton, PostCardSkeleton } from "@/app/components/layout/common/CardSkeleton";
 
 export default function HomeContent() {
 
@@ -91,10 +92,13 @@ export default function HomeContent() {
             <p className="md:text-center mb-10 text-zinc-500 md:font-medium text-sm md:text-base">These dogs are all living in a shelter, <br className="block md:hidden" />and they need your help.</p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {isLoadingDogs ?
-                "LOADING" :
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]?.map((x) =>
+                  <DogCardSkeleton key={x} />
+                ) :
                 dogs?.map((dog: Dog, i: number) =>
                   <DogCard key={i} dog={dog} />
-                )}
+                )
+              }
             </div>
             <BorderLink url={"/dogs/"} text={"View all dogs"} withArrow={true} containerClasses="mt-14 text-center" />
           </div>
@@ -119,7 +123,9 @@ export default function HomeContent() {
             </div>
             <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-x-2">
               {isLoadingPosts ?
-                "LOADING" :
+                [1, 2, 3, 4, 5, 6].map((x) =>
+                  <PostCardSkeleton key={x} />
+                ) :
                 posts?.map((post: Post, i: number) =>
                   <PostCard key={i} id={post.id} dog={post.dog} />
                 )}
@@ -139,7 +145,9 @@ export default function HomeContent() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-6">
               {isLoadingFundraisers ?
-                "LOADING" :
+                [1, 2, 3, 4].map((x) =>
+                  <FundraiserCardSkeleton key={x} />
+                ) :
                 fundraisers?.map((fundraiser: Fundraiser, i: number) =>
                   <FundraiserCard key={i} fundraiser={fundraiser} containerClasses="p-3.5 md:p-5 bg-white rounded-lg" />
                 )}

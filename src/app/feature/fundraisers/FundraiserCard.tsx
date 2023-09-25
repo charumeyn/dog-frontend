@@ -43,7 +43,7 @@ const FundraiserCard: React.FunctionComponent<FundraiserCardProps> = ({ fundrais
       </div >
       <Capsule children={status.text} color={status.color} />
 
-      <p className="font-bold leading-snug md:text-lg mt-3 mb-1 line-clamp-2 md:line-clamp-1">{fundraiser.title}</p>
+      <p className="font-bold !leading-tight md:text-lg mt-3 mb-1 line-clamp-2 h-12">{fundraiser.title}</p>
       <p className="text-zinc-600 text-sm line-clamp-2">{fundraiser.description}</p>
       <ProgressBar fundraiser={fundraiser} classNames="mt-4" />
     </a>

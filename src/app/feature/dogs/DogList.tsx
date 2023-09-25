@@ -13,6 +13,7 @@ import { CoatLength } from "@/app/types/enum/coatLength.enum";
 import { IconChevronLeft, IconChevronRight, IconFilter } from "@/app/components/layout/Icons";
 import Pagination from "@/app/components/layout/common/Pagination";
 import SlideOver from "@/app/components/layout/common/SlideOver";
+import { DogCardSkeleton } from "@/app/components/layout/common/CardSkeleton";
 
 
 export default function DogListContent() {
@@ -24,7 +25,7 @@ export default function DogListContent() {
   const [coatLength, setCoatLength] = useState<CoatLength | undefined>()
   const [isOpenFilter, setIsOpenFilter] = useState<boolean>(false)
 
-  const { data: dogs, isLoading, isFetching, error } = useDogs(limit, offset, gender, size, color, coatLength);
+  const { data: dogs, isLoading } = useDogs(limit, offset, gender, size, color, coatLength);
 
   return (
     <>
@@ -74,9 +75,13 @@ export default function DogListContent() {
             <>
               <div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-5">
-                  {dogs.map((dog, i) => (
-                    <DogCard key={i} dog={dog} />
-                  ))}
+                  {isLoading ?
+                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((x) =>
+                      <DogCardSkeleton key={x} />
+                    ) :
+                    dogs.map((dog, i) => (
+                      <DogCard key={i} dog={dog} />
+                    ))}
                 </div>
               </div>
               {dogs.length <= 0 ?

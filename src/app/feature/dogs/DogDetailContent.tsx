@@ -12,6 +12,7 @@ import Grid from "@/app/components/layout/common/Grid";
 import DogCard from "@/app/components/layout/common/DogCard";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { DogCardSkeleton } from "@/app/components/layout/common/CardSkeleton";
 
 export default function DogDetailContent({ id }: { id: number }) {
 
@@ -124,9 +125,13 @@ export default function DogDetailContent({ id }: { id: number }) {
                 <>
                   <Heading type={"h1"} text={"Meet other dogs"} className="text-center mb-10" />
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {dogs?.map((dog, i) =>
-                      <DogCard key={i} dog={dog} />
-                    )}
+                    {isLoadingDogs ?
+                      [1, 2, 3, 4]?.map((x) =>
+                        <DogCardSkeleton key={x} />
+                      ) :
+                      dogs?.map((dog, i) =>
+                        <DogCard key={i} dog={dog} />
+                      )}
                   </div>
                   <a className="mt-10 block table font-medium mx-auto px-8 py-3 border border-zinc-300 rounded-full" href={`/dogs/`}>View all dogs</a>
                 </>
