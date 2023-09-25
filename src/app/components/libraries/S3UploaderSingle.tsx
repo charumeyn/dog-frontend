@@ -10,11 +10,10 @@ type S3UploaderSingleProps = {
 const S3UploaderSingle: React.FunctionComponent<S3UploaderSingleProps> = ({ images, setImages }) => {
 
   const s3 = new S3({
-    accessKeyId: 'AKIAZQXK5AB4ADKPJKXG',
-    secretAccessKey: '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',
-    region: 'ap-northeast-2',
+    accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESSKEYID,
+    secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRETACCESSKEY,
+    region: process.env.NEXT_PUBLIC_S3_REGION,
   });
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleUpload: ChangeEventHandler<HTMLInputElement> = async (e) => {
@@ -25,7 +24,7 @@ const S3UploaderSingle: React.FunctionComponent<S3UploaderSingleProps> = ({ imag
     for (let i = 0; i < files.length; i++) {
       try {
         const upload = s3.upload({
-          Bucket: 'doggoslife',
+          Bucket: process.env.NEXT_PUBLIC_S3_BUCKET,
           Key: files.item(i)?.name,
           Body: files.item(i),
           ContentType: files.item(i)?.type,
