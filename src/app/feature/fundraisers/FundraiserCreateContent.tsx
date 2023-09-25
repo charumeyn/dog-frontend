@@ -12,7 +12,7 @@ import CreateDetails from "./CreateDetails";
 import CreateContent from "./CreateContent";
 import Alert from "@/app/components/layout/common/Alert";
 
-export default function FundraiserCreateContent() {
+export default function FundraiserCreateContent({ searchParams }: { searchParams: any }) {
 
   const [selectedSection, setSelectedSection] = useState<FundraiserSection>(FundraiserSection.Purpose);
   const [type, setType] = useState<RecipientType>(RecipientType.Dog);
@@ -32,6 +32,18 @@ export default function FundraiserCreateContent() {
 
   const { data: account } = useAccount();
   const router = useRouter();
+
+  useEffect(() => {
+    if (searchParams) {
+      if (searchParams.type === RecipientType.Dog) {
+        setType(RecipientType.Dog)
+      } else if (searchParams.type === RecipientType.Shelter) {
+        setType(RecipientType.Shelter)
+      } else {
+        setType(RecipientType.User)
+      }
+    }
+  }, [setType, searchParams])
 
   useEffect(() => {
     if (account) {
@@ -122,7 +134,6 @@ export default function FundraiserCreateContent() {
       return mainImage != '' && images.length !== 0 && content !== ''
     }
   }, [selectedSection, goalAmount, startDate, endDate, mainImage, images, content, userId, shelterId, dogId])
-
 
 
   return (

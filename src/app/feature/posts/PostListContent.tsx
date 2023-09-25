@@ -24,7 +24,7 @@ export default function PostListContent() {
             />
             <div className="grid grid-cols-3 gap-1 md:grid-cols-5 md:gap-2 mb-10">
               {posts.map((post, i) =>
-                <PostCard key={i} post={post} dog={post.dog} />
+                <PostCard key={i} id={post.id} dog={post.dog} />
               )}
             </div>
             <Pagination offset={offset} setOffset={setOffset} limit={limit} currentLength={posts?.length} />

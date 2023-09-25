@@ -6,9 +6,9 @@ const navigation = {
     { name: 'Doggo Diaries', href: '/posts' },
   ],
   fundraiser: [
-    { name: 'For a Dog', href: '#' },
-    { name: 'For a Shelter', href: '#' },
-    { name: 'For a Household', href: '#' },
+    { name: 'For a Dog', href: '/fundraisers/create?type=dog' },
+    { name: 'For a Shelter', href: '/fundraisers/create?type=shelter' },
+    { name: 'For a Household', href: '/fundraisers/create?type=user' },
   ],
   social: [
     {

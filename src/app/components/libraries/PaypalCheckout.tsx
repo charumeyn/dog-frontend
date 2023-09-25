@@ -1,19 +1,16 @@
 "use client"
 
 import { useCreateDonation } from "@/app/hooks/api/useDonations";
-import { Account } from "@/app/types/account.interface";
 import { SuccessResult } from "@/app/types/apiResult";
-import { Dog } from "@/app/types/dog.interface";
 import { Donation } from "@/app/types/donation.interface";
 import { DonationCreateDto } from "@/app/types/dto/payment.dto";
 import { DonationType } from "@/app/types/enum/donationType.enum";
 import { PaymentGateway } from "@/app/types/enum/paymentGateway.enum";
 import { RecipientType } from "@/app/types/enum/recipientType.enum";
-import { Fundraiser } from "@/app/types/fundraiser.interface";
 import { User } from "@/app/types/user.interface";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 
 type PaypalCheckoutProps = {
   donationType: DonationType;

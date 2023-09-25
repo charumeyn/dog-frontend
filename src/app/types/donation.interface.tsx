@@ -12,7 +12,7 @@ export interface Donation {
   transactionId: string;
   transactionFirstName: string;
   transactionLastName: string;
-  type: DonationType;
+  donationType: DonationType;
   paymentGateway: PaymentGateway;
   status: PaymentStatus;
   amount: number;

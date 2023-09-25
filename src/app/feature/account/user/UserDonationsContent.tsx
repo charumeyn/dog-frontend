@@ -1,20 +1,31 @@
+"use client"
 import { Badge } from "@/app/components/layout/common/Badge"
 import DashboardStats from "@/app/components/layout/common/DashboardStats"
 import Heading from "@/app/components/layout/common/Heading"
 import { TableCell } from "@/app/components/layout/common/Table"
+import { useAccount } from "@/app/hooks/api/useAuth"
+import { useDonation } from "@/app/hooks/api/useDonations"
+import { Donation } from "@/app/types/donation.interface"
 import { DonationType } from "@/app/types/enum/donationType.enum"
+import moment from "moment"
+import { useMemo } from "react"
+import { FavoritesRow } from "./UserHomeContent"
 
 export default function UserDonationsContent() {
+
+  const { data: account } = useAccount();
+
   return (
-    <div className="mx-auto flex w-full items-start gap-x-8">
-      <main className="flex-1">
-        <UserStats />
-        <UserDonationList />
-      </main>
-      <aside className="hidden w-60	shrink-0 lg:block">
-        <UserFavoriteList />
-      </aside>
-    </div>
+    account ?
+      <div className="mx-auto flex w-full items-start gap-x-8">
+        <main className="flex-1">
+          <UserStats />
+          <UserDonationList donations={account?.donations} />
+        </main>
+        <aside className="hidden w-60	shrink-0 lg:block">
+          <UserFavoriteList dogIds={account.favoriteDogIds} />
+        </aside>
+      </div> : null
   )
 }
 
@@ -34,12 +45,7 @@ function UserStats() {
   )
 }
 
-function UserDonationList() {
-
-  const donation = [
-    { date: '2023.08.10', type: DonationType.Dog, recepient: 'Rocky', amount: '$10.00', url: '#' },
-    { date: '2023.08.10', type: DonationType.Fundraiser, recepient: 'Peanut Butter', amount: '$25.00', url: '#' },
-  ]
+function UserDonationList({ donations }: { donations: Donation[] }) {
 
   return (
     <div className="mt-6 lg:mt-8">
@@ -57,20 +63,8 @@ function UserDonationList() {
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-200 bg-white">
-            {donation.map((donation, i) => (
-              <tr key={i}>
-                <TableCell children={donation.date} isFirst={true} />
-                <TableCell children={
-                  donation.type === DonationType.Dog ? <Badge color={"orange"} children={"Sponsor"} /> : <Badge color={"blue"} children={"Fundraiser"} />
-                } />
-                <TableCell children={donation.recepient} />
-                <TableCell children={donation.amount} />
-                <TableCell children={
-                  <a href={donation.url} className="text-indigo-600 hover:text-indigo-900">
-                    Visit
-                  </a>
-                } isLast={true} />
-              </tr>
+            {donations.map((donation, i) => (
+              <UserDonationRow key={i} id={donation.id} />
             ))}
           </tbody>
         </table>
@@ -79,43 +73,65 @@ function UserDonationList() {
   )
 }
 
-function UserFavoriteList() {
+function UserDonationRow({ id }: { id: number }) {
 
-  const dogs = [
-    {
-      name: 'Rocky',
-      breed: 'Pit Bull',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      name: 'Rocky',
-      breed: 'Pit Bull',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      name: 'Rocky',
-      breed: 'Pit Bull',
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  ]
+  const { data: donation } = useDonation(id)
+
+  const recepient = useMemo(() => {
+    if (donation?.dog != undefined) {
+      return donation?.dog.name
+    } else if (donation?.user != undefined) {
+      return donation?.user.firstName
+    } else if (donation?.shelter != undefined) {
+      return donation.shelter.name
+    }
+  }, [donation])
+
+  const recepientId = useMemo(() => {
+    if (donation?.dog != undefined) {
+      return donation?.dog.id
+    } else if (donation?.user != undefined) {
+      return donation?.user.id
+    } else if (donation?.shelter != undefined) {
+      return donation.shelter.id
+    }
+  }, [donation])
+
+  const url = useMemo(() => {
+    if (donation?.donationType === DonationType.Dog) {
+      return `/dogs/${recepientId} `
+    } else {
+      return `/fundraisers/${recepientId} `
+    }
+  }, [donation])
+
+  return (
+    donation ?
+      <tr>
+        <TableCell children={moment(donation.createdAt).format("YYYY-MM-DD")} isFirst={true} />
+        <TableCell children={
+          donation.donationType === DonationType.Dog ? <Badge color={"orange"} children={"Sponsor"} /> : <Badge color={"blue"} children={"Fundraiser"} />
+        } />
+        <TableCell children={recepient} />
+        <TableCell children={`$${donation.amount}`} />
+        <TableCell children={
+          <a href={url} className="text-indigo-600 hover:text-indigo-900">
+            Visit
+          </a>
+        } isLast={true} />
+      </tr> : null
+  )
+}
+
+function UserFavoriteList({ dogIds }: { dogIds: number[] }) {
 
   return (
     <div>
-      <Heading type={"h2"} text={"My Favorite Dogs"} />
-      <ul role="list">
-        {dogs.map((dog) => (
-          <li key={dog.name} className="flex items-center gap-x-4 mb-4">
-            <img className="h-14 w-14 rounded-full" src={dog.imageUrl} alt="" />
-            <div>
-              <h3 className="text-base font-semibold leading-6 tracking-tight text-gray-900">{dog.name}</h3>
-              <p className="text-sm leading-4 text-teal-600">{dog.breed}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <Heading type={"h2"} text={"My Favorite Dogs"} className="!text-zinc-500 mb-5" />
+      {dogIds.length > 0 ?
+        dogIds.map((id, i) => (
+          <FavoritesRow key={i} id={Number(id)} />
+        )) : <div className="text-zinc-600">No favorite dogs yet.</div>}
     </div>
   )
 }

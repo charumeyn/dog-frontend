@@ -11,11 +11,11 @@ export function DonationRow({ id }: { id: number }) {
       <div className="flex gap-x-4 items-center mb-5">
         <img
           className="inline-block h-12 w-12 rounded-full ring-2 ring-white"
-          src={donation.user?.image}
-          alt={donation.user?.firstName}
+          src={donation.donor?.image}
+          alt={donation.donor?.firstName}
         />
         <div>
-          <p className="mb-0.5">{donation.user?.firstName} {donation.user?.lastName}</p>
+          <p className="mb-0.5">{donation.donor?.firstName} {donation.donor?.lastName}</p>
           <p>
             <strong>${donation.amount}</strong>
             <span className="text-zinc-400"> • </span>

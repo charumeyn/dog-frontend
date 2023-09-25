@@ -116,7 +116,7 @@ function CommentButton({
   )
 }
 
-function FavoritesRow({ id }: { id: number }) {
+export function FavoritesRow({ id }: { id: number }) {
 
   const { data: dog } = useDog(id)
 
